@@ -23,8 +23,8 @@
 <td width="50%"><img src="img/student-floating.png" alt="학생 플로팅 바" /></td>
 </tr>
 <tr>
-<td align="center"><b>교사 앱 — 학생 모니터링 + 송출 제어</b></td>
-<td align="center"><b>학생 앱 — 플로팅 바로 메시지 전송</b></td>
+<td align="center"><b>교사 앱 </b></td>
+<td align="center"><b>학생 앱 </b></td>
 </tr>
 </table>
 
