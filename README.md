@@ -17,14 +17,16 @@
 
 ## 📸 주요 화면
 
+> 스크린샷은 `img/` 폴더에 추가하고 아래 경로를 수정하세요.
+
 <table>
 <tr>
 <td width="50%"><img src="img/teacher-main.png" alt="교사 앱 메인 화면" /></td>
 <td width="50%"><img src="img/student-floating.png" alt="학생 플로팅 바" /></td>
 </tr>
 <tr>
-<td align="center"><b>교사 앱 </b></td>
-<td align="center"><b>학생 앱 </b></td>
+<td align="center"><b>교사 앱 — 학생 모니터링 + 송출 제어</b></td>
+<td align="center"><b>학생 앱 — 플로팅 바로 메시지 전송</b></td>
 </tr>
 </table>
 
@@ -82,7 +84,7 @@
 
 | 어디에 설치? | 어떻게? |
 |---|---|
-| **교사 PC** | 아래 [Releases](../../releases/latest) 에서 `teacher-Setup-x.x.x.exe` 다운로드 |
+| **교사 PC** | 아래 [Releases](../../releases/latest) 에서 `ScreenShareT-Setup-x.x.x.exe` 다운로드 |
 | **학생 PC** | 교사 앱의 **도구 → 학생 설치 패키지 만들기** 로 생성한 맞춤 패키지 사용 |
 
 > 학생 앱은 **교사 PC의 IP가 사전 입력된 맞춤 빌드**로만 정상 동작합니다.
@@ -94,7 +96,7 @@
 
 ### 교사 PC
 
-1. [Releases](../../releases/latest) 에서 `teacher-Setup-x.x.x.exe` 다운로드
+1. [Releases](../../releases/latest) 에서 `ScreenShareT-Setup-x.x.x.exe` 다운로드
 2. 실행 → 설치 마법사 따라 진행
 3. 교사 앱 실행
    - 첫 실행 시 Windows 방화벽 허용 다이얼로그가 뜨면 **허용**
@@ -138,14 +140,8 @@
 
 ## 📝 변경 이력
 
-자세한 변경 사항은 [Releases](../../releases) 를 참고하세요.
-
-### 최근 주요 업데이트
-- **v0.1.53 (교사)** — 클립보드 요청 메모리 위생
-- **v0.1.52 / v0.2.58** — 원격제어 클립보드 읽기 + 교사 PC 자동 복사
-- **v0.1.50** — 회수 모달 UX 개선 (종료/재시작 흐름)
-- **v0.1.49** — 학생 메시지 모달 UX 전면 개선
-- **v0.1.48 / v0.2.52** — 받은파일·회수 폴더 구조 정비
+각 버전의 상세 변경 내용은 [GitHub Releases](../../releases)에서 확인하실 수 있습니다.
+릴리스마다 교사·학생 앱의 변경 사항이 함께 게시됩니다.
 
 ---
 
