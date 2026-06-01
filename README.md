@@ -16,8 +16,6 @@
 
 ## 📸 주요 화면
 
-> 스크린샷은 `img/` 폴더에 추가하고 아래 경로를 수정하세요.
-
 <table>
 <tr>
 <td width="50%"><img src="img/teacher-main.png" alt="교사 앱 메인 화면" /></td>
