@@ -4,8 +4,9 @@
 
 **학교 PC실을 위한 교사-학생 화면 공유 프로그램**
 
-[![최신 교사 앱](https://img.shields.io/badge/Teacher_v0.1.53-Download-blue?style=for-the-badge&logo=windows)](../../releases/latest)
-[![최신 학생 앱](https://img.shields.io/badge/Student_v0.2.58-Download-green?style=for-the-badge&logo=windows)](../../releases/latest)
+[![최신 버전](https://img.shields.io/github/v/release/soulych-teacher-dev/screen-share?label=Teacher%20App&style=for-the-badge&logo=windows&color=2563eb)](../../releases/latest)
+[![다운로드 수](https://img.shields.io/github/downloads/soulych-teacher-dev/screen-share/total?label=Downloads&style=for-the-badge&color=15803d)](../../releases)
+[![최신 릴리스](https://img.shields.io/github/release-date/soulych-teacher-dev/screen-share?label=Updated&style=for-the-badge&color=6b7280)](../../releases/latest)
 
 </div>
 
@@ -15,6 +16,8 @@
 ---
 
 ## 📸 주요 화면
+
+> 스크린샷은 `img/` 폴더에 추가하고 아래 경로를 수정하세요.
 
 <table>
 <tr>
@@ -77,17 +80,40 @@
 
 ---
 
-## 📦 설치
+## 📦 다운로드
 
-1. 우측 [Releases](../../releases/latest)에서 최신 버전 다운로드
-   - **교사 PC**: `teacher-Setup-x.x.x.exe`
-   - **학생 PC**: `student-Setup-x.x.x.exe`
-2. 교사 PC에서 `teacher-Setup-x.x.x.exe` 실행
-3. 학생 PC에서 `student-Setup-x.x.x.exe` 실행
-   - 또는 교사 앱의 **학생 프로그램 관리 → 배포** 기능으로 학생 PC 일괄 설치
-4. 학생 앱은 자동으로 같은 LAN의 교사 PC를 찾아 연결합니다
+| 어디에 설치? | 어떻게? |
+|---|---|
+| **교사 PC** | 아래 [Releases](../../releases/latest) 에서 `teacher-Setup-x.x.x.exe` 다운로드 |
+| **학생 PC** | 교사 앱의 **도구 → 학생 설치 패키지 만들기** 로 생성한 맞춤 패키지 사용 |
+
+> 학생 앱은 **교사 PC의 IP가 사전 입력된 맞춤 빌드**로만 정상 동작합니다.
+> 그래서 학생용 설치 파일은 별도로 제공하지 않고, 교사 PC에서 직접 만들어 배포하는 방식입니다.
+
+---
+
+## 🚀 설치 가이드
+
+### 교사 PC
+
+1. [Releases](../../releases/latest) 에서 `teacher-Setup-x.x.x.exe` 다운로드
+2. 실행 → 설치 마법사 따라 진행
+3. 교사 앱 실행
+   - 첫 실행 시 Windows 방화벽 허용 다이얼로그가 뜨면 **허용**
+
+### 학생 PC (교사 앱 설치 후 진행)
+
+1. 교사 앱 메뉴 → **도구 → 학생 설치 패키지 만들기**
+2. 교사 PC의 IP·포트를 확인하고 패키지 생성
+3. 생성된 학생 설치 파일을 학생 PC들에 배포:
+   - USB로 직접 복사
+   - 네트워크 공유 폴더
+   - 학교 PC실 자동 배포 도구 (Ghost 등)
+4. 학생 PC에서 패키지 실행 → 자동으로 교사 앱에 연결됨
 
 > 학생 앱은 자동 시작 등록되어 학생 PC 부팅 시 자동 실행됩니다.
+
+> Windows SmartScreen 경고가 뜨면 **"추가 정보 → 실행"** 을 눌러 진행하세요.
 
 ---
 
@@ -108,13 +134,13 @@
 | `F8` | 녹화 시작 / 종료 | |
 | `F9` | 녹화 일시정지 / 재개 | |
 
-단축키는 **도구 → 단축키 설정**에서 변경할 수 있습니다.
+단축키는 **도구 → 단축키 설정** 에서 변경할 수 있습니다.
 
 ---
 
 ## 📝 변경 이력
 
-자세한 변경 사항은 [Releases](../../releases) 또는 [CHANGELOG.md](CHANGELOG.md) 참고.
+자세한 변경 사항은 [Releases](../../releases) 를 참고하세요.
 
 ### 최근 주요 업데이트
 - **v0.1.53 (교사)** — 클립보드 요청 메모리 위생
@@ -128,9 +154,11 @@
 ## ❓ 자주 묻는 질문
 
 <details>
-<summary><b>학생 PC에 강제 설치하나요?</b></summary>
+<summary><b>학생 PC 설치 파일은 왜 따로 다운로드 받을 수 없나요?</b></summary>
 
-아니요. 학생 PC에서 `student-Setup-x.x.x.exe`를 직접 실행하거나, 학교 PC실 관리자가 일괄 배포해야 합니다. 교사 앱은 이미 설치된 학생 앱과 LAN으로 연결할 뿐입니다.
+학생 앱은 어느 교사 PC에 접속할지 미리 알아야 동작합니다. 교사 PC의 IP는 학교마다 다르기 때문에, 교사 앱이 자신의 IP를 박은 맞춤 학생 패키지를 생성해 배포하는 구조입니다.
+
+`도구 → 학생 설치 패키지 만들기` 메뉴에서 만들 수 있습니다.
 
 </details>
 
@@ -155,6 +183,13 @@
 
 </details>
 
+<details>
+<summary><b>학생 PC가 여러 교실로 나뉘어 있어도 한 교사가 모두 관리할 수 있나요?</b></summary>
+
+같은 LAN에 있으면 가능합니다. 다만 정상 운영은 한 교실 단위(약 25명 이하)를 권장합니다. 여러 실은 각 실의 교사 PC가 자기 실만 관리하는 구조가 자연스럽습니다.
+
+</details>
+
 ---
 
 ## 🛠️ 개발
@@ -167,7 +202,12 @@
 
 ## 📄 라이센스
 
-> 라이센스 정책을 추가하세요 (예: MIT, GPL, 비공개 등).
+본 프로그램은 **교육 목적의 비상업적 사용**에 한해 무료로 이용할 수 있습니다.
+
+- ✅ 학교·학원·교육 기관에서 수업·실습 용도로 사용
+- ✅ 개인 학습 용도로 사용
+- ❌ 영리 목적 사용·판매·재배포 금지
+- ❌ 역공학(reverse engineering), 수정 배포 금지
 
 ---
 
