@@ -23,10 +23,14 @@ body{font-family:'Segoe UI','Malgun Gothic',sans-serif;background:#eef1f8;color:
 #nav-scroll{flex:1;overflow-y:auto;overflow-x:hidden}
 #nav-scroll::-webkit-scrollbar{width:4px}
 #nav-scroll::-webkit-scrollbar-thumb{background:rgb(var(--c-border-2));border-radius:2px}
-.nav-item{padding:6px 16px 6px 24px;cursor:pointer;font-size:12px;color:rgb(var(--c-txt2));border-left:2px solid transparent;transition:all .12s;display:flex;align-items:center;gap:8px}
+.nav-section{padding:14px 16px 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:rgb(var(--c-txt3));user-select:none;display:flex;align-items:center;gap:6px}
+.nav-section:first-child{padding-top:8px}
+.nav-section .sec-ico{font-size:13px;line-height:1}
+.nav-item{padding:6px 16px 6px 32px;cursor:pointer;font-size:12px;color:rgb(var(--c-txt2));border-left:2px solid transparent;transition:all .12s;display:flex;align-items:center;gap:8px}
 .nav-item:hover{background:rgb(var(--c-surface-2))}
 .nav-item.active{background:color-mix(in srgb,rgb(var(--c-blue)) 8%,transparent);color:rgb(var(--c-blue));border-left-color:rgb(var(--c-blue))}
-.nav-item .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.detail-link{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;background:color-mix(in srgb,rgb(var(--c-blue)) 8%,transparent);color:rgb(var(--c-blue));text-decoration:none;border:1px solid color-mix(in srgb,rgb(var(--c-blue)) 30%,transparent);transition:all .12s;white-space:nowrap}
+.detail-link:hover{background:color-mix(in srgb,rgb(var(--c-blue)) 16%,transparent)}
 #content{flex:1;overflow-y:auto;padding:0}
 #content::-webkit-scrollbar{width:6px}
 #content::-webkit-scrollbar-thumb{background:rgb(var(--c-border-2));border-radius:3px}
@@ -83,6 +87,8 @@ body{font-family:'Segoe UI','Malgun Gothic',sans-serif;background:#eef1f8;color:
 .timer-display{font-family:monospace;text-align:center;padding:10px 0}
 .timer-display .num{font-size:36px;font-weight:700;font-family:monospace}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 
 /* Student screen states */
 .stu-idle .ps-body{color:#64748b}
@@ -90,6 +96,37 @@ body{font-family:'Segoe UI','Malgun Gothic',sans-serif;background:#eef1f8;color:
 .stu-paused .ps-body{color:#eab308}
 .stu-locked .ps-body{color:#fca5a5}
 .stu-notice .ps-body{padding-top:0}
+
+/* ─── Student desktop mockup (실제 학생 PC 바탕화면 시뮬레이션) ─── */
+.stu-desktop{position:relative;width:100%;height:240px;background:linear-gradient(135deg,#1e3a5f 0%,#0f1e30 60%,#0a1422 100%);background-image:radial-gradient(circle at 22% 28%,rgba(96,165,250,.18) 0,transparent 38%),radial-gradient(circle at 78% 72%,rgba(168,85,247,.12) 0,transparent 38%);overflow:hidden}
+.stu-desktop .sd-icons{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:14px}
+.stu-desktop .sd-icon{display:flex;flex-direction:column;align-items:center;width:46px;color:#e2e8f0;font-size:9px;text-shadow:1px 1px 2px rgba(0,0,0,.6);text-align:center}
+.stu-desktop .sd-icon span{font-size:22px;line-height:1}
+.stu-desktop .sd-taskbar{position:absolute;bottom:0;left:0;right:0;height:24px;background:rgba(8,13,24,.92);backdrop-filter:blur(4px);display:flex;align-items:center;padding:0 8px;gap:6px;font-size:9px;color:#cbd5e1;border-top:1px solid rgba(255,255,255,.04)}
+.stu-desktop .sd-tb-start{font-size:14px;line-height:1}
+.stu-desktop .sd-tb-clock{margin-left:auto;font-family:monospace;color:#94a3b8}
+
+/* 떠 있는 교사 화면 뷰어 (50% 기본, 우하단) */
+.stu-desktop .sd-viewer{position:absolute;bottom:30px;right:8px;width:55%;background:rgba(15,23,42,.78);border:1px solid #475569;border-radius:5px;box-shadow:0 6px 20px rgba(0,0,0,.5);overflow:hidden;backdrop-filter:blur(2px)}
+.stu-desktop .sd-viewer-handle{background:rgba(30,41,59,.95);padding:3px 8px;font-size:9px;color:#cbd5e1;display:flex;align-items:center;gap:6px;border-bottom:1px solid #475569;cursor:grab;font-weight:600}
+.stu-desktop .sd-viewer-handle .h-grip{color:#64748b;letter-spacing:1px}
+.stu-desktop .sd-viewer-handle .h-meta{margin-left:auto;font-size:8px;color:#94a3b8;font-weight:400}
+.stu-desktop .sd-viewer-body{background:linear-gradient(180deg,#f8fafc 0%,#e2e8f0 100%);min-height:90px;padding:10px 12px;font-size:10px;color:#1e293b;position:relative}
+.stu-desktop .sd-viewer-body .mini-title{font-size:11px;font-weight:700;color:#0f172a;margin-bottom:4px;border-bottom:1.5px solid #2563eb;padding-bottom:2px;display:inline-block}
+.stu-desktop .sd-viewer-body .mini-line{font-size:9px;color:#334155;margin-top:3px;display:flex;align-items:center;gap:4px}
+.stu-desktop .sd-viewer-body .mini-line::before{content:'•';color:#2563eb;font-weight:700}
+.stu-desktop .sd-viewer-body .mini-cursor{position:absolute;top:42%;left:38%;font-size:14px;color:#dc2626;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+
+/* 일시정지 오버레이 */
+.stu-desktop .sd-viewer-pause{position:absolute;inset:0;background:rgba(15,23,42,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fde047;gap:2px;backdrop-filter:blur(1.5px)}
+.stu-desktop .sd-viewer-pause .p-ico{font-size:24px}
+.stu-desktop .sd-viewer-pause .p-txt{font-size:10px;font-weight:700;letter-spacing:.5px}
+
+/* H.264 뱃지 */
+.stu-desktop .sd-viewer .h264-badge{display:inline-block;margin-left:4px;padding:0 5px;border-radius:3px;font-size:8px;font-weight:700;background:#7c3aed;color:#fff}
+
+/* 빈 상태 안내 (전송 안 함) */
+.stu-desktop .sd-empty-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;color:rgba(148,163,184,.5);font-style:italic;text-align:center}
 
 /* ─── Detail Cards ─── */
 .detail-section{margin-top:12px}
@@ -134,6 +171,58 @@ function toast(msg, type = 'info') {
   setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 2500);
 }
 
+// ─── 뷰어 모달 ───
+let viewerIdx = 0;
+const viewerPcs = ['PC-01','PC-02','PC-03','PC-04','PC-05','PC-07','PC-09'];
+function showViewer(pcName) {
+  closeViewer();
+  viewerIdx = viewerPcs.indexOf(pcName);
+  if (viewerIdx < 0) viewerIdx = 0;
+  const overlay = document.createElement('div');
+  overlay.id = 'viewer-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:9998;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s';
+  overlay.onclick = function(e) { if (e.target === overlay) closeViewer(); };
+  const vw = document.createElement('div');
+  vw.style.cssText = 'background:#1e293b;border-radius:12px;width:800px;max-width:92vw;max-height:94vh;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.5);animation:scaleIn .2s';
+  const desktop = stuDesktop('streaming-webp', { size: 55 });
+  vw.innerHTML =
+    '<div style="display:flex;align-items:center;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.08);background:#0f172a;border-radius:12px 12px 0 0">' +
+      '<span style="font-size:14px;font-weight:700;color:#cbd5e1">🖥 ' + pcName + ' · 원격 뷰어</span>' +
+      '<span style="font-size:9px;color:#22d3ee;margin-left:6px;display:flex;align-items:center;gap:4px"><span style="width:5px;height:5px;border-radius:50%;background:#22d3ee"></span>연결됨</span>' +
+      '<span style="margin-left:auto;display:flex;gap:4px">' +
+        '<button onclick="closeViewer()" style="background:rgba(239,68,68,.15);border:none;color:#fca5a5;padding:3px 12px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600">✕ 닫기</button>' +
+      '</span>' +
+    '</div>' +
+    '<div style="flex:1;padding:10px;background:linear-gradient(135deg,#0f172a,#1e293b);min-height:240px">' +
+      '<div style="height:260px">' + desktop + '</div>' +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:4px;padding:6px 12px;border-top:1px solid rgba(255,255,255,.08);background:#0f172a;border-radius:0 0 12px 12px;flex-wrap:wrap">' +
+      '<span style="display:flex;gap:3px">' +
+        '<button style="background:rgba(59,130,246,.2);border:none;color:#93c5fd;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:600" onclick="toast(\'🖱 ' + pcName + ' 원격 마우스 제어 시작됨\',\'info\')">🖱 마우스</button>' +
+        '<button style="background:rgba(255,255,255,.06);border:none;color:#94a3b8;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px" onclick="toast(\'⌨ ' + pcName + ' 원격 키보드 입력 활성화됨\',\'info\')">⌨ 키보드</button>' +
+        '<button style="background:rgba(255,255,255,.06);border:none;color:#94a3b8;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px" onclick="toast(\'🔒 ' + pcName + ' 화면 잠금\',\'info\')">🔒 잠금</button>' +
+        '<button style="background:rgba(255,255,255,.06);border:none;color:#94a3b8;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px" onclick="toast(\'📷 ' + pcName + ' 화면 캡처 완료\',\'success\')">📷 캡처</button>' +
+        '<button style="background:rgba(255,255,255,.06);border:none;color:#94a3b8;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px" onclick="toast(\'📋 ' + pcName + ' 클립보드 읽기 완료\',\'success\')">📋 클립보드</button>' +
+        '<button style="background:rgba(255,255,255,.06);border:none;color:#94a3b8;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px" onclick="toast(\'📺 ' + pcName + ' 화면 중계 시작\',\'info\')">📺 중계</button>' +
+      '</span>' +
+      '<span style="margin-left:auto;font-size:10px;color:#64748b;display:flex;gap:6px">' +
+        '<span onclick="navViewer(-1)" style="cursor:pointer;color:#94a3b8;padding:2px 8px;border-radius:3px;background:rgba(255,255,255,.04);font-size:13px;line-height:1">◀</span>' +
+        '<span style="color:#475569;font-size:10px">' + (viewerIdx + 1) + '/' + viewerPcs.length + '</span>' +
+        '<span onclick="navViewer(1)" style="cursor:pointer;color:#94a3b8;padding:2px 8px;border-radius:3px;background:rgba(255,255,255,.04);font-size:13px;line-height:1">▶</span>' +
+      '</span>' +
+    '</div>';
+  overlay.appendChild(vw);
+  document.body.appendChild(overlay);
+}
+function closeViewer() {
+  const o = document.getElementById('viewer-overlay');
+  if (o) { o.style.transition = 'opacity .15s'; o.style.opacity = '0'; setTimeout(() => o.remove(), 160); }
+}
+function navViewer(dir) {
+  viewerIdx = (viewerIdx + dir + viewerPcs.length) % viewerPcs.length;
+  showViewer(viewerPcs[viewerIdx]);
+}
+
 // ─── Student view helper ───
 function stuView(html) {
   return '<div class="ps-title"><span>👤 학생 화면</span></div><div class="ps-body">' + html + '</div>';
@@ -147,13 +236,63 @@ function stuFree() { return stuView('<span style="font-size:28px;margin-bottom:6
 function stuNotice(text) { return '<div class="ps-title"><span>📢 공지</span></div><div style="background:linear-gradient(90deg,#1d4ed8,#2563eb);padding:7px 14px;text-align:center;font-size:13px;font-weight:600;color:#fff">📢 ' + text + '</div><div class="ps-body" style="flex:1">(데스크톱 화면)</div>'; }
 function stuTimer(time) { return '<div class="ps-title"><span>⏱️ 타이머</span></div><div class="ps-body"><div style="background:#1e293b;padding:4px 18px;border-radius:0 0 8px 8px;margin-top:-16px"><span style="font-family:monospace;font-size:22px;font-weight:700;color:#fbbf24">' + time + '</span></div></div>'; }
 
+// 학생 PC 바탕화면 시뮬레이션 — 전송 시작/종료, 모드 비교, 뷰어 강제 등에서 사용
+// state: 'empty' | 'streaming-webp' | 'streaming-h264' | 'paused'
+// opts.size: 뷰어 창 폭 % (기본 55). 뷰어 강제 페이지에서 30~80 변경.
+// opts.locked: 강제 고정 표시(🔒 + 크기%) on/off. 기본 false.
+function stuDesktop(state, opts) {
+  opts = opts || {};
+  const size = opts.size || 55;
+  const locked = !!opts.locked;
+
+  const icons = [
+    {ico:'📁',label:'문서'},
+    {ico:'🌐',label:'Chrome'},
+    {ico:'📝',label:'한글'},
+  ].map(i => '<div class="sd-icon"><span>' + i.ico + '</span>' + i.label + '</div>').join('');
+
+  const taskbar = '<div class="sd-taskbar"><span class="sd-tb-start">⊞</span><span>📁</span><span>🌐</span><span class="sd-tb-clock">14:32</span></div>';
+
+  let viewer = '';
+  let hint = '';
+  if (state === 'empty') {
+    hint = '<div class="sd-empty-hint">교사가 전송 시작하면<br>여기에 작은 뷰어 창이 나타납니다</div>';
+  } else {
+    const isH264 = state === 'streaming-h264';
+    const isPaused = state === 'paused';
+    const modeMeta = isH264
+      ? '<span class="h264-badge">H.264</span> 24fps · 1280×720'
+      : '10fps · 1280×720';
+    // locked일 때는 grip 자리에 자물쇠 + 핸들 우측에 'N% 고정'으로 강조
+    const gripHtml = locked
+      ? '<span class="h-grip" style="color:#fca5a5">🔒</span>'
+      : '<span class="h-grip">⠿</span>';
+    const lockMeta = locked ? '<b style="color:#fca5a5">' + size + '% 고정</b> · ' : '';
+    const handle = '<div class="sd-viewer-handle">' + gripHtml + '<span>📺 교사 화면</span><span class="h-meta">' + lockMeta + modeMeta + '</span></div>';
+    const slide = `
+      <div class="mini-title">오늘의 수업</div>
+      <div class="mini-line">화면 공유 시작</div>
+      <div class="mini-line">학생 PC 모니터링</div>
+      <div class="mini-line">실습 자료 배포</div>
+      <div class="mini-cursor">➤</div>
+    `;
+    const pauseOverlay = isPaused ? '<div class="sd-viewer-pause"><div class="p-ico">⏸️</div><div class="p-txt">일시정지</div></div>' : '';
+    viewer = '<div class="sd-viewer" style="width:' + size + '%">' + handle + '<div class="sd-viewer-body">' + slide + pauseOverlay + '</div></div>';
+  }
+
+  return '<div class="ps-title"><span>👨‍🎓 학생 PC 바탕화면</span></div>' +
+    '<div class="stu-desktop">' +
+    '<div class="sd-icons">' + icons + '</div>' +
+    hint + viewer + taskbar +
+    '</div>';
+}
+
 // ─── Page Data ───
 function buildPages() {
   const nav = document.getElementById('nav-scroll');
   const pages = document.getElementById('pages');
   const sections = [
     { id:'stream', label:'📡 화면 전송', pages:[
-      { id:'st-start', label:'시작하기', build: buildStart },
       { id:'st-main', label:'전송 시작 / 종료', build: buildStreamMain },
       { id:'st-mode', label:'WebP / H.264 모드', build: buildStreamMode },
       { id:'st-lock', label:'뷰어 강제', build: buildViewerLock }
@@ -163,22 +302,30 @@ function buildPages() {
       { id:'rec-audio', label:'마이크 설정', build: buildRecordAudio }
     ]},
     { id:'monitor', label:'👀 모니터링', pages:[
-      { id:'mon-main', label:'학생 화면 모니터링', build: buildMonitor }
+      { id:'mon-main', label:'학생 화면 모니터링', build: buildMonitor },
+      { id:'mon-seat', label:'💺 실습실 배치', build: buildSeatLayout },
+      { id:'mon-projector', label:'📺 프로젝터 뷰', build: buildProjector }
     ]},
     { id:'mode', label:'🟢 모드 / 잠금', pages:[
       { id:'mode-main', label:'모드 및 잠금', build: buildModeLock }
     ]},
     { id:'comm', label:'💬 소통', pages:[
-      { id:'comm-main', label:'공지 / 플로팅 바', build: buildComm },
-      { id:'comm-msg', label:'메시지 / 코드 전송', build: buildCommMsg }
+      { id:'comm-notice', label:'📢 공지 전송', build: buildCommNotice },
+      { id:'comm-float', label:'📱 플로팅 바', build: buildCommFloat },
+      { id:'comm-inbox', label:'📨 받은 메시지', build: buildCommInbox },
+      { id:'comm-msg', label:'💬 메시지 / 코드 전송', build: buildCommMsg }
     ]},
     { id:'file', label:'📁 파일', pages:[
-      { id:'file-main', label:'배포 / 회수', build: buildFile }
+      { id:'file-deploy', label:'📤 파일 배포', build: buildFileDeploy },
+      { id:'file-collect', label:'📥 파일 회수', build: buildFileCollect },
+      { id:'file-exec', label:'▶ 파일 실행', build: buildFileExec },
+      { id:'file-mgmt', label:'🗑 파일 관리', build: buildFileMgmt }
     ]},
     { id:'timer', label:'⏱️ 타이머', pages:[
       { id:'timer-main', label:'카운트다운 / 스톱워치', build: buildTimer }
     ]},
-    { id:'deploy', label:'📦 설치 / 업데이트', pages:[
+    { id:'deploy', label:'📦 설치 / 배포', pages:[
+      { id:'dep-start', label:'🚀 처음 셋업 (요약)', build: buildStart },
       { id:'dep-install-teacher', label:'교사 PC 설치 (GitHub)', build: buildInstallTeacher },
       { id:'dep-install-student', label:'학생 PC 설치 (맞춤 패키지)', build: buildInstallStudent },
       { id:'dep-update', label:'업데이트', build: buildUpdate },
@@ -191,11 +338,20 @@ function buildPages() {
 
   let first = true;
   sections.forEach(sec => {
-    sec.pages.forEach((pg, i) => {
+    // 섹션 헤더 (논클릭, 그룹 시각 구분)
+    const header = document.createElement('div');
+    header.className = 'nav-section';
+    const parts = sec.label.split(' ');
+    const ico = parts[0];
+    const txt = parts.slice(1).join(' ');
+    header.innerHTML = '<span class="sec-ico">' + ico + '</span><span>' + txt + '</span>';
+    nav.appendChild(header);
+
+    sec.pages.forEach((pg) => {
       const a = document.createElement('div');
       a.className = 'nav-item' + (first ? ' active' : '');
       a.dataset.p = pg.id;
-      a.innerHTML = '<span class="ico">' + (i === 0 ? sec.label.split(' ')[0] : '·') + '</span>' + pg.label;
+      a.innerHTML = pg.label;
       a.addEventListener('click', () => {
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         a.classList.add('active');
@@ -216,6 +372,12 @@ function buildPages() {
   });
 }
 
+// 페이지 점프 — 시작하기 페이지의 "→ 자세히" 링크 등에서 사용
+window.goToPage = function(pageId) {
+  const navItem = document.querySelector('.nav-item[data-p="' + pageId + '"]');
+  if (navItem) navItem.click();
+};
+
 // ─── Interactive Section Builder Helpers ───
 function iSide(html) { return '<div class="pg-sidebar i-side">' + html + '</div>'; }
 function iStu(html) { return '<div class="pg-student">' + html + '</div>'; }
@@ -230,48 +392,47 @@ function iLive(html) { return '<div class="fade-in">' + html + '</div>'; }
 // 0. START — Getting Started
 // ═══════════════════════════════════════════════
 function buildStart(div) {
-  div.innerHTML = '<h2>🚀 시작하기</h2><div class="sub">화면 전송</div>';
+  div.innerHTML = '<h2>🚀 처음 셋업 (요약)</h2><div class="sub">큰 그림 — 각 단계의 자세한 설명은 옆 페이지로 점프하세요</div>';
 
   const steps = [
-    '<b>설정</b>에서 실습실 이름, 포트 번호를 입력하고 저장합니다.',
-    '학생 PC에 <b>학생 프로그램</b>이 설치되어 있어야 접속됩니다. (도구 → 학생 프로그램 관리에서 GitHub 최신 버전 받아 배포 가능)',
-    '학생이 앱을 실행하면 우측 화면에 <b>PC 이름</b>과 <b>상태</b>가 표시됩니다.',
-    '상단 타이틀에 <b>접속 인원 수</b>가 실시간으로 표시됩니다.'
+    '<b>교사 PC</b>에 교사 앱을 설치합니다. <a href="https://github.com/soulych-teacher-dev/screen-share/releases/latest" target="_blank">GitHub Releases</a>에서 <code>ScreenShareT-Setup-x.x.x.exe</code>를 받아 실행하세요. 첫 실행 시 Windows 방화벽 허용 다이얼로그가 뜨면 <b>허용</b>을 누릅니다. <a href="#" class="detail-link" onclick="goToPage(\'dep-install-teacher\');return false;">→ 자세히</a>',
+    '교사 앱 메뉴 <b>도구 → 학생 설치 패키지 만들기</b>로 학생 PC용 맞춤 패키지를 만듭니다. 교사 PC의 IP·포트가 사전 입력된 폴더 + zip이 바탕화면에 생성됩니다. <a href="#" class="detail-link" onclick="goToPage(\'dep-install-student\');return false;">→ 자세히</a>',
+    '생성된 폴더의 <code>install.bat</code>을 학생 PC들에서 한 번씩 실행합니다. <b>USB·공유폴더·Ghost</b> 등 평소 학교에서 쓰는 어떤 배포 방식이든 가능합니다. <a href="#" class="detail-link" onclick="goToPage(\'dep-install-student\');return false;">→ 자세히</a>',
+    '학생 PC가 켜질 때마다 학생 앱이 <b>자동으로 시작</b>됩니다(작업 스케줄러 등록됨). 교사 앱 우측 패널에 학생 PC가 차례로 나타나면 준비 완료.'
   ];
 
   div.innerHTML += `
-    <div class="playground"><div class="pg-header"><span>🎮</span> 시작 전 확인사항</div><div class="pg-body" style="flex-direction:column;gap:0">
+    <div class="playground"><div class="pg-header"><span>🎮</span> 처음 셋업 흐름</div><div class="pg-body" style="flex-direction:column;gap:0">
       <ol class="step-list">${steps.map((s,i) => '<li><div class="step-num">' + (i+1) + '</div><span>' + s + '</span></li>').join('')}</ol>
-      <div class="tip-box" style="margin-top:12px"><strong>Tip</strong> — 학생이 보이지 않으면 방화벽에서 해당 포트(기본 9000)가 열려 있는지 확인하세요.</div>
-      <div class="tip-box"><strong>GitHub 자동 배포</strong> — <b>도구 → 학생 프로그램 관리</b>에서 GitHub Releases의 최신 버전을 받아 학생 PC에 LAN으로 원격 배포할 수 있습니다.</div>
+      <div class="tip-box" style="margin-top:12px"><strong>Tip</strong> — 학생 PC가 안 보이면 같은 LAN인지, 방화벽이 교사 앱을 막고 있지는 않은지(기본 포트 9000), 학생 앱이 작업 스케줄러에 등록됐는지 확인하세요.</div>
     </div></div>`;
 
   div.innerHTML += `
     <div class="detail-section">
       <div class="card-grid">
         <div class="card">
-          <h3>🔌 포트 설정</h3>
-          <p>기본 포트 <b>9000</b>. 설정에서 변경 가능. 학생과 동일한 포트여야 접속됩니다. 방화벽 예외 등록 필요.</p>
+          <h3>🖥 학생 자동 접속</h3>
+          <p>학생 PC가 부팅되면 학생 앱이 <b>자동 실행</b>되어 교사 앱에 접속됩니다. 작업 스케줄러 <code>ScreenShareS</code>가 LogonTrigger로 등록되어 있고, 비정상 종료 시 워치독(<code>DwmHelper</code>)이 즉시 다시 살립니다.</p>
         </div>
         <div class="card">
-          <h3>🖥 학생 접속</h3>
-          <p>학생 앱이 실행되면 교사 앱 우측 패널에 PC 이름/상태가 표시됩니다. 접속 시 자동 상태 동기화.</p>
+          <h3>🔌 포트 / 방화벽</h3>
+          <p>기본 포트 <b>9000</b>(WebP). 학생 맞춤 패키지에 교사 IP+포트가 박혀 있어 자동으로 맞춰집니다. 교사 앱 첫 실행 시 방화벽 허용만 해 두면 끝.</p>
         </div>
         <div class="card">
-          <h3>📦 학생 배포</h3>
-          <p><b>도구 → 학생 프로그램 관리</b>에서 GitHub 최신 설치파일을 받아 원격 설치/업데이트/제거 가능. 항상 새로 받기(캐시 없음).</p>
+          <h3>📦 학생 패키지 만들기</h3>
+          <p><b>도구 → 학생 설치 패키지 만들기</b>로 한 번 만들어 두면, 그 폴더의 <code>install.bat</code>만 학생 PC에서 실행하면 됩니다. 교사 IP가 바뀌었으면 다시 만들기.</p>
         </div>
         <div class="card">
           <h3>🔒 단일 인스턴스</h3>
-          <p>교사 앱은 하나의 인스턴스만 실행됩니다. 두 번째 실행 시 기존 창이 포그라운드로 올라옵니다.</p>
+          <p>교사 앱은 PC당 하나만 실행됩니다. 두 번째로 실행하면 이미 떠 있는 창이 포그라운드로 올라옵니다.</p>
         </div>
         <div class="card">
-          <h3>🛡️ 방화벽</h3>
-          <p>기본 포트 9000(WebP), H.264 동적 포트. Hyper-V <code>excludedportrange</code> 충돌 시 포트 변경 필요.</p>
+          <h3>🔄 자동 업데이트</h3>
+          <p>교사 앱이 시작할 때 GitHub Releases에서 새 버전을 자동 감지합니다. 교사·학생 앱이 같은 릴리스에 묶여 있어 버전 짝이 항상 일치합니다(별도 신경 X).</p>
         </div>
         <div class="card">
-          <h3>🔄 버전 호환</h3>
-          <p>교사/학생 간 주요 버전이 일치해야 정상 동작합니다. GitHub 배포로 항상 최신 상태 유지.</p>
+          <h3>📖 자세한 기능 안내</h3>
+          <p>왼쪽 사이드바에서 <b>화면 전송 / 모니터링 / 모드·잠금 / 소통 / 파일 / 타이머</b> 등 기능별로 인터랙티브 시연을 보며 익힐 수 있습니다.</p>
         </div>
       </div>
     </div>`;
@@ -311,25 +472,25 @@ function buildStreamMain(div) {
     `);
 
     let stu;
-    if (!streaming) stu = stuEmpty();
-    else if (paused) stu = stuPaused();
-    else stu = stuStreaming();
+    if (!streaming) stu = stuDesktop('empty');
+    else if (paused) stu = stuDesktop('paused');
+    else stu = stuDesktop(mode === 'h264' ? 'streaming-h264' : 'streaming-webp');
 
     pg.innerHTML = '';
-    pg.insertAdjacentHTML('beforeend', '<h2>📡 전송 시작 / 종료 / 일시정지</h2><div class="sub">화면 전송</div>');
-    pg.insertAdjacentHTML('beforeend', iSection('클릭해서 직접 제어해보세요', sidebar, iStu(stu),
-      '<b>▶ 전송 시작</b> — 모든 학생에게 교사 화면을 전송합니다. <b>⏸ 일시정지</b>(WebP 전용)로 화면을 멈출 수 있고 <b>▶ 재개</b>로 이어서 전송합니다. <kbd>F6</kbd> 시작/종료, <kbd>F7</kbd> 일시정지/재개.'
+    pg.insertAdjacentHTML('beforeend', '<h2>📡 전송 시작 / 종료 / 일시정지</h2><div class="sub">스트리밍 제어</div>');
+    pg.insertAdjacentHTML('beforeend', iSection('사이드바를 직접 조작하면 학생 PC 바탕화면이 어떻게 바뀌는지 보입니다', sidebar, iStu(stu),
+      '<b>▶ 전송 시작</b>을 누르면 학생 PC 우하단에 작은 뷰어 창이 떠서 교사 화면이 표시됩니다. 학생은 자기 화면을 그대로 쓰면서 동시에 뷰어로 교사 화면을 봅니다. <b>⏸ 일시정지</b>(WebP 전용)는 뷰어를 멈춰 두는 효과. <kbd>F6</kbd> 시작/종료, <kbd>F7</kbd> 일시정지/재개.'
     ));
     pg.insertAdjacentHTML('beforeend', '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🟠 WebP 모드 <span class="badge badge-blue">기본</span></h3><p>JPEG/WebP 이미지를 연속 전송합니다. PPT·문서 위주 수업에 적합합니다. 일시정지/재개 기능을 지원합니다.</p></div>' +
-      '<div class="card"><h3>🟣 H.264 모드 <span class="badge badge-purple">고급</span></h3><p>ffmpeg 기반 영상 스트리밍으로 더 부드럽습니다. 영상·시연 위주 수업에 적합합니다. 고프레임·저지연.</p></div>' +
-      '<div class="card"><h3>▶ 전송 / ⏸ 일시정지</h3><p>사이드바 <b>전송 시작</b> 버튼으로 교사 화면을 전송합니다. WebP 모드에선 버튼 하나로 일시정지/재개를 전환할 수 있습니다.</p></div>' +
-      '<div class="card"><h3>🎯 선택 전송 <span class="badge badge-green">v0.1.44+</span></h3><p>특정 학생만 선택하여 교사 화면을 전송합니다. WebP/H.264 모두 선택 전송 가능. 비선택 학생은 상태 유지.</p></div>' +
-      '<div class="card"><h3>🖥 모니터 선택</h3><p>듀얼 모니터 사용 시 드롭다운에서 캡처할 화면을 선택할 수 있습니다. 설정 메뉴에서 기본 모니터 지정 가능.</p></div>' +
-      '<div class="card"><h3>🔒 뷰어 강제</h3><p>사이드바에서 학생 뷰어 창의 크기를 30~80%로 강제 고정. 해제 시 학생 개인이 설정했던 크기로 복원됩니다.</p></div>' +
+      '<div class="card"><h3>👨‍🎓 학생 PC에 보이는 모습</h3><p>학생 화면 <b>우하단에 작은 창</b>으로 떠 있어 평소 작업과 동시에 교사 화면을 볼 수 있습니다. 학생이 직접 창을 끌어 이동·크기 조정 가능(교사가 강제 고정 안 했을 때).</p></div>' +
+      '<div class="card"><h3>🟠 WebP 모드 <span class="badge badge-blue">기본</span></h3><p>PPT·문서 위주 수업에 적합. 일시정지/재개 지원. <a href="#" class="detail-link" onclick="goToPage(\'st-mode\');return false;">→ 자세히</a></p></div>' +
+      '<div class="card"><h3>🟣 H.264 모드</h3><p>영상·애니메이션 시연에 적합. 더 부드러움. <a href="#" class="detail-link" onclick="goToPage(\'st-mode\');return false;">→ 자세히</a></p></div>' +
+      '<div class="card"><h3>🎯 선택 전송</h3><p>특정 학생들만 골라서 전송합니다. 사이드바의 <b>선택 전송</b> 체크박스를 켠 뒤 우측 패널에서 PC를 선택. 비선택 학생의 뷰어 창은 그대로 유지(끄지 않음).</p></div>' +
+      '<div class="card"><h3>🖥 모니터 선택</h3><p>듀얼 모니터 환경이면 <b>설정 메뉴 → 모니터</b> 항목에서 캡처할 화면을 지정합니다. 한 번 정해두면 다음 실행에도 유지.</p></div>' +
+      '<div class="card"><h3>🔒 뷰어 강제 고정</h3><p>학생이 뷰어 창 크기를 임의로 못 바꾸게 30~80% 사이로 고정. <a href="#" class="detail-link" onclick="goToPage(\'st-lock\');return false;">→ 자세히</a></p></div>' +
       '</div>' +
-      '<div class="tip-box"><b>화질 설정</b> — 설정 메뉴의 <b>화면 전송 품질</b>에서 FPS, 해상도 비율, WebP/H.264 품질을 각각 조절할 수 있습니다.</div>' +
-      '<div class="tip-box"><b>자동 녹화</b> — 설정에서 전송 시작 시 녹화를 자동으로 시작하도록 설정할 수 있습니다. 별도 조작 불필요.</div></div>');
+      '<div class="tip-box"><b>화질 설정</b> — <b>설정 메뉴 → 화면 전송 품질</b>에서 FPS, 해상도 비율, WebP/H.264 품질을 각각 조절할 수 있습니다.</div>' +
+      '<div class="tip-box"><b>자동 녹화</b> — 설정에서 "전송 시작 시 녹화 자동 시작"을 켜 두면 별도 조작 없이 수업 녹화가 함께 시작됩니다.</div></div>');
 
     // Bind radio
     pg.querySelectorAll('input[name="st-mode"]').forEach(r => r.addEventListener('change', function() {
@@ -353,38 +514,51 @@ function buildStreamMain(div) {
 // 2. STREAM MODE — WebP / H.264 comparison
 // ═══════════════════════════════════════════════
 function buildStreamMode(div) {
-  let mode = 'webp';
+  let mode = 'webp', streaming = false;
   function render() {
     const sidebar = iSide(`
       <div class="is-sec">
         <div class="is-title">전송 방식</div>
         <div class="is-row" style="padding:8px 10px">
-          <div class="is-radio"><label><input type="radio" name="sm-mode" value="webp" ${mode==='webp'?'checked':''}> WebP (PPT·문서용)</label></div>
-          <div class="is-radio"><label><input type="radio" name="sm-mode" value="h264" ${mode==='h264'?'checked':''}> H.264 (영상·시연용)</label></div>
+          <div class="is-radio"><label><input type="radio" name="sm-mode" value="webp" ${mode==='webp'?'checked':''} ${streaming?'disabled':''}> WebP (PPT·문서용)</label></div>
+          <div class="is-radio"><label><input type="radio" name="sm-mode" value="h264" ${mode==='h264'?'checked':''} ${streaming?'disabled':''}> H.264 (영상·시연용)</label></div>
         </div>
         <div class="is-row" style="padding-bottom:8px;gap:6px">
-          <div class="is-btn" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 12%,transparent);color:rgb(var(--c-green));display:flex;align-items:center;gap:4px" onclick="toast('📡 '+(mode==='webp'?'WebP':'H.264')+' 모드로 전송 시작','success')">▶ 전송 시작</div>
+          ${streaming
+            ? '<div class="is-btn" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 10%,transparent);color:rgb(var(--c-red));flex:1;text-align:center" onclick="smStop()">⏹ 전송 종료</div>'
+            : '<div class="is-btn" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 12%,transparent);color:rgb(var(--c-green));flex:1;text-align:center" onclick="smStart()">▶ 전송 시작</div>'}
         </div>
-        <div style="font-size:10px;color:rgb(var(--c-txt3));padding:0 10px 6px">
+        <div style="font-size:10px;color:rgb(var(--c-txt3));padding:0 10px 6px;line-height:1.6">
           ${mode === 'webp'
-            ? '✓ CPU 부하 낮음 · 안정적 · 일시정지 가능'
-            : '✓ 고프레임 · 부드러움 · ffmpeg 필요'}
+            ? '✓ CPU 부하 낮음<br>✓ 안정적<br>✓ <b>일시정지 가능</b>'
+            : '✓ 고프레임 부드러움<br>✓ 영상/시연 최적<br>⚠ 일시정지 불가'}
         </div>
       </div>
+      <div class="is-sec">
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:4px 10px 6px;line-height:1.5">${streaming ? '🔒 전송 중에는 방식 변경 불가. 먼저 ⏹ 종료하세요.' : '⚠ 전송 중에는 방식 변경 불가. 종료 후 다시 시작해야 함.'}</div>
+      </div>
     `);
-    const stu = stuView(`
-      <span style="font-size:28px;margin-bottom:6px">${mode === 'webp' ? '🟠' : '🟣'}</span>
-      <div style="font-weight:600;color:${mode === 'webp' ? '#fbbf24' : '#c4b5fd'}">${mode === 'webp' ? 'WebP 모드' : 'H.264 모드'}</div>
-      <div style="font-size:10px;color:#475569;margin-top:4px">${mode === 'webp' ? 'JPEG/WebP · 10fps · 안정적 전송' : 'H.264 · 24fps · 부드러운 스트리밍'}</div>
-    `);
-    div.innerHTML = '<h2>🔄 WebP / H.264 모드</h2><div class="sub">화면 전송</div>';
-    div.innerHTML += iSection('전송 방식을 선택해보세요', sidebar, iStu(stu),
-      '<b>🟠 WebP (기본)</b> — 이미지 연속 캡처 방식. CPU 부하 낮고 안정적. PPT/문서에 적합. 일시정지 기능 지원.<br><b>🟣 H.264</b> — ffmpeg 실시간 인코딩. 고프레임 부드러운 화면. 영상/시연에 적합. 전송 중 모드 변경 불가.'
+    const stu = !streaming ? stuDesktop('empty') : stuDesktop(mode === 'webp' ? 'streaming-webp' : 'streaming-h264');
+    div.innerHTML = '<h2>🔄 WebP / H.264 모드</h2><div class="sub">전송 방식 비교</div>';
+    div.innerHTML += iSection('방식을 바꿔보면 학생 화면이 어떻게 표시되는지 확인할 수 있습니다', sidebar, iStu(stu),
+      '두 방식은 <b>화면을 어떻게 인코딩해서 학생에게 보낼지</b>의 차이입니다. 수업 내용에 맞춰 선택하세요.<br><b>🟠 WebP (기본)</b> — 화면을 이미지로 연속 캡처. PPT·문서·코드 등 정지 화면 위주에 적합. <b>일시정지/재개 지원</b>.<br><b>🟣 H.264</b> — 영상 인코딩. 영상 재생·애니메이션·드로잉 시연처럼 움직임 많은 화면에 적합. 일시정지는 미지원.'
     );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>🤔 언제 어느 걸 쓸까?</h3><p><b>평소 수업(PPT·문서·웹 강의)</b> → 🟠 WebP. CPU 여유 있고 안정적.<br><b>유튜브 영상·태블릿 드로잉 시연·게임 화면</b> → 🟣 H.264. 움직임이 끊겨 보이지 않음.</p></div>' +
+      '<div class="card"><h3>⏸ 일시정지 차이</h3><p>WebP만 지원합니다. PPT 도중 잠깐 다른 화면 띄우고 싶을 때 유용. H.264는 영상 스트림이라 일시정지 개념이 없습니다 — 종료/재시작만 가능.</p></div>' +
+      '<div class="card"><h3>🔄 전송 중 변경 불가</h3><p>방식을 바꾸려면 먼저 <b>⏹ 종료</b>하고, 라디오 버튼 선택을 바꾼 뒤 다시 <b>▶ 전송 시작</b>. 사이드바의 라디오는 전송 중에는 비활성화됩니다.</p></div>' +
+      '<div class="card"><h3>📊 기본 설정값</h3><p>🟠 WebP: <b>10fps · 1280×720</b> · 적당한 품질. 🟣 H.264: <b>24fps · 1280×720</b> · 저지연 옵션 적용됨. 설정 메뉴에서 변경 가능.</p></div>' +
+      '<div class="card"><h3>🛠 별도 설치 불필요</h3><p>두 방식 모두 교사 앱 안에 내장된 인코더로 동작합니다(ffmpeg 등 별도 프로그램 설치 안 해도 됨).</p></div>' +
+      '<div class="card"><h3>🎯 선택 전송</h3><p>두 방식 모두 <b>특정 학생에게만 전송</b> 가능. 전 학급에 PPT를 보내면서 일부 학생에겐 영상 시연을 할 순 없습니다(한 시점에 한 방식).</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>잘 모르겠으면 WebP</b> — 대부분의 수업은 WebP로 충분합니다. 학생 PC 부하도 적고, 일시정지·재개가 편합니다. 영상 시연이 끊겨 보일 때만 H.264로 바꿔보세요.</div></div>';
     div.querySelectorAll('input[name="sm-mode"]').forEach(r => r.addEventListener('change', function() {
+      if (streaming) return;  // 전송 중에는 모드 변경 무시
       mode = this.value; render();
     }));
   }
+  window.smStart = function() { streaming = true; render(); toast('📡 ' + (mode === 'webp' ? 'WebP' : 'H.264') + ' 모드로 전송 시작', 'success'); };
+  window.smStop  = function() { streaming = false; render(); toast('⏹ 전송 종료', 'info'); };
   render();
 }
 
@@ -417,18 +591,34 @@ function buildViewerLock(div) {
         </div>
       </div>
     `);
-    const stu = stuView(enabled
-      ? '<span style="font-size:28px;margin-bottom:6px">🔒</span><div style="color:#fca5a5;font-weight:600">뷰어 ' + size + '% 강제 고정</div><div style="font-size:10px;color:#475569;margin-top:4px">크기 조절 불가</div><div style="margin-top:8px;width:' + size + '%;height:40px;border:2px solid rgba(255,255,255,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#64748b">교사 화면</div>'
-      : '<span style="font-size:28px;margin-bottom:6px">🔓</span><div style="color:#6ee7b7;font-weight:600">뷰어 자유 조절</div><div style="font-size:10px;color:#475569;margin-top:4px">학생이 크기 변경 가능</div>'
+    // 강제 ON이면 그 크기로 고정, OFF면 학생 기본 크기(50%)로 표시
+    const stu = stuDesktop('streaming-webp', { size: enabled ? size : 50, locked: enabled });
+    div.innerHTML = '<h2>🔒 뷰어 강제 (크기 고정)</h2><div class="sub">뷰어 강제 고정</div>';
+    div.innerHTML += iSection('체크와 크기를 바꾸면 학생 PC의 뷰어 창 크기가 그대로 바뀝니다', sidebar, iStu(stu),
+      '<b>왜 이 기능이 있나?</b> 학생이 자기 작업하느라 뷰어를 너무 작게 줄여 안 보거나, 반대로 너무 크게 키워 화면을 가리는 일을 막기 위해서. 체크박스를 켜면 모든 학생의 뷰어가 지정 크기로 <b>강제 고정</b>되고 학생은 임의로 못 바꿉니다. 해제하면 <b>기본값(50% · 투명도 100%)으로 복원</b>되며, 그 뒤로는 학생이 다시 자유롭게 조절할 수 있습니다.'
     );
-    div.innerHTML = '<h2>🔒 뷰어 강제 (크기 고정)</h2><div class="sub">화면 전송</div>';
-    div.innerHTML += iSection('강제 체크박스와 크기를 변경해보세요', sidebar, iStu(stu),
-      '체크박스를 켜면 모든 학생의 뷰어 창 크기가 지정된 비율로 고정됩니다. 해제 시 학생 개인이 설정했던 크기로 복원됩니다. 30~80% 범위에서 선택 가능합니다.'
-    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>🤔 언제 쓰나?</h3><p>학생이 뷰어 창을 줄여서 수업 화면을 안 보는 경우(딴짓), 또는 너무 키워서 자기 작업이 안 보이는 경우. 잠시 강제 켜서 통제하다가 해제하는 식으로 사용합니다.</p></div>' +
+      '<div class="card"><h3>📏 30~80% 범위</h3><p>학생 PC 해상도 기준 가로 폭의 비율입니다. <b>보통 50%</b>면 적당하고, PPT를 크게 보여주려면 70~80%, 학생 작업이 많은 시간엔 30~40%로 작게.</p></div>' +
+      '<div class="card"><h3>🔓 해제 시 기본값으로</h3><p>체크를 끄면 학생 뷰어가 <b>기본값(50% · 투명도 100%)</b>으로 돌아갑니다. 학생이 강제 전에 쓰던 크기를 기억하지는 않습니다. 해제 직후 학생이 다시 자기 원하는 크기로 끌어서 조절하면 됩니다.</p></div>' +
+      '<div class="card"><h3>🪟 위치는 강제 X</h3><p>크기만 고정합니다. 학생이 뷰어 창을 우하단·좌상단 등으로 끌어 옮기는 건 여전히 가능. 위치까지 통제할 필요는 거의 없습니다.</p></div>' +
+      '<div class="card"><h3>🎯 전 학생 일괄 적용</h3><p>강제 설정은 <b>접속한 모든 학생</b>에게 동시에 적용됩니다. 특정 학생만 강제하는 기능은 없습니다.</p></div>' +
+      '<div class="card"><h3>💡 강제 중에도 투명도 제한</h3><p>강제 켜진 동안엔 뷰어 투명도가 100%로 고정됩니다(흐릿하게 만들지 못함). 해제하면 학생이 다시 투명도를 조절할 수 있습니다.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>꿀팁</b> — 영상 시연하거나 중요한 PPT 페이지 설명할 때만 잠깐 80%로 강제해서 모든 학생이 크게 보게 한 뒤, 학생 실습 시간엔 해제해서 학생 자유에 맡기는 식으로 쓰면 좋습니다.</div></div>';
     const chk = div.querySelector('#vl-chk');
     const sel = div.querySelector('#vl-sel');
-    if (chk) chk.addEventListener('change', function() { enabled = this.checked; render(); toast(enabled ? '🔒 뷰어 강제 켜짐 (' + size + '%)' : '🔓 뷰어 강제 해제됨', 'info'); });
-    if (sel) sel.addEventListener('change', function() { size = parseInt(this.value); if (enabled) render(); });
+    if (chk) chk.addEventListener('change', function() {
+      enabled = this.checked;
+      render();
+      toast(enabled
+        ? '🔒 뷰어 강제 켜짐 — 모든 학생 ' + size + '% 고정'
+        : '🔓 뷰어 강제 해제 — 기본값 50%·투명도 100%로 복원', 'info');
+    });
+    if (sel) sel.addEventListener('change', function() {
+      size = parseInt(this.value);
+      if (enabled) { render(); toast('📐 강제 크기 ' + size + '%로 변경', 'info'); }
+    });
   }
   render();
 }
@@ -458,19 +648,52 @@ function buildRecordMain(div) {
         ${recording ? '<div style="padding:6px 10px;display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1.5s infinite"></span><span style="font-family:monospace;font-size:13px;font-weight:700;color:#ef4444">' + formatTime(elapsed) + '</span><span style="font-size:10px;color:rgb(var(--c-txt3))">' + (elapsed * 1.2).toFixed(0) + 'MB</span></div>' : ''}
       </div>
     `);
-    const stu = recording
-      ? stuView('<span style="font-size:28px;margin-bottom:6px">⏺️</span><div style="color:#ef4444;font-weight:600;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1.5s infinite"></span> 녹화 중</div><div style="font-size:10px;color:#475569;margin-top:4px">' + formatTime(elapsed) + ' · ' + (elapsed * 1.2).toFixed(0) + 'MB</div>')
-      : stuEmpty();
-    div.innerHTML = '<h2>🎬 녹화 시작 / 종료 / 일시정지</h2><div class="sub">녹화</div>';
-    div.innerHTML += iSection('녹화 버튼을 눌러보세요', sidebar, iStu(stu),
-      '<b>⏺ 녹화 시작</b> — 교사 화면을 청크 단위로 MP4 녹화합니다. <b>⏸ 일시정지/▶ 재개</b>로 제어할 수 있습니다. <kbd>F8</kbd> 시작/종료, <kbd>F9</kbd> 일시정지/재개.'
+    // 우측 패널: 학생 화면이 아니라 "교사 PC 녹화 상태"
+    let recBody;
+    if (!recording) {
+      recBody = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#94a3b8;text-align:center;padding:20px">' +
+        '<div style="font-size:34px;margin-bottom:8px;opacity:.55">📷</div>' +
+        '<div style="font-size:13px;font-weight:600;margin-bottom:12px">녹화 대기</div>' +
+        '<div style="font-size:9.5px;color:#94a3b8;line-height:1.7;background:rgba(255,255,255,.04);padding:10px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.08);text-align:left">' +
+          '<div style="color:#cbd5e1;font-weight:600;margin-bottom:4px">📂 저장 위치 (기본값)</div>' +
+          '<code style="display:block;color:#fbbf24;font-size:9px">C:\\Screen_Share\\</code>' +
+          '<div style="margin-top:5px;color:#94a3b8">└ <code style="color:#a78bfa">teacher_rec\\</code> <span style="color:#64748b">(녹화 중 mkv 청크)</span></div>' +
+          '<div style="color:#94a3b8">└ <code style="color:#34d399">teacher-mp4\\YYYY-MM-DD\\</code> <span style="color:#64748b">(최종 mp4)</span></div>' +
+        '</div>' +
+      '</div>';
+    } else if (paused) {
+      recBody = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:16px;gap:4px">' +
+        '<div style="font-size:30px">⏸️</div>' +
+        '<div style="font-family:monospace;font-size:26px;font-weight:700;color:#fde047">' + formatTime(elapsed) + '</div>' +
+        '<div style="font-size:11px;color:#fbbf24;font-weight:600">일시정지</div>' +
+        '<div style="font-size:10px;color:#94a3b8">누적 ' + (elapsed * 1.2).toFixed(0) + 'MB</div>' +
+        '<div style="font-size:9px;color:#64748b;margin-top:10px;background:rgba(255,255,255,.04);padding:6px 10px;border-radius:4px;max-width:200px;line-height:1.5">⏱ 시간·용량 카운트 멈춤<br>종료 시 한 파일로 매끄럽게 합쳐짐</div>' +
+      '</div>';
+    } else {
+      recBody = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:16px;gap:4px">' +
+        '<div style="display:flex;align-items:center;gap:6px;font-weight:700;font-size:12px;color:#fca5a5">' +
+          '<span style="width:10px;height:10px;border-radius:50%;background:#ef4444;animation:blink 1.2s infinite;box-shadow:0 0 8px rgba(239,68,68,.6)"></span> REC' +
+        '</div>' +
+        '<div style="font-family:monospace;font-size:28px;font-weight:700;color:#ef4444">' + formatTime(elapsed) + '</div>' +
+        '<div style="font-size:10px;color:#fca5a5">누적 ' + (elapsed * 1.2).toFixed(0) + 'MB · 청크 ' + (Math.floor(elapsed/60)+1) + '개</div>' +
+        '<div style="font-size:9px;color:#64748b;margin-top:8px;background:rgba(239,68,68,.08);padding:5px 10px;border-radius:4px;border:1px solid rgba(239,68,68,.2);line-height:1.5">진행 중: <code style="color:#fbbf24">teacher_rec\\*.mkv</code><br>종료 시 자동 병합 → mp4</div>' +
+      '</div>';
+    }
+    const stu = '<div class="ps-title"><span>🎬 교사 PC · 녹화 상태</span></div><div style="background:#0f172a;height:240px">' + recBody + '</div>';
+
+    div.innerHTML = '<h2>🎬 녹화 시작 / 종료 / 일시정지</h2><div class="sub">교사 화면 녹화</div>';
+    div.innerHTML += iSection('녹화 버튼을 눌러 상태가 어떻게 바뀌는지 확인하세요', sidebar, iStu(stu),
+      '<b>⏺ 녹화 시작</b>을 누르면 교사 화면을 mkv 청크로 나눠 저장합니다. 수업 도중 청크가 계속 쌓이다가 <b>⏹ 종료</b>하면 자동으로 한 개의 <b>mp4 파일로 병합</b>됩니다. <b>⏸ 일시정지</b>는 카운트만 멈출 뿐 파일은 계속 한 세션으로 유지되어, 재개 후 종료해도 매끄럽게 합쳐집니다. <kbd>F8</kbd> 시작/종료, <kbd>F9</kbd> 일시정지/재개.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>⏺ 녹화 제어</h3><p>수업 내용을 MP4로 녹화합니다. 청크 단위 저장 후 자동 병합. <kbd>F8</kbd> 시작/종료, <kbd>F9</kbd> 일시정지/재개.</p></div>' +
-      '<div class="card"><h3>🎤 마이크 녹음</h3><p>마이크 on/off, 음량 조절(×1~×5), 시스템 오디오 혼합 지원. 🎙 테스트 버튼으로 3초 녹음 후 재생 가능.</p></div>' +
-      '<div class="card"><h3>🤖 자동 녹화 <span class="badge badge-green">설정 가능</span></h3><p>설정에서 전송 시작 시 녹화 자동 시작 옵션. 교사가 별도로 녹화 버튼을 누를 필요 없음.</p></div>' +
-      '<div class="card"><h3>💾 저장 형식</h3><p>MP4 컨테이너. 청크 단위로 저장 후 세션 종료 시 자동 병합. 예상 용량: ~85MB/분(마이크 켬 기준).</p></div>' +
-      '</div></div>';
+      '<div class="card"><h3>📂 저장 위치</h3><p><b>녹화 중:</b> <code>C:\\Screen_Share\\teacher_rec\\</code> (mkv 청크)<br><b>완료 후:</b> <code>C:\\Screen_Share\\teacher-mp4\\YYYY-MM-DD\\session_*.mp4</code><br>기본 폴더는 설정 메뉴에서 변경 가능.</p></div>' +
+      '<div class="card"><h3>🎤 마이크 / 시스템 사운드</h3><p>마이크 ON/OFF, 음량 ×1~×5, 시스템 오디오와 혼합 녹음 지원. <a href="#" class="detail-link" onclick="goToPage(\'rec-audio\');return false;">→ 자세히</a></p></div>' +
+      '<div class="card"><h3>🤖 자동 녹화</h3><p>설정 메뉴에서 <b>"전송 시작 시 녹화 자동 시작"</b>을 켜두면 <kbd>F6</kbd>(전송 시작)만 눌러도 녹화가 함께 시작됩니다. 별도 조작 불필요.</p></div>' +
+      '<div class="card"><h3>💾 파일 형식</h3><p>녹화 중에는 mkv 청크로 분할 저장 → 종료 시 ffmpeg로 한 개의 <b>mp4</b>로 자동 병합. 원본 mkv 청크는 그대로 남아 있어 백업/복구용으로도 활용 가능.</p></div>' +
+      '<div class="card"><h3>🔇 학생은 녹화 사실 모름</h3><p>녹화한다는 표시가 학생 화면에 뜨지 않습니다. 마이크 음성도 <b>녹화 파일에만</b> 들어가고 학생 PC에선 들리지 않습니다(녹화와 화면 전송은 분리된 별도 기능).</p></div>' +
+      '<div class="card"><h3>📊 예상 용량 <span style="font-size:9px;color:rgb(var(--c-txt3));font-weight:400">참고</span></h3><p>기본 화질 기준 분당 약 <b>40~85MB</b>(마이크 ON 여부·화면 변화량에 따라 변동). 1시간 수업 = 약 2~5GB.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>일시정지의 진짜 의미</b> — mkv 청크는 계속 같은 세션 아래 모이고, 재개 후 종료해도 <b>한 mp4 파일</b>로 합쳐집니다. 즉 일시정지는 "잠깐 안 찍히는 구간"을 만드는 기능이지 파일을 끊는 기능이 아닙니다.</div></div>';
     div.querySelector('#rec-auto')?.addEventListener('change', function() { autoRec = this.checked; toast(autoRec ? '🤖 전송 시 자동 녹화 켜짐' : '🤖 자동 녹화 꺼짐', 'info'); });
   }
 
@@ -492,7 +715,12 @@ function buildRecordMain(div) {
 // ═══════════════════════════════════════════════
 function buildRecordAudio(div) {
   let micOn = false, gain = '×1.5';
+  // 게인에 따른 가짜 레벨 % (시각화용)
+  const levelByGain = { '×1':28, '×1.5':52, '×2':68, '×3':82, '×5':95 };
   function render() {
+    const level = levelByGain[gain] || 52;
+    const tooLoud = level > 90;
+    const tooQuiet = level < 20;
     const sidebar = iSide(`
       <div class="is-sec">
         <div class="is-title">오디오</div>
@@ -500,19 +728,57 @@ function buildRecordAudio(div) {
           <div class="is-btn sm ${!micOn?'active':''}" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) ${!micOn?'12':'4'}%,transparent);color:rgb(var(--c-txt2))" onclick="micToggle(false)">📹 비디오만</div>
           <div class="is-btn sm ${micOn?'active':''}" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) ${micOn?'12':'4'}%,transparent);color:rgb(var(--c-purple))" onclick="micToggle(true)">📹+🎤 마이크</div>
         </div>
-        ${micOn ? '<div class="is-row" style="gap:4px"><span style="font-size:9px;color:rgb(var(--c-txt3))">장치</span><select class="is-sel" style="flex:1"><option>Blue Yeti USB Mic</option><option>Realtek Audio</option></select></div>' : ''}
+        ${micOn ? '<div class="is-row" style="gap:4px"><span style="font-size:9px;color:rgb(var(--c-txt3))">장치</span><select class="is-sel" style="flex:1"><option>기본 마이크 (시스템 입력)</option><option>USB 마이크</option></select></div>' : ''}
         ${micOn ? '<div class="is-row" style="gap:3px"><span style="font-size:9px;color:rgb(var(--c-txt3))">음량</span>' + ['×1','×1.5','×2','×3','×5'].map(g => '<div class="is-btn sm ' + (gain===g?'active':'') + '" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ' + (gain===g?'12':'4') + '%,transparent);color:rgb(var(--c-blue))" onclick="setGain(\'' + g + '\')">' + g + '</div>').join('') + '</div>' : ''}
-        ${micOn ? '<div class="is-row" style="gap:4px;padding-bottom:4px"><span style="font-size:9px;color:rgb(var(--c-txt3))">레벨</span><div style="flex:1;height:5px;background:rgb(var(--c-surface-2));border-radius:2px;overflow:hidden"><div style="width:52%;height:100%;background:linear-gradient(90deg,rgb(var(--c-green)),rgb(var(--c-yellow)),rgb(var(--c-red)));border-radius:2px"></div></div><span style="font-size:9px;color:rgb(var(--c-txt3))">52%</span></div>' : ''}
-        ${micOn ? '<div class="is-row" style="padding-bottom:6px"><div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) 10%,transparent);color:rgb(var(--c-purple))" onclick="toast(\'🎙 마이크 테스트 3초...\',\'info\')">🎙 테스트</div><span style="margin-left:auto;font-size:9px;color:rgb(var(--c-txt3))">💾 85MB/분</span></div>' : ''}
+        ${micOn ? '<div class="is-row" style="gap:4px;padding-bottom:4px"><span style="font-size:9px;color:rgb(var(--c-txt3))">레벨</span><div style="flex:1;height:6px;background:rgb(var(--c-surface-2));border-radius:2px;overflow:hidden"><div style="width:' + level + '%;height:100%;background:linear-gradient(90deg,rgb(var(--c-green)),rgb(var(--c-yellow)),rgb(var(--c-red)));border-radius:2px;transition:width .3s"></div></div><span style="font-size:9px;color:' + (tooLoud?'rgb(var(--c-red))':tooQuiet?'rgb(var(--c-txt3))':'rgb(var(--c-green))') + ';font-weight:600">' + level + '%</span></div>' : ''}
+        ${micOn ? '<div class="is-row" style="padding-bottom:6px"><div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) 10%,transparent);color:rgb(var(--c-purple))" onclick="toast(\'🎙 마이크 테스트 3초 녹음 후 재생\',\'info\')">🎙 테스트</div></div>' : ''}
       </div>
     `);
-    const stu = micOn
-      ? stuView('<span style="font-size:28px;margin-bottom:6px">🎤</span><div style="color:#a78bfa;font-weight:600">마이크 켜짐</div><div style="font-size:10px;color:#475569;margin-top:4px">Blue Yeti · ' + gain + ' · 레벨 52%</div>')
-      : stuView('<span style="font-size:28px;margin-bottom:6px">🔇</span><div style="color:#94a3b8;font-weight:600">비디오만 녹화</div><div style="font-size:10px;color:#475569;margin-top:4px">오디오 미포함</div>');
-    div.innerHTML = '<h2>🎤 마이크 / 오디오 설정</h2><div class="sub">녹화</div>';
-    div.innerHTML += iSection('마이크를 켜고 음량을 조절해보세요', sidebar, iStu(stu),
-      '🎤 마이크를 켜면 강의 음성이 녹음에 포함됩니다. 음량(×1~×5)을 조절하고, 🎙 테스트 버튼으로 3초 녹음 후 재생하여 실제 음량을 확인할 수 있습니다.'
+    // 우측 패널: "교사 PC 마이크 상태" — 녹음 파일에만 들어가고 학생에겐 안 들림 표시
+    let micBody;
+    if (!micOn) {
+      micBody = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#94a3b8;text-align:center;padding:20px">' +
+        '<div style="font-size:38px;margin-bottom:8px;opacity:.5">🔇</div>' +
+        '<div style="font-size:13px;font-weight:600;margin-bottom:6px">마이크 꺼짐</div>' +
+        '<div style="font-size:10px;color:#64748b;line-height:1.6;max-width:240px">녹화 파일에 음성이 포함되지 않습니다.<br>강의 음성을 함께 남기려면 마이크를 켜세요.</div>' +
+      '</div>';
+    } else {
+      // 레벨 바 시각화 (좀 더 큰 사이즈)
+      const meterColor = tooLoud ? '#ef4444' : tooQuiet ? '#64748b' : '#22c55e';
+      const advice = tooLoud
+        ? '<div style="color:#fca5a5;font-weight:600">⚠ 음량이 너무 큼 — 한 단계 낮추세요</div>'
+        : tooQuiet
+          ? '<div style="color:#94a3b8;font-weight:600">⚠ 음량이 너무 작음 — 한 단계 올리세요</div>'
+          : '<div style="color:#86efac;font-weight:600">✓ 적정 음량</div>';
+      micBody = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:16px;gap:8px">' +
+        '<div style="font-size:32px">🎤</div>' +
+        '<div style="font-size:12px;font-weight:700;color:#c4b5fd">마이크 켜짐</div>' +
+        // 큰 레벨 미터
+        '<div style="width:80%;max-width:240px">' +
+          '<div style="height:14px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">' +
+            '<div style="width:' + level + '%;height:100%;background:linear-gradient(90deg,#22c55e 0%,#facc15 60%,#ef4444 90%);border-radius:2px;transition:width .3s;box-shadow:inset 0 0 4px rgba(0,0,0,.3)"></div>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;font-size:8px;color:#64748b;margin-top:2px"><span>0</span><span>20%</span><span style="color:' + meterColor + ';font-weight:700">' + level + '%</span><span>80%</span><span>100</span></div>' +
+        '</div>' +
+        '<div style="font-size:10px;text-align:center">' + advice + '</div>' +
+        '<div style="font-size:9px;color:#64748b;background:rgba(168,85,247,.08);padding:5px 10px;border-radius:4px;border:1px solid rgba(168,85,247,.2);max-width:240px;text-align:center;line-height:1.5;margin-top:4px">🔒 음성은 <b style="color:#c4b5fd">녹화 파일에만</b> 들어갑니다 — 학생 PC에선 들리지 않음</div>' +
+      '</div>';
+    }
+    const stu = '<div class="ps-title"><span>🎤 교사 PC · 마이크 상태</span></div><div style="background:#0f172a;height:240px">' + micBody + '</div>';
+
+    div.innerHTML = '<h2>🎤 마이크 / 오디오 설정</h2><div class="sub">마이크 · 음량 설정</div>';
+    div.innerHTML += iSection('마이크를 켜고 음량 단계를 바꿔보세요. 레벨 미터로 적정값 확인.', sidebar, iStu(stu),
+      '<b>📹 비디오만</b> — 녹화에 음성 미포함. <b>📹 + 🎤 마이크</b> — 강의 음성이 녹화 파일에 함께 들어감. 음량(×1~×5)은 마이크 게인입니다 — 목소리가 작으면 올리고, 너무 크게 잡히면 내리세요. <b>🎙 테스트</b>는 3초 녹음 후 같은 증폭으로 재생해 실제 들릴 음량을 확인합니다.'
     );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>🎤 마이크 모드 두 가지</h3><p><b>📹 비디오만</b> — 화면만 녹화, 무음.<br><b>📹 + 🎤 마이크</b> — 화면 + 강의 음성. 대부분의 수업 녹화는 이쪽.</p></div>' +
+      '<div class="card"><h3>🔊 음량 단계 가이드</h3><p><b>×1</b> 목소리가 큰 편 / <b>×1.5~×2</b> 보통 / <b>×3~×5</b> 작거나 마이크 멀리. 한 번에 너무 올리지 말고 한 단계씩 테스트.</p></div>' +
+      '<div class="card"><h3>📊 레벨 미터 읽기</h3><p>이야기할 때 미터가 <b>40~80%</b>까지 움직이면 적정. 거의 안 움직이면 너무 작음, 빨간 영역이 자주 켜지면 너무 큼.</p></div>' +
+      '<div class="card"><h3>🎙 3초 테스트</h3><p>지정한 음량으로 3초 녹음 후 즉시 재생해 줍니다. 본 녹화 시작 전에 한 번 돌려서 들어보는 게 가장 확실한 검증.</p></div>' +
+      '<div class="card"><h3>🔇 학생 PC에는 안 들림</h3><p>마이크 음성은 <b>녹화 파일에만</b> 들어가고 학생 PC로 송출되지 않습니다. 학생이 교사 목소리를 실시간으로 들으려면 별도 통신(스피커폰, 줌 등) 필요.</p></div>' +
+      '<div class="card"><h3>💾 용량 영향 거의 없음</h3><p>마이크 ON/OFF로 인한 녹화 파일 크기 차이는 분당 약 1MB 이내. 부담 없이 켜도 됩니다.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>처음 한 번만 셋업</b> — 장치·음량 선택은 저장되어 다음 실행에도 유지됩니다. 매번 설정할 필요 없음.</div></div>';
   }
   window.micToggle = function(on) { micOn = on; render(); toast(on ? '🎤 마이크 켜짐' : '🔇 마이크 꺼짐 (비디오만)', on ? 'success' : 'info'); };
   window.setGain = function(g) { gain = g; render(); toast('🔊 음량 ' + g, 'info'); };
@@ -523,7 +789,7 @@ function buildRecordAudio(div) {
 // 6. MONITOR — Student Screen Monitoring
 // ═══════════════════════════════════════════════
 function buildMonitor(div) {
-  let thumbSize = 60, hqMode = false;
+  let thumbSize = 160; // 실제 RightPanel.tsx 슬라이더 기본값
   const demoPcs = [
     { name:'PC-01', status:'수업 중', badge:'', color:'#22d3ee' },
     { name:'PC-03', status:'수업 중', badge:'💬1', color:'#22d3ee' },
@@ -536,76 +802,363 @@ function buildMonitor(div) {
     const sidebar = iSide(`
       <div class="is-sec">
         <div class="is-title">👀 모니터링</div>
-        <div class="is-label">썸네일 크기</div>
-        <div class="is-row" style="gap:3px">
-          ${[40,60,80,120].map(s => '<div class="is-btn sm ' + (thumbSize===s?'active':'') + '" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) ' + (thumbSize===s?'14':'4') + '%,transparent);color:rgb(var(--c-txt2))" onclick="setThumb(' + s + ')">' + s + 'px</div>').join('')}
+        <div class="is-label">썸네일 크기 <span style="font-weight:400;text-transform:none;color:rgb(var(--c-txt3));margin-left:4px">${thumbSize}px</span></div>
+        <div class="is-row" style="padding-bottom:2px">
+          <input type="range" id="mon-size" min="80" max="300" value="${thumbSize}" style="flex:1;accent-color:rgb(var(--c-accent));cursor:pointer">
+          <span style="font-size:10px;color:rgb(var(--c-txt3));cursor:pointer;padding:0 4px" onclick="setThumb(160)" title="기본값">↺</span>
         </div>
-        <div class="is-row" style="padding-bottom:4px"><div class="is-chk" onclick="event.stopPropagation()"><input type="checkbox" ${hqMode?'checked':''} id="mon-hq"> 고해상도 모드</div></div>
-      </div>
-      <div class="is-sec">
-        <div class="is-label">🔍 학생 목록 <span style="font-weight:400;text-transform:none">5/20 접속</span></div>
-        ${demoPcs.map(p => `
-        <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid rgb(var(--c-border));cursor:pointer" onclick="toast('🔎 ${p.name} 뷰어 열기','info')">
-          <div style="width:${Math.round(thumbSize*0.6)}px;height:${Math.round(thumbSize*0.45)}px;background:color-mix(in srgb,${p.color} 20%,#0f172a);border-radius:3px;border:1.5px solid ${p.color};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:${p.color}">📺</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:11px;font-weight:600;color:rgb(var(--c-txt));display:flex;align-items:center;gap:4px">${p.name} ${p.badge ? '<span style="background:color-mix(in srgb,rgb(var(--c-red)) 20%,transparent);color:rgb(var(--c-red));padding:0 5px;border-radius:4px;font-size:8px;font-weight:700">' + p.badge + '</span>' : ''}</div>
-            <div style="font-size:9px;color:${p.color}">${p.status}</div>
-          </div>
-          <span style="font-size:11px;opacity:.5">⋯</span>
-        </div>`).join('')}
-      </div>
-      <div class="is-sec">
-        <div class="is-label" style="padding-bottom:2px">🛠 단축</div>
-        <div class="is-row" style="padding-bottom:6px;gap:3px">
-          <div class="is-btn sm" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) 8%,transparent);color:rgb(var(--c-blue))" onclick="toast('📺 프로젝터 뷰 열기','info')">📺 프로젝터</div>
-          <div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) 8%,transparent);color:rgb(var(--c-purple))" onclick="toast('💺 실습실 배치 열기','info')">💺 배치</div>
-          <div class="is-btn sm" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 8%,transparent);color:rgb(var(--c-green))" onclick="toast('📬 메시지 모달 열기','info')">📬 메시지</div>
-        </div>
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">80~300px · 기본 160</div>
       </div>
     `);
 
-    const stu = stuView(`
-      <div style="width:100%;text-align:left">
-        <div style="display:flex;gap:6px;padding:6px 10px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06)">
-          ${demoPcs.map(p => `
-          <div style="width:${Math.round(thumbSize*0.55)}px;text-align:center">
-            <div style="width:100%;height:${Math.round(thumbSize*0.4)}px;background:color-mix(in srgb,${p.color} 15%,#0f172a);border-radius:3px;border:1px solid ${p.color};display:flex;align-items:center;justify-content:center;font-size:10px;color:${p.color}">📺</div>
-            <div style="font-size:7px;color:#94a3b8;margin-top:2px;white-space:nowrap;overflow:hidden">${p.name}</div>
-          </div>`).join('')}
-        </div>
-        <div style="padding:4px 10px;display:flex;gap:4px;align-items:center;font-size:10px;color:#64748b">
-          <span>🖱 썸네일 더블클릭 → 뷰어</span>
-          <span style="margin-left:auto">${hqMode ? '📶 고해상도' : '📶 표준'}</span>
-        </div>
-      </div>
-    `);
+    // 우측 패널: ThumbCard 그리드(상단) + PC 목록(하단)
+    const dotColors = { '수업 중':'#22d3ee', '잠김':'#fca5a5', '⚠️ 꺼짐':'#6b8fae' };
+    const statusLabels = { '수업 중':'자유', '잠김':'잠김', '⚠️ 꺼짐':'미접속' };
+    const badgeBorder = { '💬1':'#3b82f6', '🆘':'#ef4444', '🔒':'rgb(var(--c-border))', '⚠️3':'rgb(var(--c-border))' };
+    const isSos = (b) => b === '🆘';
+    const verMap = { 'PC-01':'v0.2.58', 'PC-02':'v0.2.58', 'PC-03':'v0.2.58', 'PC-04':'v0.2.56', 'PC-05':'v0.2.58' };
+    const stu = '<div class="ps-title"><span>🖥 교사 앱 우측 패널 · 학생 모니터링</span></div>' +
+      '<div style="background:#0f172a;height:380px;overflow:hidden;display:flex;flex-direction:column">' +
+        /* === 상단 뷰 전환 토글 === */
+        '<div style="display:flex;align-items:center;gap:4px;padding:5px 8px;font-size:9px;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">' +
+          '<span style="background:rgba(34,197,94,.15);color:#86efac;padding:1px 6px;border-radius:3px;font-weight:700">자동 정렬</span>' +
+          '<span style="color:#64748b;padding:1px 6px;border-radius:3px">실습실 배치</span>' +
+          '<span style="margin-left:auto;color:#64748b">' + thumbSize + 'px</span>' +
+        '</div>' +
+        /* === 썸네일 그리드 영역 === */
+        '<div style="display:flex;gap:6px;padding:8px;flex:1;overflow:hidden;align-items:flex-start;flex-wrap:wrap;align-content:flex-start">' +
+          demoPcs.map(p => {
+            const bw = badgeBorder[p.badge] || 'rgb(var(--c-border))';
+            const dot = dotColors[p.status] || '#64748b';
+            const sl = statusLabels[p.status] || p.status;
+            const iconS = Math.max(18, Math.round(thumbSize * 0.22));
+            const sosAnim = isSos(p.badge) ? 'animation:blink 1.2s infinite' : '';
+            return '<div style="width:' + thumbSize + 'px;background:rgba(255,255,255,.04);border:1.5px solid ' + bw + ';border-radius:7px;overflow:hidden;transition:all.15s;cursor:pointer' + (isSos(p.badge) ? ';box-shadow:0 0 10px rgba(239,68,68,.25)' : '') + '"' +
+              ' onclick="showViewer(\'' + p.name + '\')"' +
+              ' onmouseenter="this.style.borderColor=\'#60a5fa\';this.style.boxShadow=\'0 0 12px rgba(96,165,250,.2)\'"' +
+              ' onmouseleave="this.style.borderColor=\'' + bw + '\';this.style.boxShadow=' + (isSos(p.badge) ? "'0 0 10px rgba(239,68,68,.25)'" : "''") + '">' +
+              '<div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;font-size:' + iconS + 'px;color:#475569">🖥</div>' +
+              '<div style="display:flex;align-items:center;gap:4px;padding:4px 6px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap">' +
+                '<span style="width:6px;height:6px;border-radius:50%;background:' + dot + ';flex-shrink:0' + (p.status === '⚠️ 꺼짐' ? ';opacity:.5' : '') + '"></span>' +
+                '<span style="font-size:10px;font-weight:600;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:65px">' + p.name + '</span>' +
+                '<span style="font-size:8px;color:#64748b;margin-left:auto">' + sl + '</span>' +
+                (p.badge ? (p.badge === '🔒'
+                  ? '<span style="width:100%;margin-top:1px;color:#fca5a5;font-size:8px">🔒 잠김</span>'
+                  : '<span style="width:100%;margin-top:1px;display:flex;gap:2px">' +
+                    (p.badge === '💬1' ? '<span style="background:rgba(59,130,246,.2);color:#93c5fd;padding:0 4px;border-radius:3px;font-size:7px;font-weight:700">💬1</span>' : '') +
+                    (p.badge === '🆘' ? '<span style="background:rgba(239,68,68,.2);color:#fca5a5;padding:0 4px;border-radius:3px;font-size:7px;font-weight:700;' + sosAnim + '">🆘</span>' : '') +
+                    (p.badge === '⚠️3' ? '<span style="background:rgba(239,68,68,.2);color:#fca5a5;padding:0 4px;border-radius:3px;font-size:7px;font-weight:700">⚠️3</span>' : '') +
+                  '</span>')
+                : '') +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+        /* === 하단 PC 목록 패널 (실제 앱 구조 반영) === */
+        '<div style="border-top:1px solid rgba(255,255,255,.08);flex-shrink:0">' +
+          '<div style="display:flex;align-items:center;padding:4px 8px;gap:4px;background:rgba(0,0,0,.15);border-bottom:1px solid rgba(255,255,255,.04)">' +
+            '<input type="checkbox" style="accent-color:#3b82f6;width:12px;height:12px">' +
+            '<span style="font-size:11px;font-weight:600;color:#cbd5e1">5/20</span>' +
+            '<span style="color:#64748b;font-size:9px;margin-left:2px">전체 선택</span>' +
+            '<span style="margin-left:auto;display:flex;gap:3px">' +
+              '<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(34,197,94,.12);color:#86efac;cursor:default;font-weight:600">🟢 자유</span>' +
+              '<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(59,130,246,.12);color:#93c5fd;cursor:default;font-weight:600">🔵 집중</span>' +
+              '<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(239,68,68,.12);color:#fca5a5;cursor:default;font-weight:600">🔒 잠금</span>' +
+              '<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(148,163,184,.12);color:#94a3b8;cursor:default;font-weight:600">⏻ 전원</span>' +
+            '</span>' +
+          '</div>' +
+          '<div style="overflow-y:auto;max-height:95px;background:rgba(0,0,0,.08)">' +
+            demoPcs.map(p => {
+              const d = dotColors[p.status] || '#64748b';
+              const sl2 = statusLabels[p.status] || p.status;
+              const wd = p.status === '⚠️ 꺼짐' ? '<span style="background:rgba(239,68,68,.15);color:#fca5a5;padding:0 4px;border-radius:3px;font-size:8px;font-weight:700;margin-left:4px">⚠️ 감시끊김</span>' : '';
+              return '<div style="display:flex;align-items:center;gap:5px;padding:4px 8px;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer" onclick="showViewer(\'' + p.name + '\')">' +
+                '<input type="checkbox" style="accent-color:#3b82f6;width:11px;height:11px">' +
+                '<span style="width:6px;height:6px;border-radius:50%;background:' + d + ';flex-shrink:0' + (p.status === '⚠️ 꺼짐' ? ';opacity:.5' : '') + '"></span>' +
+                '<span style="font-size:10px;font-weight:600;color:#cbd5e1;white-space:nowrap">' + p.name + '</span>' +
+                '<span style="font-size:8px;color:#64748b">' + sl2 + '</span>' +
+                '<span style="font-size:8px;color:#475569">' + (verMap[p.name] || '') + '</span>' +
+                wd +
+                '<span style="margin-left:auto;display:flex;gap:2px">' +
+                  '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.06);color:#94a3b8;cursor:default" title="뷰어">👁️</span>' +
+                  '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.06);color:#94a3b8;cursor:default" title="모드 전환">자</span>' +
+                  '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.06);color:#94a3b8;cursor:default" title="릴레이">📡</span>' +
+                  '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.06);color:#94a3b8;cursor:default" title="잠금">🔒</span>' +
+                  '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.06);color:#94a3b8;cursor:default" title="전원">⏻</span>' +
+                '</span>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+      '</div>';
 
-    div.innerHTML = '<h2>👀 학생 화면 모니터링</h2><div class="sub">모니터링</div>';
-    div.innerHTML += iSection('썸네일 크기와 고해상도를 조절해보세요', sidebar, iStu(stu),
-      '<b>🔍 썸네일</b> — 학생 화면 실시간 썸네일. 크기 조절 슬라이더, 고/저해상도 전환. 더블클릭 → 뷰어(별도 창). 우클릭 → 개별 제어 메뉴.<br>' +
-      '<b>배지</b> — 💬메시지/✅완료/✋도움/🆘이상 배지가 PC 카드에 표시. ⚠️N 워치독 경고(3회+ 시 빨간 펄스).'
+    div.innerHTML = '<h2>👀 학생 화면 모니터링</h2><div class="sub">학생 화면 실시간 보기</div>';
+    div.innerHTML += iSection('썸네일 크기 슬라이더를 움직여보세요. 학생 PC 카드를 클릭하면 뷰어가 열립니다.', sidebar, iStu(stu),
+      '교사 앱 우측 패널에 <b>접속한 학생들 화면이 실시간 썸네일로</b> 표시됩니다. 슬라이더로 크기를 80~300px 사이에서 자유롭게 조절. 썸네일을 <b>클릭</b>하면 별도 뷰어 창이 열려 크게 보거나 원격 제어를 할 수 있고, <b>우클릭</b>으로 개별 제어 메뉴(잠금/집중/메시지 등)에 바로 접근합니다. 메시지·도움요청·이상신고 같은 학생 알림은 <b>각 PC 카드에 배지</b>로 뜹니다.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🔍 썸네일 보기</h3><p>학생들의 화면이 실시간 썸네일로 표시됩니다. 슬라이더로 크기 조절(40~120px), 고해상도/저해상도 모드 전환 가능.</p></div>' +
-      '<div class="card"><h3>💺 실습실 배치 <span class="badge badge-green">v0.1.43+</span></h3><p>자동 정렬 외에 실제 교실 좌석 배치도 저장/불러오기. CSV 가져오기/내보내기. 프리셋 다중 등록.</p></div>' +
-      '<div class="card"><h3>🔎 뷰어 (크게 보기)</h3><p>썸네일 더블클릭 → 별도 뷰어 창. 이전/다음 학생 이동. 원격 제어 켜면 해당 PC 마우스/키보드 직접 조작.</p></div>' +
-      '<div class="card"><h3>📋 클립보드 읽기 <span class="badge badge-green">v0.1.51+</span></h3><p>뷰어 창 📋 버튼으로 학생 PC 클립보드(텍스트·이미지) 읽어오기. 자동 복사, 타임아웃 10초.</p></div>' +
-      '<div class="card"><h3>🖱 원격 제어</h3><p>뷰어 창에서 원격 제어 ON → 해당 학생 PC 마우스/키보드 직접 조작. 마우스 전송률 하향 조정으로 안정성 확보.</p></div>' +
-      '<div class="card"><h3>📺 중계</h3><p>특정 학생 화면을 다른 모든 학생에게 실시간 중계. 발표/과제 시연에 활용.</p></div>' +
-      '<div class="card"><h3>⚡ 워치독 알림 <span class="badge badge-green">v0.1.24+</span></h3><p>학생 앱 강제 종료 시 ⚠️ 경고. 3회 이상 시 빨간 테두리+펄스. 우클릭 → 경고 해제.</p></div>' +
-      '<div class="card"><h3>📬 메시지 배지</h3><p>🆘>✋>💬>✅ 순 정렬. 미확인 메시지 수가 PC 카드에 배지로 표시. 서버 rate limit(동일 pc+type 쿨다운).</p></div>' +
-      '</div></div>';
+      '<div class="card"><h3>🔍 썸네일 크기</h3><p>슬라이더로 <b>80~300px</b> 자유 조절(기본 160). 학생 인원이 많으면 작게, 화면 디테일 확인할 땐 크게.</p></div>' +
+      '<div class="card"><h3>💺 좌석 배치 모드</h3><p>썸네일 그리드 외에 실제 교실 좌석 배치를 그대로 두고 학생 화면을 모니터링할 수 있습니다. <a href="#" class="detail-link" onclick="goToPage(\'mon-seat\');return false;">→ 자세히</a></p></div>' +
+      '<div class="card"><h3>🔎 뷰어 (크게 보기)</h3><p>썸네일 <b>더블클릭</b> → 별도 뷰어 창. ◀ ▶ 키로 이전/다음 학생 이동. 뷰어 안에서 원격 제어·클립보드 읽기·중계 등 거의 모든 기능 가능.</p></div>' +
+      '<div class="card"><h3>📋 클립보드 읽기</h3><p>뷰어 창 <b>📋 버튼</b>으로 학생 PC 클립보드의 텍스트/이미지를 그대로 가져옵니다. 교사 PC 클립보드에도 자동 복사 — 그대로 붙여넣기 가능. 타임아웃 10초.</p></div>' +
+      '<div class="card"><h3>🖱 원격 제어</h3><p>뷰어 창에서 <b>원격 제어 ON</b> → 해당 학생 PC 마우스/키보드를 직접 조작. 학생 어려움 즉시 도와주거나 작업 보여주기에 활용.</p></div>' +
+      '<div class="card"><h3>📺 중계 (방송)</h3><p>특정 학생 화면을 <b>다른 모든 학생에게 실시간 중계</b>. 잘한 학생 결과물 발표, 시연자 화면 공유 등에 활용. 뷰어 창에서 시작/종료.</p></div>' +
+      '<div class="card"><h3>⚡ 워치독 경고</h3><p>학생 앱이 비정상 종료되어 워치독이 살리는 일이 잦으면 PC 카드에 <b>⚠️N</b> 배지가 표시됩니다. 3회 이상이면 빨간 테두리 + 펄스로 강조. 우클릭으로 경고 해제.</p></div>' +
+      '<div class="card"><h3>📬 학생 메시지 배지</h3><p>학생 플로팅 바에서 보낸 메시지/도움/이상/완료가 PC 카드에 배지로 뜹니다. 우선순위: <b>🆘 &gt; ✋ &gt; 💬 &gt; ✅</b>. 같은 메시지 연속 발송은 쿨다운으로 차단.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>모니터링 흐름 정리</b> — 평소 썸네일로 전체 살피기 → 한 학생 화면 자세히 볼 일 있으면 더블클릭(뷰어) → 도와줄 일 있으면 원격 제어 → 좋은 작업이면 중계. 학생이 메시지 보내면 카드 배지로 알림 → 📬 단축 버튼으로 모달 열어 확인.</div></div>';
   }
   window.setThumb = function(s) { thumbSize = s; render(); };
   const _render = render;
   render = function() {
     _render();
-    const chk = div.querySelector('#mon-hq');
-    if (chk) {
-      const newChk = chk.cloneNode(true);
-      chk.parentNode.replaceChild(newChk, chk);
-      newChk.addEventListener('change', function() { hqMode = this.checked; render(); toast(hqMode ? '📶 고해상도 모드' : '📶 표준 모드', 'info'); });
+    const rng = div.querySelector('#mon-size');
+    if (rng) {
+      rng.addEventListener('input', function() { thumbSize = parseInt(this.value); render(); });
     }
+  };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 6-B. SEAT LAYOUT — 실습실 배치
+// ═══════════════════════════════════════════════
+function buildSeatLayout(div) {
+  // 데모 프리셋 3개
+  const presets = {
+    '1실 25석': { rows: 5, cols: 5, front: 'top',    pcs: ['PC-01','PC-02','PC-03','PC-04','PC-05','PC-06','PC-07','PC-08','PC-09','PC-10','PC-11','PC-12','PC-13','PC-14','PC-15','PC-16','PC-17','PC-18','PC-19','PC-20','PC-21','PC-22','PC-23','PC-24','PC-25'] },
+    '2실 30석': { rows: 6, cols: 5, front: 'top',    pcs: ['PC-A1','PC-A2','PC-A3','PC-A4','PC-A5','PC-B1','PC-B2','PC-B3','PC-B4','PC-B5','PC-C1','PC-C2','PC-C3','PC-C4','PC-C5','PC-D1','PC-D2','PC-D3','PC-D4','PC-D5','PC-E1','PC-E2','PC-E3','PC-E4','PC-E5','PC-F1','PC-F2','PC-F3','PC-F4','PC-F5'] },
+    '랩실 18석': { rows: 3, cols: 6, front: 'bottom', pcs: ['L-01','L-02','L-03','L-04','L-05','L-06','L-07','L-08','L-09','L-10','L-11','L-12','L-13','L-14','L-15','L-16','L-17','L-18'] },
+  };
+  let activeName = '1실 25석';
+  let viewMode = 'layout'; // 'layout' 또는 'edit' (편집 모달 모양)
+
+  function render() {
+    const p = presets[activeName];
+
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">💺 좌석 프리셋</div>
+        ${Object.keys(presets).map(name => {
+          const pr = presets[name];
+          const active = name === activeName;
+          return '<div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid rgb(var(--c-border));cursor:pointer;' + (active ? 'background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent)' : '') + '" onclick="seatSetActive(\'' + name + '\')">' +
+            '<span style="font-size:13px">' + (active ? '🟠' : '⚪') + '</span>' +
+            '<div style="flex:1;min-width:0">' +
+              '<div style="font-size:11px;font-weight:600;color:' + (active ? 'rgb(var(--c-accent))' : 'rgb(var(--c-txt))') + '">' + name + '</div>' +
+              '<div style="font-size:9px;color:rgb(var(--c-txt3))">' + pr.rows + '×' + pr.cols + ' · ' + pr.pcs.length + '대</div>' +
+            '</div>' +
+          '</div>';
+        }).join('')}
+        <div class="is-row" style="padding:5px 10px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="toast('➕ 새 프리셋 생성 모달','info')">➕ 새 프리셋</div></div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">📐 행 × 열</div>
+        <div class="is-row" style="gap:6px;padding-bottom:4px">
+          <input type="number" value="${p.rows}" min="1" max="10" class="is-inp" style="width:50px;text-align:center;padding:3px 6px" disabled>
+          <span style="font-size:10px;color:rgb(var(--c-txt3));align-self:center">×</span>
+          <input type="number" value="${p.cols}" min="1" max="10" class="is-inp" style="width:50px;text-align:center;padding:3px 6px" disabled>
+        </div>
+        <div class="is-label">📋 칠판 위치</div>
+        <div class="is-row" style="gap:3px;padding-bottom:4px">
+          ${['top','bottom','left','right'].map(pos => {
+            const labels = {top:'⬆ 위', bottom:'⬇ 아래', left:'⬅ 왼쪽', right:'➡ 오른쪽'};
+            const active = pos === p.front;
+            return '<div class="is-btn sm ' + (active ? 'active' : '') + '" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ' + (active ? '14' : '4') + '%,transparent);color:rgb(var(--c-blue))" onclick="toast(\'편집 모달에서 변경 가능: ' + labels[pos] + '\',\'info\')">' + labels[pos] + '</div>';
+          }).join('')}
+        </div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label" style="padding-bottom:2px">🗃 CSV</div>
+        <div class="is-row" style="padding-bottom:6px;gap:4px">
+          <div class="is-btn sm" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 10%,transparent);color:rgb(var(--c-green));flex:1" onclick="toast('📥 ' + '${activeName}' + '_이름.csv 다운로드','success')">📥 내보내기</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) 10%,transparent);color:rgb(var(--c-purple));flex:1" onclick="toast('📤 CSV 가져오기 — 학번/이름 양식','info')">📤 가져오기</div>
+        </div>
+      </div>
+    `);
+
+    // 우측 패널: 좌석 그리드 + 칠판
+    const cellSize = Math.min(28, Math.floor(180 / Math.max(p.rows, p.cols)));
+    const cellGap = 4;
+    const blackboard = '<div style="background:linear-gradient(180deg,#1e293b,#0f172a);border:1px solid #475569;color:#86efac;font-size:10px;font-weight:700;text-align:center;padding:5px;border-radius:3px;letter-spacing:1px">📋 칠판</div>';
+
+    const seats = [];
+    let pcIdx = 0;
+    for (let r = 0; r < p.rows; r++) {
+      const row = [];
+      for (let c = 0; c < p.cols; c++) {
+        const pcName = p.pcs[pcIdx++];
+        if (pcName) {
+          row.push('<div style="width:' + cellSize + 'px;height:' + Math.round(cellSize*0.75) + 'px;background:#1e293b;border:1px solid #475569;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#94a3b8;font-weight:600">' + pcName + '</div>');
+        } else {
+          row.push('<div style="width:' + cellSize + 'px;height:' + Math.round(cellSize*0.75) + 'px;border:1px dashed #334155;border-radius:3px"></div>');
+        }
+      }
+      seats.push('<div style="display:flex;gap:' + cellGap + 'px">' + row.join('') + '</div>');
+    }
+    const seatGrid = '<div style="display:flex;flex-direction:column;gap:' + cellGap + 'px">' + seats.join('') + '</div>';
+
+    let layout;
+    if (p.front === 'top') {
+      layout = blackboard + '<div style="margin-top:10px">' + seatGrid + '</div>';
+    } else if (p.front === 'bottom') {
+      layout = seatGrid + '<div style="margin-top:10px">' + blackboard + '</div>';
+    } else if (p.front === 'left') {
+      layout = '<div style="display:flex;gap:10px;align-items:center"><div style="writing-mode:vertical-rl;transform:rotate(180deg)">' + blackboard + '</div>' + seatGrid + '</div>';
+    } else {
+      layout = '<div style="display:flex;gap:10px;align-items:center">' + seatGrid + '<div style="writing-mode:vertical-rl">' + blackboard + '</div></div>';
+    }
+
+    const stu = '<div class="ps-title"><span>🖥 교사 앱 우측 패널 · 좌석 배치 모드</span></div>' +
+      '<div style="background:#0f172a;height:280px;overflow:hidden;display:flex;flex-direction:column">' +
+        '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;font-size:9px;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">' +
+          '<span style="color:#64748b">썸네일</span>' +
+          '<span style="background:rgba(34,197,94,.15);color:#86efac;padding:1px 6px;border-radius:3px;font-weight:700">좌석 ✓</span>' +
+          '<span style="margin-left:auto">' + activeName + ' · ' + p.pcs.length + '대</span>' +
+        '</div>' +
+        '<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:14px">' + layout + '</div>' +
+        '<div style="padding:5px 10px;font-size:9px;color:#64748b;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2)">실제 좌석 위치에 학생 PC 썸네일이 동일하게 표시됨</div>' +
+      '</div>';
+
+    div.innerHTML = '<h2>💺 실습실 배치</h2><div class="sub">교실 자리 그대로 학생 화면 보기</div>';
+    div.innerHTML += iSection('프리셋을 바꿔보면 우측 좌석 배치도 따라 바뀝니다', sidebar, iStu(stu),
+      '<b>좌석 배치 모드</b>는 학생 PC를 자동 정렬이 아니라 <b>실제 교실 자리 그대로</b> 화면에 배치합니다. 누가 어디 앉았는지 한눈에 보여서 화면 살피기·도와주기·메시지 받기가 직관적이 됩니다. <b>여러 실습실을 프리셋으로 저장</b>해 두면 수업 시작할 때 프리셋만 선택하면 끝.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>💺 자동 정렬과 뭐가 다른가?</h3><p>자동 정렬은 접속 순서·이름 순으로 그리드에 쭉 놓는 방식. 좌석 배치 모드는 <b>실제 책상 위치에 PC를 배치</b>해서 학생이 앉은 자리와 화면 위치가 1:1로 맞습니다.</p></div>' +
+      '<div class="card"><h3>📋 다중 프리셋</h3><p>실습실마다 다른 좌석 배치를 저장하고 이름 붙여 관리. 한 교사 PC로 여러 실(1실/2실/랩실 등)을 운영할 때 유용. 프리셋 선택 한 번으로 그날 수업 배치 완료.</p></div>' +
+      '<div class="card"><h3>📐 행 × 열 + 칠판 위치</h3><p>편집 모달에서 <b>행/열 수</b>와 <b>칠판 위치</b>(위/아래/좌/우)를 지정합니다. 칠판 위치 기준으로 학생 시점이 그려지므로 정확히 맞춰야 좌석 인식이 자연스러움.</p></div>' +
+      '<div class="card"><h3>🪑 PC 배치 (드래그)</h3><p>편집 모달 우측의 <b>미배치 PC 목록</b>에서 좌석으로 드래그해 자리를 지정. 좌석에 놓인 PC를 미배치로 다시 끌어내려면 우측으로 드래그.</p></div>' +
+      '<div class="card"><h3>📥 CSV 내보내기</h3><p><b>현재 배치 + 학생 이름</b>을 csv로 저장. 파일명 예: <code>1실 25석_이름.csv</code>. 학교 양식 제출, 출석부 작성, 백업에 활용.</p></div>' +
+      '<div class="card"><h3>📤 CSV 가져오기</h3><p>학번·이름 양식 csv를 불러와 한 번에 자리 배정. 학기 초 명단 그대로 좌석 만들기에 가장 빠른 방법. 기존 좌석 위에 덮어쓰기 안 함 — 미배치 PC 옆에 이름이 매칭됨.</p></div>' +
+      '<div class="card"><h3>🎯 모니터링 연동</h3><p>좌석 배치 모드를 켜면 <b>학생 화면 모니터링 페이지의 썸네일</b>이 실제 자리 위치에 그대로 표시됩니다. 더블클릭/우클릭/메시지 배지 등 모든 동작은 똑같이 작동.</p></div>' +
+      '<div class="card"><h3>🔄 모드 전환</h3><p>우측 패널 상단의 <b>썸네일 / 좌석</b> 토글로 언제든 전환. 자동 정렬이 편한 시간엔 썸네일, 자리 파악이 중요한 시간엔 좌석 모드.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>학기 초 셋업 흐름</b> — 학교 명단 csv 준비 → 📤 가져오기 → 행/열·칠판 위치 맞추기 → 미배치 PC를 좌석으로 드래그 → 프리셋 이름 짓고 저장. 다음 수업부턴 프리셋 선택만으로 끝.</div></div>';
+  }
+
+  window.seatSetActive = function(name) { activeName = name; render(); toast('💺 ' + name + ' 프리셋 적용', 'success'); };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 6-C. PROJECTOR — 프로젝터 뷰
+// ═══════════════════════════════════════════════
+function buildProjector(div) {
+  let split = 4;             // 2 | 4 | 6 | 9
+  let autoOn = false;
+  let interval = 5;          // 초
+  let page = 0;
+  let timer = null;
+  const pcs = ['PC-01','PC-02','PC-03','PC-04','PC-05','PC-06','PC-07','PC-08','PC-09','PC-10','PC-11','PC-12','PC-13','PC-14','PC-15','PC-16','PC-17','PC-18','PC-19','PC-20'];
+
+  function totalPages() { return Math.max(1, Math.ceil(pcs.length / split)); }
+
+  function render() {
+    if (page >= totalPages()) page = 0;
+
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">📺 프로젝터 뷰</div>
+        <div style="font-size:10px;color:rgb(var(--c-txt2));padding:2px 10px 4px">학생 화면을 분할 그리드로 풀스크린 표시. 보조 모니터(프로젝터)에 띄워 모두에게 같은 화면을 보여줍니다.</div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">🔲 분할</div>
+        <div class="is-row" style="gap:3px">
+          ${[2,4,6,9].map(s => '<div class="is-btn sm ' + (split===s?'active':'') + '" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ' + (split===s?'14':'4') + '%,transparent);color:rgb(var(--c-blue));flex:1;text-align:center" onclick="projSplit(' + s + ')">' + s + '분할</div>').join('')}
+        </div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">📄 페이지 ${page+1} / ${totalPages()}</div>
+        <div class="is-row" style="gap:4px;padding-bottom:4px">
+          <div class="is-btn sm" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) 8%,transparent);color:rgb(var(--c-txt2));flex:1;text-align:center" onclick="projPrev()">◀ 이전</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) 8%,transparent);color:rgb(var(--c-txt2));flex:1;text-align:center" onclick="projNext()">다음 ▶</div>
+        </div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">🔄 자동 전환</div>
+        <div class="is-row" style="padding-bottom:4px">
+          <div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) ${autoOn?'14':'6'}%,transparent);color:rgb(var(--c-accent))" onclick="projAuto()">${autoOn ? '⏹ 자동 중지' : '▶ 자동 시작'}</div>
+        </div>
+        <div class="is-row" style="gap:3px;padding-bottom:4px">
+          <span style="font-size:10px;color:rgb(var(--c-txt3));align-self:center">간격</span>
+          ${[3,5,10,15].map(s => '<div class="is-btn sm ' + (interval===s?'active':'') + '" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) ' + (interval===s?'14':'4') + '%,transparent);color:rgb(var(--c-purple))" onclick="projInterval(' + s + ')">' + s + 's</div>').join('')}
+        </div>
+        ${totalPages() <= 1 ? '<div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">⚠ 페이지가 1장이라 자동 전환 불필요</div>' : ''}
+      </div>
+    `);
+
+    // 프로젝터 화면 시뮬레이션 — split에 따라 그리드 행/열 계산
+    const cols = split === 2 ? 2 : split === 4 ? 2 : split === 6 ? 3 : 3;
+    const rows = split === 2 ? 1 : split === 4 ? 2 : split === 6 ? 2 : 3;
+    const start = page * split;
+    const tiles = [];
+    for (let i = 0; i < split; i++) {
+      const idx = start + i;
+      const pc = pcs[idx];
+      if (pc) {
+        tiles.push('<div style="background:linear-gradient(135deg,#1e3a5f,#0f1e30);border:1px solid #475569;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#94a3b8;position:relative;overflow:hidden">' +
+          '<div style="font-size:22px;color:#60a5fa">📺</div>' +
+          '<div style="font-size:9px;font-weight:700;color:#cbd5e1;margin-top:2px">' + pc + '</div>' +
+          '<div style="position:absolute;top:3px;right:5px;width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px rgba(34,197,94,.6)"></div>' +
+        '</div>');
+      } else {
+        tiles.push('<div style="background:#0f172a;border:1px dashed #334155;border-radius:4px"></div>');
+      }
+    }
+
+    const stu = '<div class="ps-title"><span>📽 프로젝터 화면 (보조 모니터)</span></div>' +
+      '<div style="background:#000;height:260px;display:flex;flex-direction:column;padding:8px">' +
+        '<div style="display:flex;align-items:center;gap:6px;font-size:9px;color:#86efac;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08)">' +
+          '<span style="background:rgba(34,197,94,.15);padding:1px 6px;border-radius:3px;font-weight:700">' + split + '분할</span>' +
+          '<span style="color:#94a3b8">' + Math.min(start+1, pcs.length) + '~' + Math.min(start+split, pcs.length) + ' / 총 ' + pcs.length + '대</span>' +
+          (autoOn ? '<span style="margin-left:auto;color:#fbbf24;font-weight:700">🔄 자동 ' + interval + 's</span>' : '<span style="margin-left:auto;color:#64748b">페이지 ' + (page+1) + '/' + totalPages() + '</span>') +
+        '</div>' +
+        '<div style="flex:1;display:grid;gap:6px;padding-top:6px;grid-template-columns:repeat(' + cols + ',1fr);grid-template-rows:repeat(' + rows + ',1fr)">' + tiles.join('') + '</div>' +
+      '</div>';
+
+    div.innerHTML = '<h2>📺 프로젝터 뷰</h2><div class="sub">학생 화면을 분할로 모두에게 보여주기</div>';
+    div.innerHTML += iSection('분할·페이지·자동 전환을 바꿔보면 프로젝터 화면이 실시간으로 변합니다', sidebar, iStu(stu),
+      '<b>📺 프로젝터 뷰</b>는 학생 화면을 <b>2/4/6/9분할 그리드</b>로 풀스크린 표시합니다. 보조 모니터(프로젝터/외부 모니터)에 띄워서 전 학생이 같은 분할 화면을 보게 할 수 있습니다. <b>발표·시연·자랑할 때</b>: 잘한 학생 화면을 모두가 볼 수 있게. <b>모니터링용</b>: 교사 PC 모니터를 가리지 않고 별도 화면으로 학생 진행 상황 한눈에. 학생이 많으면 <b>자동 페이지 전환</b>으로 돌아가며 표시.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>🔲 4가지 분할 모드</h3><p><b>2분할</b> 큰 화면 자세히 / <b>4분할</b> 균형, 가장 자주 사용 / <b>6분할</b> 학생 많을 때 / <b>9분할</b> 한 화면에 최대. 분할이 커질수록 학생 화면이 작아지지만 한 번에 더 많이 보임.</p></div>' +
+      '<div class="card"><h3>📄 페이지 자동 계산</h3><p>학생 수 ÷ 분할 = 페이지 수. 예: 20명 학생을 4분할로 보면 <b>5페이지</b>. ◀ 이전 / 다음 ▶ 버튼으로 수동 이동.</p></div>' +
+      '<div class="card"><h3>🔄 자동 페이지 전환</h3><p>지정 간격(3s/5s/10s/15s)으로 페이지가 자동으로 넘어갑니다. 4분할 + 5초로 20명을 보면 약 25초마다 한 바퀴 돌음. 수업 진행하면서 학생 상황 살피기에 최적.</p></div>' +
+      '<div class="card"><h3>🖥 보조 모니터 활용</h3><p>이상적으로는 교사 PC에 <b>외부 모니터/프로젝터</b>를 연결해 프로젝터 뷰를 그 화면에 띄움. 교사 본인은 메인 모니터에서 평소 작업, 학생들은 프로젝터로 보는 구조.</p></div>' +
+      '<div class="card"><h3>🎯 발표·시연용</h3><p>잘한 학생 결과물을 발표시킬 때 2분할로 큰 화면. 작품 비교·평가에 활용. 중계와 다른 점: 중계는 학생 PC에 띄워주는 것, 프로젝터 뷰는 교사 측 보조 모니터에 띄우는 것.</p></div>' +
+      '<div class="card"><h3>👀 모니터링과의 차이</h3><p>썸네일 모드는 교사 앱 우측 패널 안. 프로젝터 뷰는 <b>별도 풀스크린 창</b>으로 외부 모니터에 띄우는 용도. 시선이 분산되지 않고 강의 흐름 유지.</p></div>' +
+      '<div class="card"><h3>🟢 접속 상태 표시</h3><p>각 분할 우상단의 작은 초록 점은 <b>접속 상태</b>를 보여줍니다. 학생 PC가 꺼지거나 끊기면 회색으로 변해 즉시 인지 가능.</p></div>' +
+      '<div class="card"><h3>⌨ 풀스크린 토글</h3><p>프로젝터 창을 띄운 뒤 <kbd>F11</kbd>로 풀스크린 ON/OFF. 발표 시작 전에 풀스크린으로 만들고 시작.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>가장 흔한 사용 패턴</b> — 평소 메인 화면은 PPT, 보조 모니터에 프로젝터 뷰(4분할 + 자동 10s) → 강의하면서 곁눈으로 학생 상황 확인. 누가 집중 안 하는지 5분만에 다 보임.</div></div>';
+  }
+
+  window.projSplit = function(s) {
+    split = s; page = 0; render();
+    if (totalPages() <= 1 && autoOn) { autoOn = false; clearInterval(timer); }
+  };
+  window.projPrev = function() { page = (page - 1 + totalPages()) % totalPages(); render(); };
+  window.projNext = function() { page = (page + 1) % totalPages(); render(); };
+  window.projAuto = function() {
+    if (totalPages() <= 1) { toast('⚠ 페이지가 1장이라 자동 전환 불필요', 'warning'); return; }
+    autoOn = !autoOn;
+    clearInterval(timer);
+    if (autoOn) {
+      timer = setInterval(() => { page = (page + 1) % totalPages(); render(); }, interval * 1000);
+      toast('🔄 자동 전환 시작 (' + interval + '초 간격)', 'success');
+    } else {
+      toast('⏹ 자동 전환 중지', 'info');
+    }
+    render();
+  };
+  window.projInterval = function(s) {
+    interval = s;
+    if (autoOn) {
+      clearInterval(timer);
+      timer = setInterval(() => { page = (page + 1) % totalPages(); render(); }, interval * 1000);
+    }
+    render();
   };
   render();
 }
@@ -636,16 +1189,19 @@ function buildModeLock(div) {
     if (locked) stu = stuLocked();
     else if (mode === 'focus') stu = stuFocus();
     else stu = stuFree();
-    div.innerHTML = '<h2>🟢 모드 설정 / 🔒 전체 잠금</h2><div class="sub">모드 · 잠금</div>';
+    div.innerHTML = '<h2>🟢 모드 설정 / 🔒 전체 잠금</h2><div class="sub">수업 통제 — 모드 · 잠금</div>';
     div.innerHTML += iSection('모드와 잠금을 직접 제어해보세요', sidebar, iStu(stu),
-      '<b>🟢 자유</b> — 제한 없음 · <b>🟣 집중</b> — 허용 프로그램만 실행 가능 · <b>🔒 전체 잠금</b> — 학생 화면 검게 잠금 + 메시지 표시'
+      '<b>🟢 자유</b> — 학생이 모든 프로그램을 자유롭게 사용. <b>🟣 집중</b> — 허용한 프로그램만 실행 가능, 나머지는 자동 종료. <b>🔒 전체 잠금</b> — 학생 화면을 검게 가리고 안내 메시지 표시. 모든 모드는 전체 학생에게 동시 적용되며, 개별 PC 통제는 우측 패널에서 우클릭으로 가능합니다.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🔴 화면 잠금</h3><p>학생 화면을 검게 잠급니다. 메시지를 함께 전송할 수 있습니다. 전체 또는 개별 PC 선택 가능. 잠금 해제 시 원래 상태로 복원.</p></div>' +
-      '<div class="card"><h3>🟢 자유 모드</h3><p>제한 없음. 학생이 모든 프로그램을 자유롭게 사용할 수 있습니다. 기본 모드.</p></div>' +
-      '<div class="card"><h3>🟣 집중 모드</h3><p>특정 프로그램만 허용. 허용 목록에 없는 프로그램 실행 시 차단. 90초 안전망(연결 끊김 시 자동 해제).</p></div>' +
-      '<div class="card"><h3>🔒 잠금 안전장치</h3><p>잠금/집중 모드는 연결 끊김 90초 후 자동 해제(<b>lockSafetyInterval</b>). 교사 앱 사망 추정 시 학생 멈춤 방지.</p></div>' +
-      '</div></div>';
+      '<div class="card"><h3>🟢 자유 모드</h3><p>기본 상태. 학생이 모든 프로그램을 자유롭게 사용. 실습/자습 시간에 적합.</p></div>' +
+      '<div class="card"><h3>🟣 집중 모드</h3><p>설정에서 허용한 프로그램(예: 한글, 코딩 IDE)만 실행 가능. 다른 프로그램은 즉시 종료됩니다. 시험·평가 시간에 유용.</p></div>' +
+      '<div class="card"><h3>🔒 전체 잠금</h3><p>학생 화면을 검게 잠그고 메시지를 함께 표시합니다 (예: "5분 휴식"). 주목 시킬 때 가장 강력한 방법. 해제하면 원래 상태로 복원.</p></div>' +
+      '<div class="card"><h3>🛡 90초 자동 해제 안전망</h3><p>교사 앱이 비정상 종료되거나 LAN 끊김 등으로 <b>90초 이상 학생-교사 연결이 끊기면 잠금/집중이 자동 해제</b>됩니다. 교사 PC 다운 시 학생이 영구 잠긴 채 방치되는 사고를 막아줍니다.</p></div>' +
+      '<div class="card"><h3>🎯 개별 PC 통제</h3><p>우측 패널에서 PC를 <b>우클릭</b> → 해당 PC만 잠금/집중/해제. 산만한 학생 한 명만 잠시 잠그는 등 세밀한 통제 가능.</p></div>' +
+      '<div class="card"><h3>🔁 재접속 시 자동 동기</h3><p>학생 PC가 켜지거나 LAN 재연결될 때 교사가 켜둔 잠금/모드가 <b>자동으로 다시 적용</b>됩니다. 학생이 재부팅으로 잠금을 회피할 수 없음.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>실전 사용 흐름</b> — 평소엔 🟢 자유 → 강의 설명할 때 🔒 잠금으로 주목 → 실습 들어가면 🟢 자유 / 시험 시작 🟣 집중. 학생이 산만하면 우클릭으로 그 PC만 잠시 잠그기.</div></div>';
   }
   window.setMode = function(m) { mode = m; locked = false; render(); toast(m === 'free' ? '🟢 자유 모드 전환' : '🟣 집중 모드 전환', 'info'); };
   window.doLock = function() { locked = true; render(); toast('🔒 전체 잠금! 학생 화면이 잠겼습니다', 'error'); };
@@ -654,158 +1210,764 @@ function buildModeLock(div) {
 }
 
 // ═══════════════════════════════════════════════
-// 7. COMM — Notice + Float Bar
+// 7-A. COMM — Notice
 // ═══════════════════════════════════════════════
-function buildComm(div) {
-  let floatOn = true, noticeText = '5분 휴식', btnState = {msg:true,done:true,help:false,sos:false};
-  let noticeSent = false;
-
+function buildCommNotice(div) {
+  let noticeText = '5분 휴식', noticeDur = '5s', noticeSent = false;
   function render() {
     const sidebar = iSide(`
       <div class="is-sec">
-        <div class="is-label">📢 공지</div>
+        <div class="is-label">📢 공지 전송</div>
         <div class="is-row" style="gap:3px">
-          ${['3s','5s','10s','상시'].map(t => '<div class="is-btn sm" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) 8%,transparent);color:rgb(var(--c-txt2))" onclick="setNoticeDur(\'' + t + '\')">' + t + '</div>').join('')}
+          ${['3s','5s','10s','상시'].map(t =>
+            '<div class="is-btn sm" style="--b:rgb(var(--c-txt2));background:' + (noticeDur===t ? 'rgb(var(--c-accent));color:#fff' : 'color-mix(in srgb,rgb(var(--c-txt2)) 8%,transparent);color:rgb(var(--c-txt2))') + '" onclick="setNoticeDur(\'' + t + '\')">' + t + '</div>'
+          ).join('')}
         </div>
         <div class="is-row"><textarea class="is-inp" rows="2" id="notice-text">${noticeText}</textarea></div>
         <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="sendNotice()">📢 공지 전송</div></div>
       </div>
+    `);
+    let stu;
+    if (noticeSent) {
+      stu = '<div class="ps-title"><span>📢 공지</span></div>' +
+        '<div style="position:relative;height:240px;background:linear-gradient(135deg,#1e3a5f 0%,#0f1e30 60%,#0a1422 100%);overflow:hidden">' +
+          '<div style="background:linear-gradient(90deg,#1d4ed8,#2563eb);padding:8px 14px;font-size:13px;font-weight:600;color:#fff;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.3)">📢 ' + noticeText + '</div>' +
+          '<div style="display:flex;flex-direction:column;gap:14px;position:absolute;top:60px;left:14px">' +
+            '<div class="sd-icon"><span>📁</span>문서</div>' +
+            '<div class="sd-icon"><span>🌐</span>Chrome</div>' +
+            '<div class="sd-icon"><span>📝</span>한글</div>' +
+          '</div>' +
+          '<div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:rgba(8,13,24,.92);display:flex;align-items:center;padding:0 8px;gap:6px;font-size:9px;color:#cbd5e1;border-top:1px solid rgba(255,255,255,.04)">' +
+            '<span style="font-size:14px">⊞</span>' +
+            '<span style="margin-left:auto;font-family:monospace;color:#94a3b8">14:32</span>' +
+          '</div>' +
+        '</div>';
+    } else {
+      stu = stuView('<span style="font-size:28px;margin-bottom:6px">📢</span><div style="color:#94a3b8;font-weight:600">공지를 입력하고 전송해보세요</div>');
+    }
+    div.innerHTML = '<h2>📢 공지 전송</h2><div class="sub">학생들에게 한 줄 공지 보내기</div>';
+    div.innerHTML += iSection('공지 내용과 표시 시간을 선택하고 전송해보세요', sidebar, iStu(stu),
+      '<b>📢 공지</b> — 학생 화면 <b>상단에 파란 배너</b>로 메시지가 표시됩니다. 표시 시간(<b>3s/5s/10s/상시</b>)을 선택할 수 있습니다. 상시 공지는 학생이 직접 닫을 때까지 유지됩니다.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>📢 공지 배너</h3><p>학생 화면 상단에 한 줄 메시지 배너로 표시. <b>3초/5초/10초/상시</b> 중 선택. 짧은 알림("5분 휴식")부터 상시("시험 중") 안내까지 활용.</p></div>' +
+      '<div class="card"><h3>🔔 공지 도착 알림</h3><p>공지가 전송되면 학생 앱에서 <b>짧은 알림음</b>이 함께 울려 학생이 바로 인지할 수 있습니다.</p></div>' +
+      '<div class="card"><h3>📱 플로팅 바와의 차이</h3><p>공지는 <b>일방적 전달</b>(교사→학생). 플로팅 바는 <b>양방향 소통</b>(학생→교사)이 목적. <a href="#" class="detail-link" onclick="goToPage(\'comm-float\');return false;">→ 플로팅 바 보기</a></p></div>' +
+      '<div class="card"><h3>🛡 상시 공지 닫기</h3><p>상시로 설정된 공지는 학생이 우측 <b>✕ 버튼</b>을 눌러 직접 닫을 수 있습니다. 다시 공지를 보내면 기존 공지는 자동 교체.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>운영 팁</b> — 짧은 타이머 공지는 수업 전환 알림("5분 후 종료"), 상시 공지는 시험·평가 중 규칙 안내("계산기 사용 가능")에 활용하세요.</div></div>';
+    div.querySelector('#notice-text')?.addEventListener('input', function() { noticeText = this.value; noticeSent = false; });
+  }
+  window.setNoticeDur = function(d) { noticeDur = d; render(); toast('⏱ 표시 시간: ' + d, 'info'); };
+  window.sendNotice = function() { noticeSent = true; render(); toast('📢 "' + noticeText + '" 공지 전송됨', 'success'); };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 7-B. COMM — Floating Bar
+// ═══════════════════════════════════════════════
+function buildCommFloat(div) {
+  let floatOn = true;
+  let btnState = {msg:true, done:true, help:false, sos:false};
+  const btnIcons = { msg:'💬', done:'✅', help:'✋', sos:'🆘' };
+  const btnLabels = { msg:'메시지', done:'완료', help:'도움', sos:'이상' };
+
+  function render() {
+    const sidebar = iSide(`
       <div class="is-sec">
         <div class="is-label">📱 플로팅 바</div>
         <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) ${floatOn?'14':'6'}%,transparent);color:rgb(var(--c-accent))" onclick="toggleFloat()">📱 학생 플로팅 바 ${floatOn ? '<span style="background:rgba(234,88,12,.2);padding:1px 7px;border-radius:8px;font-size:8px;margin-left:4px">ON</span>' : '<span style="opacity:.5;margin-left:4px">OFF</span>'}</div></div>
         ${floatOn ? `
         <div style="padding:0 10px 4px"><div style="font-size:9px;color:rgb(var(--c-txt3));margin-bottom:3px">표시할 버튼</div>
         <div class="is-row" style="gap:3px">` +
-          [['msg','💬 메시지'],['done','✅ 완료'],['help','✋ 도움'],['sos','🆘 이상']].map(([k,label]) =>
-            '<div class="is-btn sm ' + (btnState[k]?'active':'') + '" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ' + (btnState[k]?'14':'4') + '%,transparent);color:' + (btnState[k]?'rgb(var(--c-blue))':'rgb(var(--c-txt3))') + '" onclick="toggleBtn(\'' + k + '\')">' + label + '</div>'
+          Object.entries(btnIcons).map(([k,ico]) =>
+            '<div class="is-btn sm ' + (btnState[k]?'active':'') + '" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ' + (btnState[k]?'14':'4') + '%,transparent);color:' + (btnState[k]?'rgb(var(--c-blue))':'rgb(var(--c-txt3))') + '" onclick="toggleBtn(\'' + k + '\')">' + ico + ' ' + btnLabels[k] + '</div>'
           ).join('') + `
         </div></div>` : ''}
       </div>
     `);
+    const desktop = stuDesktop('empty');
     let stu;
-    if (noticeSent) {
-      stu = stuNotice(noticeText);
-    } else if (floatOn) {
-      stu = stuView('<div style="font-size:28px;margin-bottom:6px">📱</div><div style="color:#60a5fa;font-weight:600">플로팅 바 표시 중</div><div style="font-size:10px;color:#475569;margin-top:4px">우하단 반투명 바</div>' +
-        (btnState.msg||btnState.done||btnState.help||btnState.sos
-          ? '<div style="margin-top:8px;display:flex;gap:4px;background:rgba(255,255,255,.08);padding:4px 8px;border-radius:10px">' +
-            Object.entries(btnState).filter(([k,v]) => v).map(([k,label]) => ({msg:'💬',done:'✅',help:'✋',sos:'🆘'})[k]).join(' ') +
-            '</div>' : '<div style="margin-top:6px;font-size:10px;color:#475569">(모든 버튼 숨김)</div>')
-      );
+    if (floatOn) {
+      const activeBtns = Object.entries(btnState).filter(([k,v]) => v);
+      const barContent = activeBtns.length
+        ? activeBtns.map(([k]) =>
+            '<span style="font-size:16px;cursor:default;padding:3px 5px;border-radius:5px;line-height:1;background:rgba(15,23,42,.06)" title="' + btnLabels[k] + '"' +
+            ' onmouseenter="this.style.background=\'rgba(15,23,42,.15)\'" onmouseleave="this.style.background=\'rgba(15,23,42,.06)\'"' +
+            ' onclick="toast(\'📱 ' + btnLabels[k] + ' 버튼 클릭 — 교사에게 전송됨\',\'info\')">' + btnIcons[k] + '</span>'
+          ).join('')
+        : '<span style="font-size:9px;color:#475569;padding:3px 2px">(버튼 없음)</span>';
+      const floatBar = '<div style="position:absolute;bottom:30px;right:10px;display:flex;gap:4px;background:rgba(240,243,250,.92);backdrop-filter:blur(6px);border-radius:10px;padding:5px 7px;border:1px solid rgba(255,255,255,.2);box-shadow:0 4px 16px rgba(0,0,0,.35);z-index:10;align-items:center">' + barContent + '</div>';
+      stu = '<div style="position:relative">' + desktop.replace(/<\/div>\s*$/, floatBar + '</div>') + '</div>';
     } else {
       stu = stuView('<span style="font-size:28px;margin-bottom:6px">📵</span><div style="color:#94a3b8;font-weight:600">플로팅 바 숨김</div>');
     }
-    div.innerHTML = '<h2>📢 공지 전송 / 📱 플로팅 바</h2><div class="sub">소통</div>';
-    div.innerHTML += iSection('공지를 보내고 플로팅 바를 제어해보세요', sidebar, iStu(stu),
-      '<b>📢 공지</b> — 학생 화면 상단에 배너 표시 (3s/5s/10s/상시). <b>📱 플로팅 바</b> — 학생 화면 우하단 반투명 버튼 바. 각 버튼을 개별적으로 켜고 끌 수 있습니다.'
+    div.innerHTML = '<h2>📱 플로팅 바</h2><div class="sub">학생 화면의 플로팅 바 제어</div>';
+    div.innerHTML += iSection('플로팅 바를 켜고 끄고, 버튼을 개별 토글해보세요', sidebar, iStu(stu),
+      '<b>📱 플로팅 바</b> — 학생 화면 <b>우하단에 작은 반투명 바</b>로 떠 있어, 학생이 💬 메시지·✅ 완료·✋ 도움·🆘 이상 등을 교사에게 보낼 수 있습니다. 각 버튼은 개별로 켜고 끌 수 있어 수업 상황에 맞춰 조절 가능합니다.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🪟 플로팅 바</h3><p>학생 화면 우하단 반투명 버튼 바. 💬메시지 / ✅완료 / ✋도움 / 🆘이상 버튼을 켜고 끌 수 있습니다. 신규 설치 시 메시지만 기본 활성화.</p></div>' +
-      '<div class="card"><h3>📬 받은 메시지</h3><p>💬메시지/🔔알림 탭 분리. 미확인만 필터, 읽음 토글 양방향, 개별/전체 삭제. 🆘>✋>💬>✅ 순 정렬. PC별 필터.</p></div>' +
-      '<div class="card"><h3>💻 코드/텍스트 전송</h3><p>코드 스니펫이나 텍스트를 학생 화면에 팝업으로 전송. Ctrl+V로 이미지 첨부 가능(자동 압축 JPEG/최대 8MB).</p></div>' +
-      '<div class="card"><h3>🖼 이미지 첨부</h3><p>코드 전송 모달 textarea에 Ctrl+V로 클립보드 이미지 붙여넣기. canvas 압축(JPG 품질 단계 + 1920/1280 다운스케일).</p></div>' +
+      '<div class="card"><h3>🪟 플로팅 바 위치</h3><p>학생 화면 <b>우하단</b>에 고정. 항상 최상위에 떠 있어 다른 창에 가려지지 않음. 모든 버튼을 끄면 바 자체가 사라집니다.</p></div>' +
+      '<div class="card"><h3>🚫 스팸 방지 쿨다운</h3><p>같은 버튼 연달아 누르기 방지: <b>메시지·이상 30초</b>, <b>완료·도움 60초</b>. 전송 실패 시엔 쿨다운이 안 걸려 즉시 재시도 가능.</p></div>' +
+      '<div class="card"><h3>📷 메시지에 이미지 첨부</h3><p>💬 메시지 모달에서 <b>Ctrl+V로 클립보드 이미지</b> 첨부 가능. 자동 압축(최대 7MB)되어 교사에게 전송. 화면 캡처·과제 결과 등을 빠르게 보내기 좋음.</p></div>' +
+      '<div class="card"><h3>📬 교사가 확인하는 방법</h3><p>받은 메시지·알림은 사이드바 <b>📨 받은 메시지 보기</b> 모달에서 확인. 우선순위 🆘 &gt; ✋ &gt; 💬 &gt; ✅ 순 정렬. <a href="#" class="detail-link" onclick="goToPage(\'comm-inbox\');return false;">→ 자세히</a></p></div>' +
+      '<div class="card"><h3>🆕 신규 설치 기본값</h3><p>새로 설치한 학생에겐 <b>💬 메시지만</b> 기본 활성화. 선생님이 수업에 맞게 버튼을 추가/제거할 수 있습니다.</p></div>' +
+      '<div class="card"><h3>🔒 90초 안전망</h3><p>잠금·집중 상태에서 90초 이상 연결 끊김 → 자동 해제. 플로팅 바와는 별개로 동작하는 안전장치.</p></div>' +
       '</div>' +
-      '<div class="tip-box"><b>스팸 방지</b> — 학생 플로팅 바는 메시지/이상 30초, 완료/도움 60초 쿨다운이 적용됩니다. 전송 실패 시 쿨다운 미적용.</div></div>';
-    div.querySelector('#notice-text')?.addEventListener('input', function() { noticeText = this.value; noticeSent = false; });
+      '<div class="tip-box"><b>운영 팁</b> — 평소엔 💬 메시지만 켜고, 시험 시간엔 🆘 이상만 켜는 식으로 상황별 토글. 모든 버튼을 끄면 플로팅 바가 사라져 학생 화면이 깔끔해집니다.</div></div>';
   }
-  window.setNoticeDur = function(d) { toast('⏱ 공지 표시 시간: ' + d, 'info'); };
-  window.sendNotice = function() { noticeSent = true; render(); toast('📢 "' + noticeText + '" 공지 전송됨', 'success'); };
   window.toggleFloat = function() { floatOn = !floatOn; render(); toast(floatOn ? '📱 플로팅 바 표시' : '📵 플로팅 바 숨김', floatOn ? 'success' : 'info'); };
   window.toggleBtn = function(k) { btnState[k] = !btnState[k]; render(); };
   render();
 }
 
 // ═══════════════════════════════════════════════
-// 8. COMM — Messages / Snippet
+// 7-C. COMM — Received Messages (Inbox)
 // ═══════════════════════════════════════════════
-function buildCommMsg(div) {
-  let unread = 3;
+function buildCommInbox(div) {
+  let tab = 'msg', unreadOnly = true, count = 3;
   const msgs = [
-    { pc:'PC-01', type:'💬', text:'과제 어디에 제출하나요?', time:'12:34', read:false },
-    { pc:'PC-03', type:'🆘', text:'화면이 안 나와요', time:'12:30', read:false },
-    { pc:'PC-05', type:'✅', text:'완료했습니다', time:'12:15', read:true }
+    { pc:'PC-01', type:'💬', text:'과제 어디에 제출하나요?', time:'12:34', read:false, prio:3 },
+    { pc:'PC-03', type:'🆘', text:'화면이 안 나와요', time:'12:30', read:false, prio:1 },
+    { pc:'PC-05', type:'✅', text:'완료했습니다', time:'12:15', read:true, prio:4 },
+    { pc:'PC-02', type:'💬', text:'선생님 이거 맞나요?', time:'11:50', read:false, prio:3 },
+    { pc:'PC-07', type:'✋', text:'도와주세요!', time:'11:45', read:false, prio:2 },
+    { pc:'PC-04', type:'💬', text:'오류가 나요', time:'11:30', read:true, prio:3 },
+    { pc:'PC-09', type:'💬', text:'완료했습니다!', time:'11:20', read:true, prio:3 }
   ];
+  const notifs = [
+    { pc:'PC-01', type:'✅', text:'과제 제출 완료', time:'12:35', read:false },
+    { pc:'PC-03', type:'🆘', text:'이상 신고', time:'12:30', read:false },
+    { pc:'PC-05', type:'✅', text:'실습 완료', time:'12:15', read:true },
+    { pc:'PC-07', type:'✋', text:'도움 요청', time:'11:45', read:false },
+    { pc:'PC-02', type:'💬', text:'답변 감사합니다', time:'11:00', read:true }
+  ];
+  const typeColors = {'🆘':'rgba(239,68,68,.2)', '✋':'rgba(234,179,8,.2)', '✅':'rgba(34,197,94,.2)', '💬':'rgba(59,130,246,.2)'};
+
   function render() {
+    const items = (tab === 'msg' ? msgs : notifs);
+    const filtered = unreadOnly ? items.filter(m => !m.read) : items;
     const sidebar = iSide(`
       <div class="is-sec">
         <div class="is-label">📨 받은 메시지</div>
-        <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red));display:flex;align-items:center" onclick="toast('📨 메시지 모달 열기','info')">📨 받은 메시지 보기 <span style="margin-left:auto;background:rgba(220,38,38,.2);padding:1px 7px;border-radius:8px;font-size:9px">${unread}</span></div></div>
-        <div style="padding:2px 10px 6px;font-size:9px;color:rgb(var(--c-txt3))">💬 메시지 / 🔔 알림 탭 구분 · 미확인 필터 · 읽음 토글 · 개별/전체 삭제</div>
+        <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red));display:flex;align-items:center" onclick="toast('📨 받은 메시지 모달이 열렸습니다','info')">📨 받은 메시지 보기 <span style="margin-left:auto;background:rgba(220,38,38,.2);padding:1px 8px;border-radius:8px;font-size:9px">${count}</span></div></div>
       </div>
       <div class="is-sec">
-        <div class="is-label">💻 코드 전송</div>
-        <div class="is-row"><textarea class="is-inp" rows="2" placeholder="코드를 입력하세요...">print("Hello")</textarea></div>
-        <div class="is-row" style="padding-bottom:6px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="sendSnippet()">💻 전송</div></div>
+        <div class="is-label">탭 선택</div>
+        <div class="is-row" style="gap:3px">
+          <div class="is-btn sm" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ${tab==='msg'?'14':'4'}%,transparent);color:${tab==='msg'?'rgb(var(--c-blue))':'rgb(var(--c-txt3))'}" onclick="setInboxTab('msg')">💬 메시지</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) ${tab==='notif'?'14':'4'}%,transparent);color:${tab==='notif'?'rgb(var(--c-purple))':'rgb(var(--c-txt3))'}" onclick="setInboxTab('notif')">🔔 알림</div>
+        </div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">필터 / 동작</div>
+        <div class="is-chk"><input type="checkbox" ${unreadOnly?'checked':''} onclick="toggleUnreadOnly()"> <span style="font-size:10px">미확인만 보기</span></div>
+        <div class="is-row" style="gap:3px;padding-top:4px">
+          <div class="is-btn sm" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 8%,transparent);color:rgb(var(--c-green))" onclick="markAllRead()">📖 모두 읽음</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red))" onclick="deleteRead()">🗑 읽은 것 삭제</div>
+        </div>
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:4px 10px 0">우선순위: 🆘 &gt; ✋ &gt; 💬 &gt; ✅</div>
       </div>
     `);
-    const msgList = msgs.map(m =>
-      '<div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px">' +
-      '<span style="font-weight:700;color:#e2e8f0">' + m.pc + '</span> ' +
-      (m.type === '🆘' || m.type === '✅' ? '<span style="color:' + (m.type==='🆘'?'#fca5a5':'#6ee7b7') + '">' + m.type + '</span> ' : '') +
-      '<span style="flex:1;color:' + (m.read?'#64748b':'#94a3b8') + '">"' + m.text + '"</span>' +
-      '<span style="font-size:9px;color:#475569">' + m.time + '</span></div>'
-    ).join('');
-    const stu = stuView(
-      '<div style="width:100%"><div style="display:flex;border-bottom:1px solid rgba(255,255,255,.08)">' +
-      '<span style="flex:1;padding:5px;font-size:10px;font-weight:700;color:#60a5fa;border-bottom:2px solid #3b82f6;text-align:center">💬 메시지</span>' +
-      '<span style="flex:1;padding:5px;font-size:10px;font-weight:600;color:#64748b;text-align:center">🔔 알림</span></div>' +
-      '<div style="padding:3px 8px;display:flex;gap:4px;border-bottom:1px solid rgba(255,255,255,.06)"><span style="padding:1px 6px;font-size:9px;border-radius:3px;background:rgba(59,130,246,.15);color:#60a5fa">미확인만</span></div>' +
-      msgList + '</div>'
-    );
-    div.innerHTML = '<h2>📨 받은 메시지 / 💻 코드 전송</h2><div class="sub">소통</div>';
-    div.innerHTML += iSection('메시지 목록과 코드 전송을 확인해보세요', sidebar, iStu(stu),
-      '<b>📨 받은 메시지</b> — 💬/🔔 탭 분리, 미확인 필터, 읽음 토글, 개별/전체 삭제. 🆘>✋>💬>✅ 순 정렬.<br><b>💻 코드 전송</b> — Ctrl+V로 이미지도 첨부 가능. 자동 압축(JPEG, 최대 8MB).'
+
+    const msgRows = filtered.map(m => {
+      const isSos = m.type === '🆘';
+      return '<div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.04);' +
+        (m.read ? '' : 'background:rgba(59,130,246,.04)') + '">' +
+        '<span style="width:4px;height:4px;border-radius:50%;background:' + (m.read ? 'transparent' : '#60a5fa') + ';flex-shrink:0"></span>' +
+        '<span style="background:' + (typeColors[m.type] || 'rgba(255,255,255,.06)') + ';padding:0 5px;border-radius:3px;font-size:9px;font-weight:700">' + m.type + '</span>' +
+        '<span style="font-size:10px;font-weight:600;color:#cbd5e1">' + m.pc + '</span>' +
+        '<span style="flex:1;font-size:10px;color:' + (m.read ? '#64748b' : '#94a3b8') + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"' + m.text + '"</span>' +
+        '<span style="font-size:8px;color:#475569">' + m.time + '</span>' +
+        '<span style="font-size:9px;color:#64748b;cursor:default;padding:0 2px;opacity:.4">✕</span>' +
+        '</div>';
+    }).join('');
+
+    const modalHtml =
+      '<div style="background:#0f172a;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">' +
+        '<div style="display:flex;align-items:center;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">' +
+          '<span style="font-size:11px;font-weight:600;color:#cbd5e1">📨 받은 메시지</span>' +
+          '<span style="margin-left:auto;font-size:10px;color:#64748b;cursor:default">✕</span>' +
+        '</div>' +
+        '<div style="display:flex;border-bottom:1px solid rgba(255,255,255,.06)">' +
+          '<span style="flex:1;padding:5px;font-size:10px;font-weight:700;color:' + (tab==='msg'?'#60a5fa':'#64748b') + ';border-bottom:2px solid ' + (tab==='msg'?'#3b82f6':'transparent') + ';text-align:center;cursor:default">💬 메시지 <span style="font-size:8px;color:#64748b;font-weight:400">(' + msgs.length + ')</span></span>' +
+          '<span style="flex:1;padding:5px;font-size:10px;font-weight:700;color:' + (tab==='notif'?'#60a5fa':'#64748b') + ';border-bottom:2px solid ' + (tab==='notif'?'#3b82f6':'transparent') + ';text-align:center;cursor:default">🔔 알림 <span style="font-size:8px;color:#64748b;font-weight:400">(' + notifs.length + ')</span></span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;padding:3px 8px;gap:6px;border-bottom:1px solid rgba(255,255,255,.04);background:rgba(0,0,0,.1);font-size:9px">' +
+          '<span style="padding:1px 6px;border-radius:3px;background:' + (unreadOnly?'rgba(59,130,246,.15);color:#60a5fa;font-weight:600':'rgba(255,255,255,.04);color:#64748b') + ';cursor:default">미확인만</span>' +
+          '<span style="margin-left:auto;color:#64748b">' + filtered.length + '개</span>' +
+        '</div>' +
+        '<div style="max-height:170px;overflow-y:auto">' +
+          (filtered.length ? msgRows : '<div style="padding:16px;text-align:center;font-size:10px;color:#475569">📭 모든 메시지를 확인했습니다</div>') +
+        '</div>' +
+      '</div>';
+
+    div.innerHTML = '<h2>📨 받은 메시지</h2><div class="sub">학생들이 보낸 메시지와 알림 확인</div>';
+    div.innerHTML += iSection('탭과 필터를 바꿔보며 받은 메시지 모달을 살펴보세요', sidebar, iStu(modalHtml),
+      '<b>💬 메시지 탭</b> — 학생이 플로팅 바의 💬 버튼으로 직접 작성한 메시지. 내용과 보낸 PC명, 시간이 함께 표시됩니다.<br>' +
+      '<b>🔔 알림 탭</b> — 학생이 ✅ 완료·✋ 도움·🆘 이상 버튼을 누른 알림. 미리 정의된 텍스트와 함께 전송됩니다.<br>' +
+      '<b>필터</b> — <b>미확인만</b> 토글로 안 읽은 메시지만 모아보기 가능. 정렬은 🆘 &gt; ✋ &gt; 💬 &gt; ✅ 우선순위 → 미확인 우선 → 최신순.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>📨 메시지 탭</h3><p>💬 메시지 / 🔔 알림 탭 구분. 미확인만 필터, 읽음 토글(개별/전체), 개별 삭제 confirm, 전체 삭제(confirm). 이미지 인라인 썸네일+확대.</p></div>' +
-      '<div class="card"><h3>💻 스니펫 전송</h3><p>textarea에 코드 입력 or Ctrl+V 이미지 → 학생 화면에 팝업. 이미지는 자동 압축(단계별 JPEG 품질, 1920/1280 리사이즈, 8MB 이하).</p></div>' +
-      '<div class="card"><h3>📎 파일 첨부</h3><p>스니펫 모달에 이미지 첨부 시 썸네일·파일명·크기 카드 표시. text/image 둘 중 하나만 있어도 전송 가능.</p></div>' +
-      '<div class="card"><h3>🔔 알림 구분</h3><p>알림 탭에서는 시스템 알림(파일 배포 완료, 업데이트, 잠금 해제 등)을 메시지와 별도로 확인 가능.</p></div>' +
-      '</div></div>';
+      '<div class="card"><h3>💬 메시지 vs 🔔 알림 탭</h3><p><b>메시지 탭</b>은 학생이 직접 적은 글. <b>알림 탭</b>은 플로팅 바 ✅✋🆘 버튼으로 발생한 미리 정의된 알림. 처음 열 때 메시지 탭이 기본.</p></div>' +
+      '<div class="card"><h3>🔍 미확인만 필터</h3><p>미확인 메시지만 모아보기. 읽은 메시지는 흐리게 표시되어 한눈에 구분 가능. 필터를 끄면 전체 메시지가 보입니다.</p></div>' +
+      '<div class="card"><h3>🔢 우선순위 정렬</h3><p><b>🆘(이상) → ✋(도움) → 💬(메시지) → ✅(완료)</b> 순. 같은 우선순위 내에선 안 읽은 메시지가 먼저, 그 다음 최신순.</p></div>' +
+      '<div class="card"><h3>🖼 이미지 미리보기</h3><p>학생이 메시지에 첨부한 이미지는 목록에서 <b>인라인 썸네일</b>로 표시. 클릭하면 확대하여 자세히 볼 수 있습니다.</p></div>' +
+      '<div class="card"><h3>🗑 메시지 관리</h3><p><b>✕ 개별 삭제</b>(confirm), <b>📖 모두 읽음</b> 일괄 처리, <b>🗑 읽은 것 삭제</b>로 정리. 모든 삭제는 확인 대화상자 후 진행.</p></div>' +
+      '<div class="card"><h3>🖥 PC별 필터</h3><p>특정 PC의 메시지만 골라보기. 학생 한 명이 보낸 메시지를 연속으로 확인할 때 유용. (미구현 — 우측 상단 PC 선택 드롭다운)</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>운영 흐름</b> — 플로팅 바에서 학생이 보낸 메시지는 실시간으로 교사 앱 사이드바 📨 아이콘에 배지(미확인 개수)로 표시됩니다. 클릭하면 모달이 열리고, 탭과 필터로 원하는 메시지를 빠르게 찾아 확인·대응하세요.</div></div>';
   }
-  window.sendSnippet = function() { toast('💻 코드가 학생들에게 전송되었습니다', 'success'); };
+  window.setInboxTab = function(t) { tab = t; render(); };
+  window.toggleUnreadOnly = function() { unreadOnly = !unreadOnly; render(); };
+  window.markAllRead = function() {
+    msgs.forEach(m => m.read = true);
+    notifs.forEach(n => n.read = true);
+    count = 0;
+    render();
+    toast('📖 모든 메시지를 읽음 처리했습니다', 'success');
+  };
+  window.deleteRead = function() {
+    const before = msgs.length + notifs.length;
+    const src = tab === 'msg' ? msgs : notifs;
+    for (let i = src.length - 1; i >= 0; i--) { if (src[i].read) src.splice(i, 1); }
+    const after = msgs.length + notifs.length;
+    render();
+    toast('🗑 읽은 메시지 ' + (before - after) + '개 삭제됨', 'info');
+  };
   render();
 }
 
 // ═══════════════════════════════════════════════
-// 9. FILE
+// 8. COMM — Messages / Code / Image Sending
 // ═══════════════════════════════════════════════
-function buildFile(div) {
-  let deploying = false, collecting = false, deployProg = 0, collectProg = 0;
-  let deployTimer = null, collectTimer = null;
+function buildCommMsg(div) {
+  let sendType = 'msg'; // 'msg' | 'code' | 'image'
+  let sent = false, msgText = '과제 제출은 4시까지입니다';
+  const codeText = 'def hello():\n    print("Hello, World!")';
+
   function render() {
     const sidebar = iSide(`
       <div class="is-sec">
-        <div class="is-label">📤 파일 배포</div>
-        ${!deploying
-          ? '<div class="is-row" style="padding-bottom:4px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="startDeploy()">📤 파일 배포</div></div>'
-          : '<div style="padding:4px 10px"><div class="prog"><div style="width:' + deployProg + '%;background:rgb(var(--c-accent))"></div></div><div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:4px">과제.pdf · ' + deployProg + '% · 3.2MB / ' + Math.round(3.2 * deployProg / 100 * 10) / 10 + 'MB</div></div>'}
-        <div class="is-label" style="border-top:1px solid rgb(var(--c-border));padding-top:6px">📥 파일 회수</div>
-        ${!collecting
-          ? '<div class="is-row" style="padding-bottom:4px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="startCollect()">📥 파일 회수</div></div>'
-          : '<div style="padding:4px 10px"><div class="prog"><div style="width:' + collectProg + '%;background:rgb(var(--c-green))"></div></div><div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:4px">제출 ' + Math.round(collectProg * 20 / 100) + '/20 · 마감 02:30</div></div>'}
+        <div class="is-label">📨 전송 유형</div>
+        <div class="is-row" style="gap:3px">
+          <div class="is-btn sm" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ${sendType==='msg'?'14':'4'}%,transparent);color:${sendType==='msg'?'rgb(var(--c-blue))':'rgb(var(--c-txt3))'}" onclick="setSendType('msg')">💬 메시지</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) ${sendType==='code'?'14':'4'}%,transparent);color:${sendType==='code'?'rgb(var(--c-purple))':'rgb(var(--c-txt3))'}" onclick="setSendType('code')">💻 코드</div>
+          <div class="is-btn sm" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) ${sendType==='image'?'14':'4'}%,transparent);color:${sendType==='image'?'rgb(var(--c-green))':'rgb(var(--c-txt3))'}" onclick="setSendType('image')">🖼 이미지</div>
+        </div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">${sendType === 'msg' ? '💬 메시지 내용' : sendType === 'code' ? '💻 코드 내용' : '🖼 이미지'}</div>
+        ${sendType === 'image'
+          ? '<div style="padding:4px 10px"><div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;border:1px dashed rgba(255,255,255,.2)">🖼️</div><div style="font-size:9px;color:rgb(var(--c-txt3));margin-top:3px;text-align:center">sample_chart.png · 320KB</div></div>'
+          : '<div class="is-row"><textarea class="is-inp" rows="3" id="send-text">' + (sendType === 'msg' ? msgText : codeText) + '</textarea></div>'}
+        <div class="is-row" style="padding-bottom:6px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="doSend()">📤 전송</div></div>
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">Ctrl+V로 클립보드 이미지도 첨부 가능</div>
       </div>
     `);
-    const stu = deploying
-      ? stuView('<span style="font-size:24px;margin-bottom:6px">📄</span><div style="color:#22d3ee;font-weight:600">과제.pdf 수신 중</div><div style="width:80%;margin-top:6px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden"><div style="width:' + deployProg + '%;height:100%;background:#22d3ee;border-radius:2px"></div></div><div style="font-size:10px;color:#475569;margin-top:4px">' + deployProg + '%</div>')
-      : (collecting
-        ? stuView('<span style="font-size:24px;margin-bottom:6px">📤</span><div style="color:#6ee7b7;font-weight:600">파일 업로드 중...</div><div style="font-size:10px;color:#475569;margin-top:4px">' + collectProg + '% · ' + Math.round(collectProg * 1.5) / 10 + 'MB / ' + Math.round(collectProg * 3) / 10 + 'MB</div>')
-        : stuEmpty());
-    div.innerHTML = '<h2>📁 파일 배포 / 회수</h2><div class="sub">파일</div>';
-    div.innerHTML += iSection('배포/회수 버튼을 눌러 진행 상황을 확인해보세요', sidebar, iStu(stu),
-      '<b>📤 파일 배포</b> — 교사 PC의 파일을 학생들에게 전송합니다. ZIP 자동해제, 전송 후 열기 옵션 지원. 실행 실패 시 10회 재시도.<br><b>📥 파일 회수</b> — 학생 과제 수집. 마감 시간/최대 크기 설정 가능. <code>회수파일\{날짜}_{과제명}\...</code> 구조로 저장.'
+
+    // 학생 화면에 표시되는 팝업
+    function popupWindow(inner) {
+      return '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;background:#1e293b;border-radius:10px;border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:10;overflow:hidden">' +
+        '<div style="display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);background:#0f172a">' +
+          '<span style="font-size:11px;font-weight:600;color:#cbd5e1">' + (sendType === 'code' ? '💻 코드' : sendType === 'image' ? '🖼 이미지' : '💬 메시지') + '</span>' +
+          '<span style="margin-left:auto;color:#64748b;font-size:11px;cursor:default;padding:0 4px">✕</span>' +
+        '</div>' +
+        '<div style="padding:10px;font-size:11px;color:#cbd5e1">' + inner + '</div>' +
+        '<div style="display:flex;gap:4px;padding:6px 10px;border-top:1px solid rgba(255,255,255,.06);background:#0f172a">' +
+          '<span style="padding:3px 10px;border-radius:4px;background:rgba(59,130,246,.15);color:#93c5fd;font-size:9px;font-weight:600;cursor:default;display:flex;align-items:center;gap:3px">📋 복사</span>' +
+          '<span style="padding:3px 10px;border-radius:4px;background:rgba(255,255,255,.06);color:#94a3b8;font-size:9px;cursor:default;margin-left:auto">✕ 닫기</span>' +
+        '</div>' +
+      '</div>';
+    }
+
+    let popupContent = '';
+    if (sendType === 'code') {
+      popupContent = '<pre style="background:#0f172a;padding:8px;border-radius:5px;font-family:monospace;font-size:10px;color:#a78bfa;overflow-x:auto;margin:0;line-height:1.5">' + codeText.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>';
+    } else if (sendType === 'image') {
+      popupContent = '<div style="text-align:center"><div style="width:100%;height:120px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;margin-bottom:4px">🖼️</div><div style="font-size:9px;color:#64748b">sample_chart.png · 320KB</div></div>';
+    } else {
+      popupContent = '<div style="margin-bottom:4px"><span style="background:rgba(34,197,94,.12);color:#86efac;padding:0 5px;border-radius:3px;font-size:8px;font-weight:700">PC-01</span></div>' +
+        '<div style="font-size:11px;color:#e2e8f0;line-height:1.5">' + msgText + '</div>';
+    }
+
+    let stu;
+    if (sent) {
+      // 학생 바탕화면 + 중앙 팝업
+      const baseDesktop = stuDesktop('empty');
+      const popupHtml = popupWindow(popupContent);
+      stu = '<div style="position:relative">' + baseDesktop.replace(/<\/div>\s*$/, popupHtml + '</div>') + '</div>';
+    } else {
+      stu = stuView('<span style="font-size:28px;margin-bottom:6px">📤</span><div style="color:#94a3b8;font-weight:600">전송 유형을 선택하고 보내보세요</div>');
+    }
+
+    div.innerHTML = '<h2>📨 메시지 / 💻 코드 / 🖼 이미지 전송</h2><div class="sub">학생에게 다양한 콘텐츠 보내기</div>';
+    div.innerHTML += iSection('전송 유형을 선택하고 내용을 입력한 후 전송해보세요. 학생 화면에 어떻게 표시되는지 확인할 수 있습니다.', sidebar, iStu(stu),
+      '<b>💬 메시지</b> — 일반 텍스트 메시지를 학생 화면에 팝업으로 표시. 학생은 팝업을 확인하고 닫을 수 있습니다.<br>' +
+      '<b>💻 코드 전송</b> — 코드 스니펫을 학생 화면에 <b>구문 강조된 팝업</b>으로 띄워줍니다. 학생은 📋 복사 버튼으로 코드를 그대로 가져갈 수 있습니다. PPT에 안 들어가는 긴 코드 공유에 유용.<br>' +
+      '<b>🖼 이미지 전송</b> — 이미지를 학생 화면에 팝업으로 표시. 화면 캡처·차트·과제 예시 등을 빠르게 공유. <b>Ctrl+V</b>로 클립보드 이미지도 첨부 가능 (자동 압축).'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>📤 파일 배포</h3><p>교사 PC 파일을 학생 전체 또는 선택 PC에 전송. ZIP 자동 압축 해제, 전송 후 자동 실행 옵션. 드래그 앤 드롭으로 파일 추가.</p></div>' +
-      '<div class="card"><h3>📥 파일 회수</h3><p>학생 과제 수집. 마감 시간/최대 크기 설정. 회수 종료 버튼으로 마감 처리. 모달=세션 수명(닫으면 회수 서버 중단).</p></div>' +
-      '<div class="card"><h3>▶ 파일 실행</h3><p>학생 PC에서 특정 프로그램이나 파일을 원격으로 실행. .exe 아닌 파일은 <code>shell.openPath</code>로 연결 프로그램 실행.</p></div>' +
-      '<div class="card"><h3>🗑 파일 관리</h3><p>학생 PC 특정 폴더 내 파일 삭제. 수업 종료 후 정리 목적. 재시도 10회/10초 (EBUSY 대응).</p></div>' +
+      '<div class="card"><h3>💬 메시지 팝업</h3><p>학생 화면 중앙에 팝업으로 표시. 발신자(PC명)와 메시지 내용이 함께 보이며, 하단의 <b>✕ 닫기</b> 버튼으로 확인 후 닫을 수 있습니다.</p></div>' +
+      '<div class="card"><h3>💻 코드 스니펫 팝업</h3><p>구문 강조된 코드가 팝업에 표시. 학생은 <b>📋 복사</b> 버튼으로 코드를 클립보드에 바로 복사 가능. Python, JS 등 주요 언어 구문 강조 지원.</p></div>' +
+      '<div class="card"><h3>🖼 이미지 팝업</h3><p>이미지가 팝업에 표시. 파일명과 크기가 함께 보입니다. 학생은 이미지를 보고 <b>📁 폴더 열기</b>로 저장 위치에 접근 가능.</p></div>' +
+      '<div class="card"><h3>🖼 Ctrl+V 이미지 첨부</h3><p>전송 textarea에 <b>Ctrl+V</b>로 클립보드 이미지 붙여넣기. 자동 압축(품질 단계별 JPEG, 1280/1920 리사이즈, 8MB 이하). 이미지 단독 또는 텍스트+이미지 동시 전송 가능.</p></div>' +
+      '<div class="card"><h3>📁 학생 저장 위치</h3><p>학생이 받은 이미지·파일은 <code>%USERPROFILE%\\Downloads\\ScreenShare\\</code>에 저장되어 팝업에서 <b>📁 폴더 열기</b>로 접근 가능.</p></div>' +
+      '<div class="card"><h3>🔔 교사 알림 확인</h3><p>학생이 보낸 메시지는 교사 앱 사이드바 <b>📨 받은 메시지 보기</b>에서 확인. <a href="#" class="detail-link" onclick="goToPage(\'comm-inbox\');return false;">→ 자세히</a></p></div>' +
       '</div>' +
-      '<div class="warn-box"><b>주의</b> — 파일 회수 저장 경로는 설정의 <b>기본 저장 경로</b>를 기준으로 합니다. 수신된 파일은 <code>회수파일\{날짜}_{과제명}\{학번}_{이름}_{과제명}_원본</code> 구조로 저장됩니다.</div>' +
-      '<div class="tip-box"><b>전송 후 열기</b> — 파일 배포에서 <b>전송 후 열기</b> 옵션을 켜면 학생 PC에서 파일이 자동으로 실행됩니다. 실행 실패 시 10회 재시도합니다.</div></div>';
+      '<div class="tip-box"><b>잘 안 보는 학생 깨우기</b> — 화면 구석 알림으로는 무시하기 쉬운 학생들에게 코드/이미지 전송은 <b>풀스크린 팝업</b>으로 강제 표시되어 집중을 유도하기 좋습니다. 시험 시작 안내나 중요한 공지에 활용하세요.</div></div>';
+    const ta = div.querySelector('#send-text');
+    if (ta) ta.addEventListener('input', function() { msgText = this.value; sent = false; });
   }
-  window.startDeploy = function() { deploying = true; deployProg = 0; clearInterval(deployTimer); deployTimer = setInterval(() => { deployProg += 5; if (deployProg >= 100) { deployProg = 100; clearInterval(deployTimer); toast('📤 배포 완료!', 'success'); } render(); }, 200); render(); };
-  window.startCollect = function() { collecting = true; collectProg = 0; clearInterval(collectTimer); collectTimer = setInterval(() => { collectProg += 4; if (collectProg >= 100) { collectProg = 100; clearInterval(collectTimer); toast('📥 회수 완료! 20개 제출', 'success'); } render(); }, 300); render(); };
+  window.setSendType = function(t) { sendType = t; sent = false; render(); };
+  window.doSend = function() { sent = true; render(); toast('📤 ' + (sendType === 'msg' ? '메시지' : sendType === 'code' ? '코드' : '이미지') + '가 학생에게 전송되었습니다', 'success'); };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 9-A. FILE DEPLOY
+// ═══════════════════════════════════════════════
+function buildFileDeploy(div) {
+  let phase = 'idle', prog = 0, timer = null;
+  let targetMode = 'all';
+  const demoFiles = [
+    { name:'과제_문제.pdf', size:'1.2MB' },
+    { name:'실습코드.zip', size:'4.8MB' },
+    { name:'참고자료.hwp', size:'0.8MB' }
+  ];
+  const pcs = ['PC-01','PC-03','PC-05','PC-07','PC-09'];
+  const pcStatus = {};
+
+  function render() {
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">📤 파일 배포</div>
+        <div class="is-label">📄 배포할 파일</div>
+        ${demoFiles.map(f => `
+        <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-bottom:1px solid rgb(var(--c-border))">
+          <span style="font-size:11px">📄</span>
+          <span style="flex:1;font-size:10px;color:rgb(var(--c-txt))">${f.name}</span>
+          <span style="font-size:9px;color:rgb(var(--c-txt3))">${f.size}</span>
+        </div>`).join('')}
+        <div class="is-label">🎯 대상</div>
+        <div class="is-row" style="gap:4px;padding-bottom:4px">
+          <div class="is-btn sm ${targetMode==='all'?'active':''}" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ${targetMode==='all'?'14':'4'}%,transparent);color:rgb(var(--c-blue))" onclick="deployTarget('all')">전체 5명</div>
+          <div class="is-btn sm ${targetMode==='sel'?'active':''}" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) ${targetMode==='sel'?'14':'4'}%,transparent);color:rgb(var(--c-blue))" onclick="deployTarget('sel')">선택</div>
+        </div>
+        <div class="is-label">💾 저장 경로</div>
+        <div style="padding:0 10px 4px;font-size:9px;color:rgb(var(--c-txt3))">%USERPROFILE%\\Downloads</div>
+        ${phase === 'idle' ? `
+        <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="deployStart()">📤 배포 시작</div></div>
+        ` : phase === 'deploying' ? `
+        <div style="padding:6px 10px">
+          <div class="prog"><div style="width:${prog}%;background:rgb(var(--c-accent))"></div></div>
+          <div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:3px">${prog}% · ${Math.ceil(prog/20)}/${pcs.length}대</div>
+        </div>
+        ` : `
+        <div style="padding:6px 10px;color:rgb(var(--c-green));font-size:10px;font-weight:600">✅ 배포 완료</div>
+        <div class="is-row" style="padding-bottom:6px"><div class="is-btn" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent));flex:1;text-align:center" onclick="deployReset()">↺ 다시</div></div>
+        `}
+      </div>
+    `);
+
+    let stuBody;
+    if (phase === 'idle') {
+      stuBody = stuView('<span style="font-size:28px;margin-bottom:6px">📤</span><div style="color:#94a3b8;font-weight:600">배포 대기</div><div style="font-size:10px;color:#475569;margin-top:4px">3개 파일 준비됨</div>');
+    } else {
+      const pcRows = pcs.map(p => {
+        const s = pcStatus[p] || 'wait';
+        const c = s === 'done' ? '#6ee7b7' : s === 'active' ? '#fbbf24' : '#64748b';
+        const l = s === 'done' ? '✅ 완료' : s === 'active' ? '⚙️ 수신 중' : '⏳ 대기';
+        return '<div style="display:flex;align-items:center;gap:4px;padding:2px 10px;font-size:10px;color:' + c + '"><span>' + l.split(' ')[0] + '</span><span style="font-weight:600">' + p + '</span><span style="font-size:9px;opacity:.7">' + l.split(' ').slice(1).join(' ') + '</span></div>';
+      }).join('');
+      stuBody = '<div class="ps-title"><span>📊 학생 PC 수신 현황</span></div><div style="background:#0f172a;height:220px;overflow-y:auto;padding:6px 0">' + pcRows + (phase==='deploying' ? '<div style="padding:6px 10px"><div class="prog"><div style="width:'+prog+'%;background:rgb(var(--c-accent))"></div></div></div>' : '') + '</div>';
+    }
+
+    div.innerHTML = '<h2>📤 파일 배포</h2><div class="sub">파일·폴더·zip을 학생 PC로 전송</div>';
+    div.innerHTML += iSection('파일 목록과 대상을 확인하고 배포를 시작해보세요', sidebar, iStu(stuBody),
+      '<b>📤 파일 배포</b> — 교사 PC의 파일·폴더·zip을 학생 PC로 전송합니다. <b>드래그 앤 드롭</b>으로 파일 추가 가능. ZIP은 <b>압축 해제</b> 옵션으로 풀어서 전송하고, 실행 파일은 <b>전송 후 자동 실행/열기</b>를 설정할 수 있습니다. 대상은 <b>전체 학생</b> 또는 <b>일부 선택</b> 가능. 저장 경로는 다운로드·바탕화면·문서 등 프리셋에서 고르거나 직접 입력.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>📄 파일 추가 방식</h3><p>드래그 앤 드롭 또는 클릭으로 파일 선택. 폴더 통째로 추가 가능. ZIP 내부 파일 목록을 바로 확인할 수 있어 필요한 파일만 골라 전송.</p></div>' +
+      '<div class="card"><h3>📦 ZIP 압축 해제</h3><p>ZIP 파일에 압축 해제 옵션 제공. 해제 후 어떤 파일을 실행/열지 선택 가능. ZIP이 아닌 파일은 전송 후 실행/열기 체크박스로 제어.</p></div>' +
+      '<div class="card"><h3>🎯 대상 학생 선택</h3><p>전체 또는 개별 PC 선택. 학생 목록 체크박스로 골라 배포. 3탭 구조: 📄파일 → 👥학생선택 → 📊배포현황.</p></div>' +
+      '<div class="card"><h3>💾 저장 경로 프리셋</h3><p>다운로드·바탕화면·문서·C:\\temp 중 선택하거나 직접 입력. 환경변수(%USERPROFILE% 등) 사용 가능.</p></div>' +
+      '<div class="card"><h3>▶ 전송 후 자동 실행</h3><p>.exe/.msi/.bat 등 실행 파일은 체크 시 학생 PC에서 자동 실행. 일반 파일(.hwp/.pdf 등)은 연결 프로그램으로 열림. 실패 시 10회/10초 재시도.</p></div>' +
+      '<div class="card"><h3>📊 실시간 진행률</h3><p>PC별 파일 전송 상태 실시간 표시. 완료/진행중/실패/대기 4단계 + 진행률 막대. 실패 건은 개별/일괄 재시도 가능.</p></div>' +
+      '<div class="card"><h3>🔄 자동 완료 감지</h3><p>모든 대상 PC의 모든 파일이 done/launched 상태가 되면 배포가 자동 완료 처리. 배포 취소도 가능.</p></div>' +
+      '<div class="card"><h3>📂 저장 위치</h3><p>학생 PC: <code>%USERPROFILE%\\Downloads\\ScreenShare\\</code> (기본값). 설정에서 변경 가능.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>실전 팁</b> — 수업 시작 전 실습코드.zip + 참고자료.hwp를 전체 학생에게 배포 후 자동 열기 옵션으로 학생 PC에서 바로 자료 열람. 시간 절약 + 학생 착오 방지.</div></div>';
+  }
+
+  window.deployTarget = function(m) { targetMode = m; render(); };
+  window.deployStart = function() {
+    phase = 'deploying'; prog = 0;
+    pcs.forEach(p => pcStatus[p] = 'wait');
+    clearInterval(timer);
+    timer = setInterval(() => {
+      prog += 4;
+      const done = Math.min(Math.ceil(prog / 20), 5);
+      pcs.forEach((p, i) => {
+        if (i < done) pcStatus[p] = 'done';
+        else if (i === done && prog < 100) pcStatus[p] = 'active';
+        else if (i > done) pcStatus[p] = 'wait';
+      });
+      if (prog >= 100) {
+        prog = 100; clearInterval(timer); phase = 'done';
+        pcs.forEach(p => pcStatus[p] = 'done');
+        toast('📤 배포 완료! 5대 전송 성공', 'success');
+      }
+      render();
+    }, 150);
+    render();
+  };
+  window.deployReset = function() { phase = 'idle'; prog = 0; clearInterval(timer); render(); };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 9-B. FILE COLLECT — 학생 바탕화면에 업로드 창 인터랙티브
+// ═══════════════════════════════════════════════
+function buildFileCollect(div) {
+  let phase = 'idle', prog = 0, timer = null;
+  let memo = '1차시 실습 파일';
+  let deadlineMin = 5;
+  let maxSize = 500;
+
+  function render() {
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">📥 파일 회수</div>
+        <div class="is-label">📂 저장 폴더</div>
+        <div style="padding:0 10px 4px;font-size:9px;font-family:monospace;color:rgb(var(--c-txt2))">C:\\Screen_Share\\회수파일\\</div>
+        <div class="is-label">📝 과제명</div>
+        <div class="is-row"><input type="text" value="${memo}" class="is-inp" id="coll-memo"></div>
+        <div class="is-label">⏱ 마감 시간 <span style="font-weight:400;text-transform:none">${deadlineMin}분</span></div>
+        <div class="is-row" style="gap:3px;padding-bottom:2px">
+          ${[1,5,10,30].map(n => '<div class="is-btn sm" style="--b:rgb(var(--c-txt2));background:color-mix(in srgb,rgb(var(--c-txt2)) 8%,transparent);color:rgb(var(--c-txt2))" onclick="collAddTime('+n+')">+'+n+'분</div>').join('')}
+          <div class="is-btn sm" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red))" onclick="collSetDeadline(0)">무제한</div>
+        </div>
+        <div class="is-label">📦 최대 크기</div>
+        <div class="is-row" style="gap:3px;padding-bottom:4px">
+          ${[[10,'10MB'],[50,'50MB'],[100,'100MB'],[500,'500MB'],[0,'제한없음']].map(([v,l]) => '<div class="is-btn sm '+(maxSize===v?'active':'')+'" style="--b:rgb(var(--c-purple));background:color-mix(in srgb,rgb(var(--c-purple)) '+(maxSize===v?'14':'4')+'%,transparent);color:rgb(var(--c-purple))" onclick="collSetMax('+v+')">'+l+'</div>').join('')}
+        </div>
+      </div>
+      <div class="is-sec">
+        ${phase === 'idle' ? `
+        <div class="is-row"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="collStart()">📥 회수 시작</div></div>
+        ` : phase === 'collecting' ? `
+        <div style="padding:6px 10px">
+          <div class="prog"><div style="width:${prog}%;background:rgb(var(--c-green))"></div></div>
+          <div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:3px">${Math.ceil(prog/20)}/${5}대 제출</div>
+          <div class="is-row" style="padding-top:4px"><div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red))" onclick="collStop()">⏹ 회수 종료</div></div>
+        </div>
+        ` : `
+        <div style="padding:6px 10px;color:rgb(var(--c-green));font-size:10px;font-weight:600">✅ 회수 완료 (${Math.ceil(prog/20)}개 제출)</div>
+        <div class="is-row" style="padding-bottom:6px"><div class="is-btn" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent));flex:1;text-align:center" onclick="collReset()">↺ 다시</div></div>
+        `}
+      </div>
+    `);
+
+    // 학생 바탕화면 + 업로드 창 오버레이
+    const taskbar = '<div class="sd-taskbar"><span class="sd-tb-start">⊞</span><span>📁</span><span>🌐</span><span class="sd-tb-clock">14:32</span></div>';
+
+    let overlay = '';
+    if (phase === 'idle') {
+      overlay = '<div class="sd-empty-hint">교사가 <b>회수 시작</b>을 누르면<br>파일 업로드 창이 나타납니다</div>';
+    } else {
+      const totalSec = deadlineMin * 60;
+      const remain = Math.max(0, totalSec - Math.floor(prog / 100 * (totalSec - 10)));
+      const remainStr = String(Math.floor(remain/60)).padStart(2,'0')+':'+String(remain%60).padStart(2,'0');
+      overlay = '<div style="position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:10">' +
+        '<div style="background:#1e293b;border:1px solid #475569;border-radius:8px;width:300px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:fadeIn .25s">' +
+        '<div style="background:#0f172a;padding:7px 12px;font-size:10px;font-weight:700;color:#cbd5e1;display:flex;align-items:center;gap:6px;border-bottom:1px solid #334155">' +
+        '📥 파일 제출 <span style="margin-left:auto;font-size:8px;color:#64748b">마감 ' + remainStr + '</span></div>' +
+        '<div style="padding:12px;text-align:center">' +
+        '<div style="color:#e2e8f0;font-size:11px;font-weight:600;margin-bottom:2px">' + memo + '</div>' +
+        '<div style="color:#94a3b8;font-size:9px;margin-bottom:8px">파일을 선택하거나 끌어다 놓으세요</div>' +
+        (phase === 'done'
+          ? '<div style="color:#6ee7b7;font-size:26px;margin:10px 0">✅</div><div style="color:#6ee7b7;font-size:11px;font-weight:600">제출 완료</div><div style="font-size:9px;color:#64748b;margin-top:4px">파일이 교사 PC로 전송되었습니다</div><div style="font-size:8px;color:#475569;margin-top:6px">이 창은 곧 자동으로 닫힙니다</div>'
+          : '<div style="border:1.5px dashed #475569;border-radius:6px;padding:16px;margin-bottom:8px;color:#64748b;font-size:11px;cursor:pointer;transition:all .12s" onmouseenter="this.style.borderColor=\'#60a5fa\';this.style.color=\'#60a5fa\'" onmouseleave="this.style.borderColor=\'#475569\';this.style.color=\'#64748b\'">📁 클릭하여 파일 선택</div>' +
+            '<div class="prog"><div style="width:' + prog + '%;background:#3b82f6"></div></div>' +
+            '<div style="font-size:9px;color:#64748b;margin-top:3px">' + prog + '% 업로드 중 ...</div>'
+        ) +
+        '</div></div></div>';
+    }
+
+    const stu = '<div class="ps-title"><span>👨‍🎓 학생 PC 바탕화면</span></div>' +
+      '<div class="stu-desktop" style="height:300px">' +
+      '<div class="sd-icons">' +
+        '<div class="sd-icon"><span>📁</span>문서</div>' +
+        '<div class="sd-icon"><span>🌐</span>Chrome</div>' +
+        '<div class="sd-icon"><span>📝</span>한글</div>' +
+      '</div>' +
+      overlay + taskbar + '</div>';
+
+    div.innerHTML = '<h2>📥 파일 회수 (과제 수집)</h2><div class="sub">학생 PC에서 파일 일괄 수집</div>';
+    div.innerHTML += iSection('설정을 하고 <b>📥 회수 시작</b>을 누르면 학생 바탕화면에 업로드 창이 나타납니다', sidebar, iStu(stu),
+      '<b>📥 파일 회수</b> — 과제·실습 파일을 학생 PC에서 교사 PC로 모읍니다. <b>회수 시작</b>을 누르면 학생 PC 화면에 업로드 창이 <b>자동으로 표시</b>됩니다. 학생이 파일을 선택해 올리면 교사 PC 저장 폴더에 <b>학번·이름이 자동 포함된 파일명</b>으로 저장됩니다. <b>회수 종료</b> 시 학생 측 창도 자동 닫힙니다.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>⚙ 설정 항목</h3><p><b>저장 폴더</b>(기본 C:\\Screen_Share\\회수파일) · <b>과제명</b>(선택, 파일명 자동 포함) · <b>마감 시간</b>(분 단위, 0=무제한) · <b>최대 파일 크기</b>(10MB~1GB/제한없음).</p></div>' +
+      '<div class="card"><h3>👨‍🎓 학생 측 업로드 창</h3><p>회수 시작 시 학생 화면에 <b>파일 업로드 모달</b>이 자동 표시. 과제명·마감 시간이 함께 보여지고, 파일 선택 또는 드래그로 제출.</p></div>' +
+      '<div class="card"><h3>📂 저장 구조</h3><p><code>C:\\Screen_Share\\회수파일\\{날짜}_{과제명}\\{학번}_{이름}_{과제명}_원본확장자</code>로 자동 정리. 학교 제출 양식에 바로 쓸 수 있음.</p></div>' +
+      '<div class="card"><h3>🪟 모달 = 세션 수명</h3><p>회수 모달을 닫으면 서버 중단 + 학생 측 업로드 창도 모두 닫힘. 닫기 전 confirm. 백그라운드 회수 없음.</p></div>' +
+      '<div class="card"><h3>📊 실시간 제출 현황</h3><p>교사 모달에서 학생별 ✓ 제출 / ✗ 미제출 상태 실시간 확인. 미전달 PC는 재전송 버튼으로 개별 재시도.</p></div>' +
+      '<div class="card"><h3>📂 폴더 바로 열기</h3><p>회수 모달 하단 <b>📂 이 과제 폴더 열기</b> 버튼으로 저장된 파일 즉시 탐색기 확인. 회수 중/후 모두 사용 가능.</p></div>' +
+      '<div class="card"><h3>↺ 다시 회수</h3><p>회수 종료 후 설정 탭에서 새로 시작. 기존 파일은 유지, 새 세션 폴더가 새로 생성됨.</p></div>' +
+      '<div class="card"><h3>🔒 LAN 전용</h3><p>LAN 내에서만 동작. 학생 업로드 파일은 교사 PC에만 저장, 외부 전송되지 않음.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>과제 회수 꿀팁</b> — 수업 마지막 5분 전에 회수 시작(마감 5분) → 학생들이 파일을 올리는 동안 실시간 확인 → 종료 후 폴더 열어 바로 확인. 학기 말 회수파일 폴더 통째로 백업하면 모든 과제 보관 완료.</div></div>';
+
+    div.querySelector('#coll-memo')?.addEventListener('change', function() { memo = this.value || memo; });
+  }
+
+  window.collAddTime = function(n) { deadlineMin += n; render(); };
+  window.collSetDeadline = function(n) { deadlineMin = n; render(); };
+  window.collSetMax = function(n) { maxSize = n; render(); };
+  window.collStart = function() {
+    phase = 'collecting'; prog = 0;
+    clearInterval(timer);
+    timer = setInterval(() => {
+      prog += 4;
+      if (prog >= 100) { prog = 100; clearInterval(timer); phase = 'done'; toast('📥 회수 완료! 5개 파일 제출됨', 'success'); }
+      render();
+    }, 200);
+    render(); toast('📥 회수 시작 — 학생 PC에 업로드 창 표시됨', 'info');
+  };
+  window.collStop = function() {
+    clearInterval(timer); phase = 'done';
+    toast('⏹ 회수 종료 — 학생 업로드 창 닫힘', 'info');
+    render();
+  };
+  window.collReset = function() { phase = 'idle'; prog = 0; deadlineMin = 5; clearInterval(timer); render(); };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 9-B. FILE EXEC — ▶ 파일 실행
+// ═══════════════════════════════════════════════
+function buildFileExec(div) {
+  // 데모 등록 항목 (최대 10개)
+  const items = [
+    { id:1, name:'Chrome',   path:'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', args:'https://example.com', checked:true },
+    { id:2, name:'한글',     path:'C:\\Program Files\\Hnc\\Office 2024\\HOffice130\\Bin\\Hwp.exe', args:'', checked:true },
+    { id:3, name:'메모장',   path:'notepad.exe', args:'', checked:false },
+    { id:4, name:'VSCode',   path:'C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe', args:'--folder C:\\Class', checked:false },
+  ];
+  let running = false, progress = 0, timer = null;
+  const pcStatus = {}; // PC별 결과: undefined | 'running' | 'done' | 'error'
+
+  function render() {
+    const checkedItems = items.filter(it => it.checked);
+    const pcs = ['PC-01','PC-03','PC-05','PC-07','PC-09'];
+
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">▶ 파일 실행</div>
+        <div style="font-size:10px;color:rgb(var(--c-txt2));padding:2px 10px 4px">학생 PC에 미리 설치된 프로그램/파일을 원격으로 실행시킵니다.</div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">📋 등록 목록 <span style="font-weight:400;text-transform:none">${items.length}/10</span></div>
+        ${items.map(it => `
+        <div style="display:flex;align-items:flex-start;gap:6px;padding:5px 10px;border-bottom:1px solid rgb(var(--c-border));cursor:pointer" onclick="execToggle(${it.id})">
+          <input type="checkbox" ${it.checked ? 'checked' : ''} style="accent-color:rgb(var(--c-accent));margin-top:2px;pointer-events:none">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:600;color:rgb(var(--c-txt))">${it.name}</div>
+            <div style="font-size:9px;color:rgb(var(--c-txt3));font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it.path}</div>
+            ${it.args ? `<div style="font-size:9px;color:rgb(var(--c-blue))">args: ${it.args}</div>` : ''}
+          </div>
+        </div>`).join('')}
+        <div class="is-row" style="padding:5px 10px"><div class="is-btn full" style="--b:rgb(var(--c-blue));background:color-mix(in srgb,rgb(var(--c-blue)) 8%,transparent);color:rgb(var(--c-blue))" onclick="toast('➕ 새 항목 추가 폼 (이름·경로·인수 입력)','info')">➕ 새 항목 추가</div></div>
+      </div>
+      <div class="is-sec">
+        <div class="is-row" style="padding-bottom:6px"><div class="is-btn full" style="--b:rgb(var(--c-green));background:color-mix(in srgb,rgb(var(--c-green)) 12%,transparent);color:rgb(var(--c-green))" onclick="execRun()">▶ 선택 학생에 실행 (${checkedItems.length}개)</div></div>
+      </div>
+    `);
+
+    // 우측 패널: 학생 PC에서 실행 결과 모니터링
+    const pcRows = pcs.map(p => {
+      const st = pcStatus[p];
+      const ico = st === 'done' ? '✅' : st === 'error' ? '❌' : st === 'running' ? '⚙️' : '⏳';
+      const c = st === 'done' ? '#6ee7b7' : st === 'error' ? '#fca5a5' : st === 'running' ? '#fbbf24' : '#64748b';
+      const lbl = st === 'done' ? '실행 성공' : st === 'error' ? '실패 — 경로 확인' : st === 'running' ? '실행 중...' : '대기';
+      return '<div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-bottom:1px solid rgba(255,255,255,.06);font-size:10px;color:' + c + '"><span>' + ico + '</span><span style="font-weight:600;color:#cbd5e1">' + p + '</span><span style="flex:1">' + lbl + '</span></div>';
+    }).join('');
+
+    const stu = '<div class="ps-title"><span>📊 학생 PC 실행 결과</span></div>' +
+      '<div style="background:#0f172a;height:240px;overflow-y:auto">' +
+        '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;font-size:9px;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">' +
+          '<span>📋 실행할 항목: ' + checkedItems.length + '개</span>' +
+          (running ? '<span style="margin-left:auto;color:#fbbf24">⚙️ ' + progress + '%</span>' : '<span style="margin-left:auto;color:#64748b">대기</span>') +
+        '</div>' +
+        pcRows +
+        '<div style="padding:5px 10px;font-size:9px;color:#64748b;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2);position:sticky;bottom:0">실행 성공/실패가 실시간으로 회신됩니다</div>' +
+      '</div>';
+
+    div.innerHTML = '<h2>▶ 파일 실행</h2><div class="sub">학생 PC 프로그램/파일 원격 실행</div>';
+    div.innerHTML += iSection('실행 항목을 체크하고 ▶ 버튼을 눌러보세요', sidebar, iStu(stu),
+      '<b>▶ 파일 실행</b>은 학생 PC에 <b>이미 설치된 프로그램</b>(또는 파일)을 원격으로 실행시킵니다. 설치는 안 함 — 경로를 알려주면 학생 PC가 그걸 실행할 뿐. 자주 쓰는 항목(Chrome, 한글, IDE 등)을 <b>최대 10개까지 등록</b>해 두고 한 번 클릭으로 일괄 실행. 인수(args)도 함께 보낼 수 있어 특정 URL이나 파일을 열게 할 수 있음.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>📋 항목 등록 (최대 10)</h3><p>이름·경로·인수를 입력해 자주 쓰는 프로그램을 등록합니다. 환경변수(<code>%USERNAME%</code> 등) 사용 가능. 등록한 항목은 다음 실행에도 유지.</p></div>' +
+      '<div class="card"><h3>✅ 체크박스로 선택 실행</h3><p>등록된 10개 중 <b>이번 시간에 쓸 것만</b> 체크해서 실행. 예: 코딩 시간엔 VSCode만, 글쓰기 시간엔 한글만.</p></div>' +
+      '<div class="card"><h3>⚙ 인수(Arguments)</h3><p>실행 시 함께 보낼 명령행 인수. 예: 크롬 <code>https://수업자료.com</code>, VSCode <code>--folder C:\\Class</code>. 특정 페이지·파일을 자동으로 띄울 수 있음.</p></div>' +
+      '<div class="card"><h3>🎯 일괄 vs 선택 PC</h3><p>학생 탭에서 <b>전체 학생</b> 또는 <b>일부 PC만</b> 선택해 실행. 시험 부정 행위 의심 PC만 화이트리스트 외 프로그램 강제 종료 후 허용 프로그램 실행 등에 활용.</p></div>' +
+      '<div class="card"><h3>📊 실시간 결과 회신</h3><p>각 학생 PC에서 실행 성공/실패가 <b>실시간으로 회신</b>됩니다. 실패 사유(경로 없음·권한 부족 등)도 함께 표시되어 즉시 진단 가능.</p></div>' +
+      '<div class="card"><h3>📁 일반 파일도 실행</h3><p>.exe뿐 아니라 .hwp, .pdf, .pptx, .xlsx도 가능. 학생 PC의 기본 연결 프로그램으로 자동 실행됩니다(<code>shell.openPath</code>).</p></div>' +
+      '<div class="card"><h3>🚫 미설치는 실행 안 됨</h3><p>학생 PC에 그 프로그램이 <b>설치되어 있어야</b> 합니다. 설치까지 하려면 파일 배포 + "전송 후 열기" 또는 학생 프로그램 관리의 패키지 설치를 사용.</p></div>' +
+      '<div class="card"><h3>🔄 자주 쓰는 패턴 저장</h3><p>한 번 등록해 두면 다음 학기에도 재사용. 학기 초에 자주 쓰는 프로그램 10개 미리 등록하면 매 수업 한 클릭으로 환경 셋업.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>수업 시작 일괄 셋업</b> — 한 시간 전체 학생에게 한글 + Chrome(수업페이지) 동시 실행 → 학생들이 직접 찾아 켤 시간 절약. 시험 시간엔 한글만 등.</div></div>';
+  }
+
+  window.execToggle = function(id) {
+    const it = items.find(i => i.id === id);
+    if (it) it.checked = !it.checked;
+    render();
+  };
+  window.execRun = function() {
+    const checkedItems = items.filter(it => it.checked);
+    if (checkedItems.length === 0) { toast('⚠ 실행할 항목을 선택하세요', 'warning'); return; }
+    running = true; progress = 0;
+    const pcs = ['PC-01','PC-03','PC-05','PC-07','PC-09'];
+    pcs.forEach(p => pcStatus[p] = 'running');
+    clearInterval(timer);
+    toast('▶ ' + checkedItems.length + '개 항목을 5대 학생에게 실행', 'info');
+    timer = setInterval(() => {
+      progress += 5;
+      const doneCount = Math.min(Math.ceil(progress / 20), 5);
+      pcs.forEach((p, i) => {
+        if (i < doneCount) pcStatus[p] = (i === 3 && Math.random() > 0.5) ? 'error' : 'done';
+        else if (i === doneCount && progress < 100) pcStatus[p] = 'running';
+      });
+      if (progress >= 100) {
+        progress = 100; clearInterval(timer); running = false;
+        const ok = pcs.filter(p => pcStatus[p] === 'done').length;
+        const err = pcs.filter(p => pcStatus[p] === 'error').length;
+        toast('✅ 실행 완료 — 성공 ' + ok + ' / 실패 ' + err, err > 0 ? 'warning' : 'success');
+      }
+      render();
+    }, 200);
+    render();
+  };
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// 9-C. FILE MGMT — 🗑 파일 관리 (삭제)
+// ═══════════════════════════════════════════════
+function buildFileMgmt(div) {
+  let folder = '%USERPROFILE%\\Downloads';
+  let mode = 'files-only';
+  let emptyBin = false;
+  let running = false, prog = 0, timer = null;
+  const pcStatus = {}; // 'done' | 'warn' | 'error' | 'blocked'
+
+  const modes = [
+    { v:'files-only',     label:'📄 파일만 삭제',  desc:'폴더 구조 유지, 파일만 삭제', danger:false },
+    { v:'recursive',      label:'🔁 재귀 삭제',    desc:'하위 폴더 파일까지 삭제 (폴더 유지)', danger:false },
+    { v:'recursive-dirs', label:'🗂 재귀+빈폴더',  desc:'파일 + 빈 서브폴더 삭제', danger:false },
+    { v:'rmtree',         label:'💣 폴더 통째로',  desc:'폴더 자체를 완전히 삭제', danger:true },
+  ];
+
+  function render() {
+    const pcs = ['PC-01','PC-03','PC-05','PC-07','PC-09'];
+    const sel = modes.find(m => m.v === mode);
+
+    const sidebar = iSide(`
+      <div class="is-sec">
+        <div class="is-title">🗑 파일 관리 (삭제)</div>
+        <div style="font-size:10px;color:rgb(var(--c-txt2));padding:2px 10px 4px">학생 PC의 특정 폴더 내 파일을 원격으로 삭제합니다. 수업 종료 후 정리·디스크 청소에 활용.</div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">📂 대상 폴더</div>
+        <div class="is-row"><input type="text" value="${folder}" class="is-inp" id="mgmt-folder" style="font-family:monospace;font-size:10px"></div>
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">환경변수 사용 가능 (예: %USERPROFILE%, %APPDATA%)</div>
+      </div>
+      <div class="is-sec">
+        <div class="is-label">⚙ 삭제 방식</div>
+        ${modes.map(m => `
+        <div style="display:flex;align-items:flex-start;gap:6px;padding:5px 10px;border-bottom:1px solid rgb(var(--c-border));cursor:pointer;${mode===m.v ? 'background:color-mix(in srgb,rgb(var(--c-blue)) 6%,transparent)' : ''}" onclick="mgmtMode('${m.v}')">
+          <input type="radio" ${mode===m.v ? 'checked' : ''} style="accent-color:rgb(var(--c-blue));margin-top:2px;pointer-events:none">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:600;color:${m.danger ? 'rgb(var(--c-red))' : 'rgb(var(--c-txt))'}">${m.label}${m.danger ? ' <span style="font-size:8px;background:rgba(220,38,38,.2);padding:1px 4px;border-radius:3px">위험</span>' : ''}</div>
+            <div style="font-size:9px;color:rgb(var(--c-txt3))">${m.desc}</div>
+          </div>
+        </div>`).join('')}
+      </div>
+      <div class="is-sec">
+        <div class="is-row" style="padding:4px 10px"><label class="is-chk" style="font-size:10px"><input type="checkbox" id="mgmt-bin" ${emptyBin ? 'checked' : ''}> 🗑 휴지통 비우기 (폴더 무관)</label></div>
+        <div class="is-row" style="padding-bottom:6px"><div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) ${emptyBin || mode === 'rmtree' ? '14' : '10'}%,transparent);color:rgb(var(--c-red))" onclick="mgmtRun()">${emptyBin ? '🗑 휴지통 비우기 실행' : '🗑 ' + sel.label + ' 실행'}</div></div>
+      </div>
+    `);
+
+    const pcRows = pcs.map(p => {
+      const st = pcStatus[p];
+      const ico = st === 'done' ? '✅' : st === 'warn' ? '⚠️' : (st === 'error' || st === 'blocked') ? '❌' : st === 'running' ? '⚙️' : '⏳';
+      const c = st === 'done' ? '#6ee7b7' : st === 'warn' ? '#fbbf24' : (st === 'error' || st === 'blocked') ? '#fca5a5' : st === 'running' ? '#fbbf24' : '#64748b';
+      const lbl = st === 'done' ? '완료 · 삭제 12건' : st === 'warn' ? '일부 잠금 파일' : st === 'error' ? '경로 없음' : st === 'blocked' ? '권한 부족' : st === 'running' ? '삭제 중...' : '대기';
+      return '<div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-bottom:1px solid rgba(255,255,255,.06);font-size:10px;color:' + c + '"><span>' + ico + '</span><span style="font-weight:600;color:#cbd5e1">' + p + '</span><span style="flex:1">' + lbl + '</span></div>';
+    }).join('');
+
+    const stu = '<div class="ps-title"><span>📊 학생 PC 삭제 결과</span></div>' +
+      '<div style="background:#0f172a;height:240px;overflow-y:auto">' +
+        '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;font-size:9px;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">' +
+          (emptyBin ? '<span style="color:#fbbf24">🗑 휴지통 비우기</span>' : '<span>📂 ' + folder + '</span>') +
+          (running ? '<span style="margin-left:auto;color:#fbbf24">⚙️ ' + prog + '%</span>' : '<span style="margin-left:auto;color:#64748b">대기</span>') +
+        '</div>' +
+        pcRows +
+        '<div style="padding:5px 10px;font-size:9px;color:#64748b;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2)">상태: ✅완료 / ⚠️일부 / ❌실패</div>' +
+      '</div>';
+
+    div.innerHTML = '<h2>🗑 파일 관리 (삭제)</h2><div class="sub">학생 PC 폴더 일괄 정리</div>';
+    div.innerHTML += iSection('대상 폴더와 삭제 방식을 골라 실행해보세요', sidebar, iStu(stu),
+      '<b>🗑 파일 관리</b>는 학생 PC의 특정 폴더 안 파일을 <b>일괄 삭제</b>합니다. 수업 끝나고 다운로드 폴더 정리, 학기 끝나고 임시 파일 청소, 시험 전 부정 행위 자료 일괄 삭제 등에 활용. <b>4가지 방식</b>(파일만/재귀/재귀+빈폴더/폴더 통째로) 중 선택하며, 별도로 <b>휴지통 비우기</b>도 가능. <b>실행 전 confirm</b>이 떠 실수를 막아줍니다.'
+    );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>📄 파일만 삭제</h3><p>지정 폴더의 <b>파일만</b> 삭제. 폴더 구조는 그대로 유지. 가장 안전한 방식 — 폴더 구조를 깨지 않음. 다운로드 폴더 정리에 자주 사용.</p></div>' +
+      '<div class="card"><h3>🔁 재귀 삭제</h3><p>하위 폴더의 파일까지 모두 삭제. 폴더(빈 폴더 포함)는 유지. 자료 정리 + 폴더 구조 유지하고 싶을 때.</p></div>' +
+      '<div class="card"><h3>🗂 재귀 + 빈 폴더</h3><p>파일 삭제 후 비어 있는 서브 폴더도 함께 삭제. 깔끔한 정리. 단, 최상위 폴더는 유지.</p></div>' +
+      '<div class="card"><h3>💣 폴더 통째로 (위험)</h3><p>대상 폴더 자체를 완전히 삭제. <b>되돌릴 수 없음</b> — 시스템 폴더 지정 금지(예: <code>C:\\Windows</code>). confirm 다이얼로그가 한 번 더 경고.</p></div>' +
+      '<div class="card"><h3>🗑 휴지통 비우기</h3><p>폴더와 무관하게 <b>학생 PC 휴지통</b>을 비웁니다. 폴더 입력 없이도 단독 실행 가능. 디스크 공간 확보·민감 정보 정리에 활용.</p></div>' +
+      '<div class="card"><h3>📂 환경변수 지원</h3><p>경로에 <code>%USERPROFILE%</code>, <code>%APPDATA%</code>, <code>%TEMP%</code> 등 사용 가능. 학생 PC마다 사용자명이 달라도 동일한 명령으로 처리.</p></div>' +
+      '<div class="card"><h3>📊 학생별 결과</h3><p>각 학생 PC의 결과가 실시간 표시: <b>✅완료</b>(삭제 건수) / <b>⚠️일부</b>(잠긴 파일 등 일부 실패) / <b>❌실패</b>(경로 없음·권한 부족 등).</p></div>' +
+      '<div class="card"><h3>🔒 안전 장치</h3><p>실행 직전 <b>confirm 다이얼로그</b>로 대상 학생 수·방식·폴더를 한 번 더 확인. 폴더 통째로 + 빈 입력 같은 위험한 조합은 자동 차단.</p></div>' +
+      '</div>' +
+      '<div class="warn-box"><b>주의</b> — 시스템 폴더(<code>C:\\Windows</code>, <code>C:\\Program Files</code>)나 학생 데이터 폴더는 지정하지 마세요. 되돌릴 수 없습니다. 학생 다운로드(<code>%USERPROFILE%\\Downloads</code>)나 임시 폴더(<code>%TEMP%</code>) 같은 안전한 위치만 권장.</div>' +
+      '<div class="tip-box"><b>수업 종료 자동화</b> — 다운로드 폴더 + "재귀 삭제"를 마지막 시간에 한 번 실행하면 학생 PC가 다음 수업에 깔끔. 하드보안관 환경이면 재부팅으로 어차피 정리되지만, 일반 환경에선 이 기능이 유용.</div></div>';
+    div.querySelector('#mgmt-folder')?.addEventListener('change', function() { folder = this.value; });
+    div.querySelector('#mgmt-bin')?.addEventListener('change', function() { emptyBin = this.checked; render(); });
+  }
+
+  window.mgmtMode = function(v) { mode = v; render(); };
+  window.mgmtRun = function() {
+    if (!emptyBin && !folder.trim()) { toast('⚠ 대상 폴더를 입력하세요', 'warning'); return; }
+    running = true; prog = 0;
+    const pcs = ['PC-01','PC-03','PC-05','PC-07','PC-09'];
+    pcs.forEach(p => pcStatus[p] = 'running');
+    clearInterval(timer);
+    toast(emptyBin ? '🗑 5대 학생 휴지통 비우기' : '🗑 5대 학생에 ' + modes.find(m=>m.v===mode).label + ' 실행', 'info');
+    const results = ['done','done','warn','done','error'];
+    timer = setInterval(() => {
+      prog += 5;
+      const doneCount = Math.min(Math.ceil(prog / 20), 5);
+      pcs.forEach((p, i) => {
+        if (i < doneCount) pcStatus[p] = results[i];
+        else if (i === doneCount && prog < 100) pcStatus[p] = 'running';
+      });
+      if (prog >= 100) {
+        prog = 100; clearInterval(timer); running = false;
+        const ok = pcs.filter(p => pcStatus[p] === 'done').length;
+        const wn = pcs.filter(p => pcStatus[p] === 'warn').length;
+        const er = pcs.filter(p => pcStatus[p] === 'error' || pcStatus[p] === 'blocked').length;
+        toast('✅ 정리 완료 — 성공 ' + ok + ' / 일부 ' + wn + ' / 실패 ' + er, er > 0 ? 'warning' : 'success');
+      }
+      render();
+    }, 200);
+    render();
+  };
   render();
 }
 
@@ -851,10 +2013,19 @@ function buildTimer(div) {
     const stu = running
       ? stuTimer(format(display))
       : stuView('<span style="font-size:28px;margin-bottom:6px">⏱️</span><div style="color:#94a3b8;font-weight:600">타이머 대기 중</div>');
-    div.innerHTML = '<h2>⏱️ 타이머 (카운트다운 / 스톱워치)</h2><div class="sub">타이머</div>';
-    div.innerHTML += iSection('타이머를 직접 실행해보세요', sidebar, iStu(stu),
-      '<b>카운트다운</b> — 지정 시간에서 감소. 0 도달 시 학생 전체화면 종료 모달 표시(5분 후 자동 해제).<br><b>스톱워치</b> — 0에서 증가. 실습 시간 측정에 활용.'
+    div.innerHTML = '<h2>⏱️ 타이머 (카운트다운 / 스톱워치)</h2><div class="sub">수업 타이머 — 카운트다운 · 스톱워치</div>';
+    div.innerHTML += iSection('카운트다운/스톱워치 버튼을 눌러 학생 화면에 어떻게 보이는지 확인하세요', sidebar, iStu(stu),
+      '<b>⏲ 카운트다운</b> — 지정한 시간에서 0까지 감소. 시험 시간·실습 시간 안내에 적합. <b>0초 도달 시 학생 화면에 풀스크린 종료 모달</b>이 떠 시간 만료를 강하게 알립니다(닫을 수 없으며 5분 후 자동 해제). <b>⏱ 스톱워치</b> — 0초부터 증가. 발표 시간 측정·실습 시간 누적에 활용. 학생 화면에는 상단에 작은 칩으로 표시됩니다.'
     );
+    div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
+      '<div class="card"><h3>⏲ 카운트다운 모드</h3><p>분 단위 추가(+1·+5·+15·+30)나 직접 <code>mm:ss</code> 입력으로 시간 설정. ▶ 시작 → 학생 화면에 함께 표시되며, 1분 미만이면 빨간색으로 강조.</p></div>' +
+      '<div class="card"><h3>⏱ 스톱워치 모드</h3><p>0초부터 증가만 합니다. 종료 시간 정해진 게 없을 때 — 자유 발표·실험 시간 측정에 적합.</p></div>' +
+      '<div class="card"><h3>🚨 0초 도달 알림</h3><p>카운트다운이 0이 되면 학생 화면에 <b>풀스크린 종료 모달</b>이 떠서 "시간 종료!" 메시지를 강조 표시. 학생이 닫을 수 없으며 다음 중 하나가 일어나면 자동 해제: 새 타이머 시작, 5분 경과, 교사 앱 연결 끊김 3분.</p></div>' +
+      '<div class="card"><h3>📌 학생 화면 표시 위치</h3><p>학생 PC 상단 가운데에 작은 칩(28px 높이)으로 표시됩니다. 좌우 영역이 비어 있어 학생이 뒤에 있는 다른 창을 조작하는 데 방해되지 않음.</p></div>' +
+      '<div class="card"><h3>⏸ 일시정지</h3><p>카운트다운·스톱워치 모두 일시정지/재개 가능. 일시정지 중에도 학생 화면엔 멈춘 시간이 그대로 표시.</p></div>' +
+      '<div class="card"><h3>🔄 재접속 시 자동 동기</h3><p>학생 PC가 늦게 접속했거나 재부팅 후 다시 들어와도 <b>현재 타이머 상태가 자동으로 동기화</b>됩니다. 모두 같은 시간을 봄.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>시험 운영 팁</b> — 시험 시작 시 카운트다운으로 시간 보여주고, 마감 1~2분 전엔 자동으로 빨간색으로 강조됩니다. 종료 모달은 닫을 수 없어 자동으로 "그만"을 시각화해 줍니다.</div></div>';
     div.querySelectorAll('input[name="tm"]').forEach(r => r.addEventListener('change', function() { mode = this.value; if (!running) render(); }));
     div.querySelector('#tm-inp')?.addEventListener('change', function() {
       const parts = this.value.split(':');
@@ -988,7 +2159,7 @@ function buildInstallTeacher(div) {
       <div style="font-size:10px;color:#475569;margin-top:4px;max-width:240px;line-height:1.6">${stuSub}</div>
     `);
 
-    div.innerHTML = '<h2>🖥 교사 PC 설치 — GitHub Releases</h2><div class="sub">설치 / 배포</div>';
+    div.innerHTML = '<h2>🖥 교사 PC 설치 — GitHub Releases</h2><div class="sub">GitHub Releases에서 첫 설치</div>';
     div.innerHTML += iSection('단계 버튼을 눌러 흐름을 따라가 보세요', sidebar, iStu(stuHtml),
       '<b>📦 배포 채널</b> — 교사 앱은 <b>GitHub Releases</b>(github.com/soulych-teacher-dev/screen-share)에서 직접 다운로드합니다. 학생 앱은 별도로 받지 않고, <b>교사 앱이 만들어 주는 맞춤 패키지</b>를 사용합니다(다음 페이지).<br>' +
       '<b>📂 설치 경로</b> — <code>%LOCALAPPDATA%\\Programs\\screensharet\\</code> (바이너리) · <code>%APPDATA%\\ScreenShareT\\</code> (설정/config.json)<br>' +
@@ -1170,7 +2341,7 @@ function buildInstallStudent(div) {
       `);
     }
 
-    div.innerHTML = '<h2>👨‍🎓 학생 PC 설치 — 맞춤 패키지</h2><div class="sub">설치 / 배포</div>';
+    div.innerHTML = '<h2>👨‍🎓 학생 PC 설치 — 맞춤 패키지</h2><div class="sub">교사 앱이 만든 맞춤 패키지로 설치</div>';
     div.innerHTML += iSection('단계 버튼을 눌러 교사↔학생 동기 흐름을 확인하세요', sidebar, iStu(stuHtml),
       '<b>📦 맞춤 패키지 방식</b> — 학생 앱은 GitHub에서 직접 받지 <b>않습니다</b>. 교사 앱이 자신의 IP·포트를 박은 <code>student-config.json</code> + 학생 setup.exe + <code>install.bat</code> + <code>uninstall.bat</code>을 묶어 폴더와 zip을 만들어 줍니다.<br>' +
       '<b>📂 패키지 산출물</b> — 바탕화면에 <code>학생설치패키지_{교사IP}</code> 폴더(하드보안관용)와 동명의 <code>.zip</code>(USB 배포용)이 동시 생성됩니다.<br>' +
@@ -1265,10 +2436,10 @@ function buildUpdate(div) {
           <div class="prog"><div style="width:${prog}%;background:rgb(var(--c-blue))"></div></div>
           <div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:3px">⬇️ 다운로드 중... ${prog}%<br>ScreenShareT-Setup-0.1.53.exe · ${(prog*0.24).toFixed(1)}MB / 24MB</div>
         </div>
-        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">① V3 백신 대기(30s) → ② bat+VBS+schtasks(5s) → ③ app.quit → ④ VBS→숨김cmd→bat</div>` : ''}
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 4px">① 다운로드 → ② 백신 검사 대기 → ③ 자동 종료·재시작</div>` : ''}
         ${phase === 'done' ? `
         <div style="padding:6px 10px;color:rgb(var(--c-green));font-size:11px;font-weight:600">✅ 교사 앱 v0.1.53 설치 완료</div>
-        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 6px">NSIS oneClick=false · runAfterFinish=true(자동 실행) · 단일 인스턴스</div>` : ''}
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 6px">설치 후 자동으로 새 앱이 실행됩니다.</div>` : ''}
       </div>
       <div class="is-sec" style="border-top:1.5px dashed rgb(var(--c-border))">
         <div class="is-title">👨‍🎓 학생 프로그램 업데이트</div>
@@ -1276,7 +2447,7 @@ function buildUpdate(div) {
           <span>현재 버전: <b>v0.2.55~v0.2.58</b></span>
           <span style="font-size:8px;color:rgb(var(--c-txt3))">(PC별 상이)</span>
         </div>
-        <div style="padding:0 10px 2px;font-size:9px;color:rgb(var(--c-txt3))">① 교사 GitHub 다운로드 → ② UpdateFileServer(LAN 9031-9040) → ③ S_UPDATE → ④ 학생 HTTP 수신</div>
+        <div style="padding:0 10px 2px;font-size:9px;color:rgb(var(--c-txt3))">교사 PC가 받은 새 버전을 학교 LAN으로 학생에게 자동 배포</div>
         ${deployPhase === 'none' ? `
         <div class="is-row" style="padding-top:2px"><div class="is-btn full" style="--b:rgb(var(--c-accent));background:color-mix(in srgb,rgb(var(--c-accent)) 8%,transparent);color:rgb(var(--c-accent))" onclick="updDeploy()">📤 학생 배포 (v0.2.58)</div></div>` : deployPhase === 'deploying' ? `
         <div style="padding:6px 10px">
@@ -1289,28 +2460,28 @@ function buildUpdate(div) {
     `);
 
     const stu = phase === 'updating'
-      ? stuView(`<span style="font-size:24px;margin-bottom:4px">🔄</span><div style="color:#60a5fa;font-weight:600">교사 앱 업데이트 중...</div><div style="width:80%;margin-top:6px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden"><div style="width:${prog}%;height:100%;background:#3b82f6;border-radius:2px"></div></div><div style="font-size:10px;color:#475569;margin-top:4px">VBS→schtasks→NSIS→자동 재시작</div>`)
+      ? stuView(`<span style="font-size:24px;margin-bottom:4px">🔄</span><div style="color:#60a5fa;font-weight:600">교사 앱 업데이트 중...</div><div style="width:80%;margin-top:6px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden"><div style="width:${prog}%;height:100%;background:#3b82f6;border-radius:2px"></div></div><div style="font-size:10px;color:#475569;margin-top:4px">다운로드 → 백신 검사 → 자동 재시작</div>`)
       : deployPhase === 'deploying'
-        ? stuView(`<span style="font-size:24px;margin-bottom:4px">📤</span><div style="color:#22d3ee;font-weight:600">교사 LAN에서 새 버전 수신 중...</div><div style="width:80%;margin-top:6px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden"><div style="width:${deployProg}%;height:100%;background:#22d3ee;border-radius:2px"></div></div><div style="font-size:10px;color:#475569;margin-top:4px">→ writeUpdateBat → schtasks(30s) → app.quit → NSIS silent → del update.lock → watchdog 재개</div>`)
+        ? stuView(`<span style="font-size:24px;margin-bottom:4px">📤</span><div style="color:#22d3ee;font-weight:600">교사 LAN에서 새 버전 수신 중...</div><div style="width:80%;margin-top:6px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden"><div style="width:${deployProg}%;height:100%;background:#22d3ee;border-radius:2px"></div></div><div style="font-size:10px;color:#475569;margin-top:4px">학생 PC에서 백그라운드 자동 설치 → 재시작</div>`)
         : (phase === 'done' || deployPhase === 'done')
           ? stuView(`<span style="font-size:28px;margin-bottom:4px">✅</span><div style="color:#6ee7b7;font-weight:600">최신 버전 적용 완료</div><div style="font-size:10px;color:#475569;margin-top:4px">재접속 완료</div>`)
           : stuView(`<span style="font-size:28px;margin-bottom:4px">🖥️</span><div style="color:#94a3b8;font-weight:600">대기 중</div><div style="font-size:10px;color:#475569;margin-top:4px">PC-01(v0.2.55) · PC-03(v0.2.58) · PC-05(v0.2.57) · PC-07(v0.2.56) · PC-09(v0.2.58)</div>`);
 
-    div.innerHTML = '<h2>🔄 업데이트 (교사 / 학생)</h2><div class="sub">설치 / 업데이트</div>';
+    div.innerHTML = '<h2>🔄 업데이트 (교사 / 학생)</h2><div class="sub">GitHub Releases 감지 → 교사 PC → 학생 LAN 배포</div>';
     div.innerHTML += iSection('교사 업데이트와 학생 배포를 시뮬레이션해보세요', sidebar, iStu(stu),
-      '<b>🖥 교사 업데이트 흐름</b> — GitHub Releases <code>/repos/.../releases/latest</code> 폴링 → 상단 알림바 → 확인 → 자산 다운로드(C:\\Screen_Share\\설치파일\\, S3 redirect 따라감) → V3 대기(30s) → bat+VBS+schtasks(5s) → app.quit(requestSingleInstanceLock 해제) → VBS(wscript.exe)가 숨김cmd 실행 → bat: taskkill /F /IM ScreenShareT.exe → ping sleep → PowerShell Start-Process로 NSIS(oneClick=false, runAfterFinish=true) → NSIS 완료 시 새 앱 자동 실행 → bat: setup.exe+VBS 삭제 → (goto) 2>nul & del 자가삭제<br>' +
-      '<b>👨‍🎓 학생 업데이트 흐름</b> — ① 교사 GitHub 다운로드 완료 → ② UpdateFileServer(LAN포트 9031~9040) 시작 → ③ S_UPDATE(URL+버전) broadcast → ④ 학생 handleUpdate: disableService + update.lock 생성(%APPDATA%\\ScreenShareS\\) → ⑤ HTTP download(<b>교사 LAN IP</b>, %TEMP%\\student-setup-*.exe) → ⑥ V3 unlock 대기(최대 30s) → ⑦ writeUpdateBat(%TEMP%) → ⑧ schtasks 일회성 등록(XML TimeTrigger 30s, DeleteExpiredTaskAfter=PT5M) → ⑨ enableService → _isQuitting=true → 1.5s 후 app.quit → ⑩ 30s 후 bat 실행: taskkill /F (ScreenShareS+DwmHelper+WinDisplaySvc) → ping 2s → Start-Process NSIS silent(/S) → ping 15s(V3 검사) → del update.lock → DwmHelper/ScreenShareS 실행 → schtasks /run(백업) → del setup.exe → (goto) 2>nul & del 자가삭제<br>' +
-      '<b>📡 학생은 GitHub에 직접 접근하지 않습니다.</b> 교사 PC만 GitHub에 접속하고, 학생은 교사 LAN IP에서 받습니다. 학교 LAN 환경/방화벽과 무관하게 동작.'
+      '<b>🖥 교사 앱 업데이트</b> — 교사 앱이 시작할 때 GitHub Releases를 자동으로 확인합니다. 새 버전이 있으면 상단에 알림이 떠 사용자가 <b>업데이트 확인 → 설치</b>를 누르면 자동으로 다운로드 후 재시작합니다. 새 앱이 자동으로 다시 실행됩니다.<br>' +
+      '<b>👨‍🎓 학생 앱 업데이트</b> — 학생은 GitHub에 직접 접근하지 않습니다. 교사 앱이 GitHub에서 받은 학생 setup.exe를 <b>학교 LAN으로 broadcast</b>하면 학생 PC들이 받아서 자동 설치 → 재시작합니다.<br>' +
+      '<b>📡 핵심:</b> 교사 PC만 인터넷에 접속하면 됨. 학생 PC들은 학교 LAN 안에서만 통신하므로 학교 방화벽/필터링과 무관하게 동작합니다.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🌐 GitHub Releases 채널</h3><p>API: <code>https://api.github.com/repos/soulych-teacher-dev/screen-share/releases/latest</code>. 인증 불필요(public 저장소). 자산 자동 식별: <code>ScreenShareT-Setup-*.exe</code>(교사) + <code>ScreenShareS-Setup-*.exe</code>(학생). 다운로드는 S3 redirect 따라 GitHub CDN에서.</p></div>' +
-      '<div class="card"><h3>📦 한 릴리스에 둘 다</h3><p>같은 태그(v0.2.58)에 교사·학생 setup.exe + blockmap + manifest + sha256 모두 첨부. 버전 짝(교사 v0.1.53 + 학생 v0.2.58)이 항상 일관되게 묶임.</p></div>' +
-      '<div class="card"><h3>🔒 Lock 파일</h3><p><code>update.lock</code> / <code>install.lock</code> (%APPDATA%\\ScreenShareS\\) — 업데이트/설치/제거 중 watchdog이 Main을 살리지 못하게 차단. 5분 stale 자동 해제.</p></div>' +
-      '<div class="card"><h3>📝 Bat 자가삭제</h3><p><code>(goto) 2>nul & del "%~f0"</code> — (goto)가 문법 오류를 내고 2>nul이 "The batch file cannot be found." 메시지를 숨김. Windows 표준 bat 자가삭제 패턴.</p></div>' +
-      '<div class="card"><h3>🔄 schtasks 업데이트</h3><p>Electron의 Job Object에서 탈출하기 위해 OS 스케줄러 사용. Teacher: VBS 래퍼(wscript.exe)로 cmd 창 숨김 + 5s 지연. Student: XML TimeTrigger + 30s 지연 + PT5M 자동삭제.</p></div>' +
-      '<div class="card"><h3>📋 회귀 방지</h3><p>업데이트 흐름 수정 시 <code>DOCS/checklist_update_regression.md</code> 필수 통과. bat/NSIS/schtasks 각 요소의 상호작용(Job Object, VBS, self-delete, lock)을 반드시 검증.</p></div>' +
+      '<div class="card"><h3>🌐 GitHub Releases 자동 감지</h3><p>교사 앱이 시작 시 1회 GitHub에 새 버전을 확인합니다. 인증 불필요(public 저장소). 무인증 한도(시간당 60회)는 시작 시 1회만 호출하므로 영향 없음.</p></div>' +
+      '<div class="card"><h3>📦 같은 릴리스에 교사+학생</h3><p>한 릴리스 태그에 교사·학생 setup.exe가 함께 올라가 있어 <b>버전 짝이 항상 일관</b>되게 묶입니다. 교사만 최신, 학생만 구버전 같은 상황이 발생하지 않음.</p></div>' +
+      '<div class="card"><h3>🛡 자동 업데이트 안전장치</h3><p>업데이트 도중 워치독이 끼어들지 않도록 lock 파일이 자동 관리되고, 5분 이상 지연되면 자동으로 풀려 무한 잠금 방지. 백신(V3 등) 검사도 30초 대기.</p></div>' +
+      '<div class="card"><h3>👨‍🎓 학생 측 흐름</h3><p>교사 앱이 LAN으로 새 버전을 뿌리면 학생 앱이 받아 자동 설치 → 자동 재시작. 학생이 화면을 누르거나 클릭할 필요 없이 백그라운드에서 진행됩니다.</p></div>' +
+      '<div class="card"><h3>🔓 보안: 토큰 없음</h3><p>교사 앱에는 GitHub 토큰이 박혀 있지 않아 유출 위험 0. public 릴리스라 누구나 인증 없이 받음. 일선 학교에서 별도 설정 없이 그대로 동작.</p></div>' +
+      '<div class="card"><h3>📂 설치 파일 보관 위치</h3><p>교사 앱이 받은 setup.exe는 <code>C:\\Screen_Share\\설치파일\\</code>에 저장되어 수동 배포(USB)나 백업에 활용 가능. 매번 새로 받기 정책으로 옛 파일을 쓰지 않음.</p></div>' +
       '</div>' +
-      '<div class="tip-box"><strong>일선 학교 호환</strong> — public GitHub Releases라 어느 학교에서나 인증 없이 그대로 동작. 교사 PC에 토큰을 박지 않으므로 보안 사고 위험 없음. 시간당 60회 무인증 API 한도 — 교사 앱은 시작 시 1회만 호출하므로 충분.</div>' +
+      '<div class="tip-box"><strong>일선 학교 호환</strong> — public GitHub Releases라 어느 학교에서든 그대로 동작합니다. 학생 PC는 인터넷 없어도 OK — 교사 PC가 받은 걸 LAN으로 뿌려주니까요.</div>' +
       '</div>';
   }
 
@@ -1350,9 +2521,9 @@ function buildRemove(div) {
         <div class="is-title">🗑 학생 프로그램 제거</div>
         ${phase === 'idle' ? `
         <div class="is-row" style="padding-top:2px">
-          <div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red))" onclick="remStart()">🗑 S_UNINSTALL 전송 (5대)</div>
+          <div class="is-btn full" style="--b:rgb(var(--c-red));background:color-mix(in srgb,rgb(var(--c-red)) 8%,transparent);color:rgb(var(--c-red))" onclick="remStart()">🗑 학생 5대 일괄 제거</div>
         </div>
-        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 6px">① install.lock 생성 → ② uninstallService(schtasks+reg) → ③ uninstaller 찾기 → ④ spawn silent(/S) → ⑤ app.quit</div>` : phase === 'removing' ? `
+        <div style="font-size:9px;color:rgb(var(--c-txt3));padding:0 10px 6px">자동 시작 등록 해제 → 워치독 종료 → NSIS 무인 제거</div>` : phase === 'removing' ? `
         <div style="padding:6px 10px">
           <div class="prog"><div style="width:${prog}%;background:rgb(var(--c-red))"></div></div>
           <div style="font-size:10px;color:rgb(var(--c-txt3));margin-top:3px">🗑 제거 중... ${prog}%<br>${Object.keys(removedPcs).length}/${pcs.length}대 완료</div>
@@ -1393,26 +2564,29 @@ function buildRemove(div) {
     let stuHtml;
     if (phase === 'removing') {
       const done = Object.keys(removedPcs).length;
-      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">🗑️</span><div style="color:#fca5a5;font-weight:600">프로그램 제거 중...</div><div style="font-size:10px;color:#475569;margin-top:4px">install.lock → uninstallService → Uninstall ScreenShareS.exe /S<br>${done}/${pcs.length}대 완료</div>`);
+      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">🗑️</span><div style="color:#fca5a5;font-weight:600">학생 앱 제거 중...</div><div style="font-size:10px;color:#475569;margin-top:4px">자동 시작 해제 → 워치독 종료 → 폴더 삭제<br>${done}/${pcs.length}대 완료</div>`);
     } else if (phase === 'done') {
-      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">🗑️</span><div style="color:#6ee7b7;font-weight:600">제거 완료</div><div style="font-size:10px;color:#475569;margin-top:4px">%LOCALAPPDATA%\\Programs\\ScreenShareS\\ (제거됨)<br>작업 스케줄러 · HKCU\\Run · watchdog 종료</div>`);
+      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">✅</span><div style="color:#6ee7b7;font-weight:600">제거 완료</div><div style="font-size:10px;color:#475569;margin-top:4px">설치 폴더·자동 시작·워치독 모두 정리됨</div>`);
     } else if (logPhase === 'collecting' || logPhase === 'deleting') {
-      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">📋</span><div style="color:#60a5fa;font-weight:600">${logPhase === 'collecting' ? '로그 수집 중...' : '로그 삭제 중...'}</div><div style="font-size:10px;color:#475569;margin-top:4px">${logPhase === 'collecting' ? 'student_electron_20260601.log → .1.log → .2.log' : 'C:\\Screen_Share\\학생로그\\ 파일 정리 중'}</div>`);
+      stuHtml = stuView(`<span style="font-size:28px;margin-bottom:6px">📋</span><div style="color:#60a5fa;font-weight:600">${logPhase === 'collecting' ? '로그 수집 중...' : '로그 삭제 중...'}</div><div style="font-size:10px;color:#475569;margin-top:4px">${logPhase === 'collecting' ? '회전 파일(.1.log, .2.log) 포함' : '학생로그 폴더 정리 중'}</div>`);
     } else {
       stuHtml = stuEmpty();
     }
 
-    div.innerHTML = '<h2>🗑 제거 / 📋 로그 관리</h2><div class="sub">설치 / 업데이트</div>';
+    div.innerHTML = '<h2>🗑 제거 / 📋 로그 관리</h2><div class="sub">학생 앱 원격 제거 · 학생 로그 관리</div>';
     div.innerHTML += iSection('프로그램 제거와 로그 관리를 시뮬레이션해보세요', sidebar, iStu(stuHtml),
-      '<b>🗑 학생 프로그램 제거</b> — 교사가 S_UNINSTALL 전송 → 학생 handleUninstall: ① install.lock 생성(%APPDATA%\\ScreenShareS\\) → ② uninstallService() (schtasks /delete + HKCU\\Run 삭제) → ③ uninstaller 탐색(\\"Uninstall ScreenShareS.exe\\" > uninstall.exe > Uninstall.exe) → ④ spawn detached(/S silent) → ⑤ _isQuitting=true → 1s 후 app.quit. NSIS customUnInit: DwmHelper/ScreenShareS/WinDisplaySvc kill + install.lock 생성. customUnInstall: schtasks /delete + install.lock/update.lock 삭제.<br>' +
-      '<b>📋 로그 관리</b> — 학생: <code>C:\\Screen_Share\\학생로그\\student_electron_YYYYMMDD.log</code> (5MB 회전, 3일 보관). 교사: <code>C:\\Screen_Share\\교사로그\\teacher_YYYYMMDD.log</code> (회전 없음). 로그 수집/삭제는 도구 메뉴에서 가능.'
+      '<b>🗑 학생 프로그램 제거</b> — 교사 앱에서 제거 명령을 보내면 학생 PC들이 받아 자동으로 학생 앱을 깨끗하게 제거합니다. 작업 스케줄러·자동 시작 항목·설치 폴더 모두 정리됩니다. 학기 끝/교실 이동 시 일괄 정리에 활용.<br>' +
+      '<b>📋 로그 관리</b> — 문제가 생기면 학생 PC의 로그 파일을 교사 앱으로 수집해 원인을 확인할 수 있습니다. 학생 로그는 5MB 단위로 회전 저장되며 3일 후 자동 삭제됩니다.'
     );
     div.innerHTML += '<div class="detail-section"><div class="card-grid">' +
-      '<div class="card"><h3>🗑 NSIS CustomUnInstall</h3><p><b>customUnInit</b>(제거 전): DwmHelper/ScreenShareS/WinDisplaySvc 강제종료 + install.lock 생성. <b>customUnInstall</b>(제거 후): schtasks /delete /tn ScreenShareS + install.lock/update.lock 삭제. %APPDATA%\\ScreenShareS\\ 폴더(설정/로그)는 보존.</p></div>' +
-      '<div class="card"><h3>🔍 Uninstaller 탐색</h3><p>순서: <code>$INSTDIR\\Uninstall ScreenShareS.exe</code> → <code>$INSTDIR\\uninstall.exe</code> → <code>$INSTDIR\\Uninstall.exe</code>. $INSTDIR = %LOCALAPPDATA%\\Programs\\ScreenShareS\\.</p></div>' +
-      '<div class="card"><h3>📋 로그 파일</h3><p>학생: <code>C:\\Screen_Share\\학생로그\\student_electron_<YYYYMMDD>.log</code>. 5MB 초과 시 <code>.1.log</code>, <code>.2.log</code> 회전. 3일 경과 로그는 cleanupOldLogs()에서 자동 삭제(KEEP_DAYS=3). 교사: <code>C:\\Screen_Share\\교사로그\\teacher_<YYYYMMDD>.log</code> (회전/정리 없음).</p></div>' +
-      '<div class="card"><h3>🛡️ 보안 구조</h3><p>SystemComponent=1(설정 앱 숨김) · 트레이 우클릭 종료 차단 · overlay before-input-event(F5/F11/F12/Ctrl+R/Shift+I 차단) · webPreferences devTools=false(prod) · watchdog 상호감시 · update.lock/install.lock stale 5분 자동 해제.</p></div>' +
-      '</div></div>';
+      '<div class="card"><h3>🗑 깨끗한 제거</h3><p>제거 시 <b>설치 폴더 + 자동 시작 등록 + 워치독</b>까지 모두 정리됩니다. 학생 PC에 흔적 거의 안 남음. 설정 파일(<code>%APPDATA%\\ScreenShareS\\</code>)은 안전을 위해 남겨둠 — 재설치 시 자동 인식.</p></div>' +
+      '<div class="card"><h3>🛡 워치독 동시 종료</h3><p>제거 도중 워치독(<code>DwmHelper</code>)이 끼어들어 다시 살리지 못하도록 자동으로 함께 정리. 학생이 임의로 종료해서 살아남는 사례 없음.</p></div>' +
+      '<div class="card"><h3>📋 학생 로그 위치</h3><p><code>C:\\Screen_Share\\학생로그\\student_electron_YYYYMMDD.log</code>. <b>5MB 단위 자동 회전</b>(.1.log, .2.log)·<b>3일 후 자동 삭제</b>. 하드보안관 환경에서도 부담 없이 작동.</p></div>' +
+      '<div class="card"><h3>📋 교사 로그 위치</h3><p><code>C:\\Screen_Share\\교사로그\\teacher_YYYYMMDD.log</code>. 회전·자동 정리 없음 — 교사 PC는 일반 환경이라 수동 관리.</p></div>' +
+      '<div class="card"><h3>📥 로그 수집</h3><p>특정 학생 PC의 로그를 교사 앱으로 끌어옴. 문제 학생만 골라 받을 수 있어 진단에 유용. 회전된 옛 로그(.1.log, .2.log)까지 함께 가져옴.</p></div>' +
+      '<div class="card"><h3>🗑 로그 삭제</h3><p>학생 PC의 로그 파일 일괄 삭제. 디스크 정리·민감 정보 정리에 활용. 회전 파일(.1.log, .2.log) 포함.</p></div>' +
+      '</div>' +
+      '<div class="tip-box"><b>학기 끝 정리 흐름</b> — 학생 프로그램 제거 → 로그 삭제 → 학생 PC가 깨끗한 상태로 다음 학기까지 대기. 다음 학기 첫 수업 때 새 맞춤 패키지로 다시 설치하면 끝.</div></div>';
   }
 
   window.remStart = function() {
@@ -1453,19 +2627,22 @@ function buildRemove(div) {
 // 14. SYSTEM
 // ═══════════════════════════════════════════════
 function buildSystem(div) {
-  div.innerHTML = '<h2>⚙️ 시스템 관리 기능</h2><div class="sub">시스템</div>';
+  div.innerHTML = '<h2>⚙️ 시스템 관리 기능</h2><div class="sub">관리 메뉴 · 단축키</div>';
 
   const blocks = [
-    { label:'📺 프로젝터 뷰', desc:'학생 화면을 프로젝터에 2/4/6/9분할 전체화면. 자동 페이지 전환 지원.', icon:'📺', click:'toast(\'📺 프로젝터 뷰 열기 (2/4/6/9분할)\',\'info\')' },
-    { label:'🎬 녹화 세션 관리', desc:'녹화 세션 목록, 청크→MP4 병합, 재생.', icon:'🎬', click:'toast(\'🎬 녹화 세션 관리 열기\',\'info\')' },
-    { label:'📦 학생 프로그램 관리', desc:'GitHub Releases에서 최신 설치파일 다운로드 → 학생 원격 설치/업데이트/제거. 항상 새로 받기(캐시 없음).', icon:'📦', click:'toast(\'📦 학생 프로그램 관리 열기\',\'info\')' },
-    { label:'📋 학생 로그 관리', desc:'학생 PC 로그 수집/삭제. 5MB 회전 + 3일치 보관.', icon:'📋', click:'toast(\'📋 로그 관리 열기\',\'info\')' },
-    { label:'⚡ 전원 관리', desc:'학생 PC WoL 켜기 / 종료 / 재시작. MAC 주소 등록 필요.', icon:'⚡', click:'toast(\'⚡ 전원 관리 열기\',\'info\')' }
+    { label:'📺 프로젝터 뷰', desc:'학생 화면을 보조 모니터/프로젝터에 2/4/6/9분할로 풀스크린 표시. 자동 페이지 전환 지원.', icon:'📺', click:'goToPage(\'mon-projector\')', detail:true },
+    { label:'🎬 녹화 세션 관리', desc:'지난 녹화 세션 목록 보기 + 재생 + 분할 청크를 mp4로 다시 병합.', icon:'🎬', click:'toast(\'🎬 녹화 세션 관리 — 도구 메뉴에서 실행\',\'info\')' },
+    { label:'📦 학생 프로그램 관리', desc:'GitHub Releases 최신 학생 setup.exe를 받아 LAN으로 원격 설치/업데이트/제거.', icon:'📦', click:'goToPage(\'dep-update\')', detail:true },
+    { label:'📋 학생 로그 관리', desc:'학생 PC 로그 수집/삭제. 5MB 단위 회전 + 3일 후 자동 삭제.', icon:'📋', click:'goToPage(\'dep-remove\')', detail:true },
+    { label:'⚡ 전원 관리', desc:'학생 PC를 원격 켜기(WoL)·종료·재시작. 사전에 MAC 주소 등록 필요.', icon:'⚡', click:'toast(\'⚡ 전원 관리 — 도구 메뉴에서 실행\',\'info\')' }
   ];
 
   let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">';
   blocks.forEach(b => {
-    html += '<div style="background:rgb(var(--c-surface));border:1px solid rgb(var(--c-border));border-radius:8px;padding:14px;cursor:pointer;transition:all .15s" onclick="' + b.click + '" onmouseenter="this.style.borderColor=\'rgb(var(--c-accent))\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,.06)\'" onmouseleave="this.style.borderColor=\'\';this.style.boxShadow=\'\'">';
+    html += '<div style="background:rgb(var(--c-surface));border:1px solid rgb(var(--c-border));border-radius:8px;padding:14px;cursor:pointer;transition:all .15s;position:relative" onclick="' + b.click + '" onmouseenter="this.style.borderColor=\'rgb(var(--c-accent))\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,.06)\'" onmouseleave="this.style.borderColor=\'\';this.style.boxShadow=\'\'">';
+    if (b.detail) {
+      html += '<span class="detail-link" style="position:absolute;top:10px;right:10px;font-size:10px;padding:1px 7px">→ 자세히</span>';
+    }
     html += '<div style="font-size:24px;margin-bottom:6px">' + b.icon + '</div>';
     html += '<div style="font-size:13px;font-weight:700;color:rgb(var(--c-txt));margin-bottom:4px">' + b.label + '</div>';
     html += '<div style="font-size:11.5px;color:rgb(var(--c-txt2))">' + b.desc + '</div>';
