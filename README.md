@@ -186,14 +186,6 @@
 
 ---
 
-## 🛠️ 개발
-
-- **스택**: Electron · React · TypeScript · Tailwind CSS
-- **빌드**: `electron-builder` + NSIS 설치 마법사
-- **인코딩**: 자체 WebP / FFmpeg H.264
-
----
-
 ## 📄 라이센스
 
 본 프로그램은 **교육 목적의 비상업적 사용**에 한해 무료로 이용할 수 있습니다.
